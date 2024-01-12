@@ -45,6 +45,7 @@ int main(void)
 		
 		if (sel == 2)
 			bit = (BIT_MASK01 ^ (selectBit)) & bit;
+		// ~(1 << input - 1)
 
 		unsigned short tempBit = bit;
 
@@ -63,3 +64,7 @@ int main(void)
 
 	return 0;
 }
+
+// %d : 4바이트 정수를 받아들이겠다. 무조건 4바이트만 넣어야 한다.
+// short를 넣으면 뒤의 공간을 밀어버린다.
+// %c : 는 문자
