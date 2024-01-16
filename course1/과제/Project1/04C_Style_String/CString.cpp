@@ -166,7 +166,7 @@ int Fibonacci2(int x)
 	return a2;
 }
 
-int fiboArr[50] = { 0, };
+int fiboArr[300] = { 0, };
 
 int Fibonacci3(int x)
 {
@@ -179,6 +179,26 @@ int Fibonacci3(int x)
 	fiboArr[x] = Fibonacci3(x - 1) + Fibonacci3(x - 2);
 	return fiboArr[x];
 }
+
+int fiboArr2[50] = { 0, };
+
+int Fibonacci4(int x)
+{
+	if (fiboArr2[x] != 0)
+		return fiboArr2[x];
+
+
+	for (int i = 2; i <= x; i++)
+	{
+		if (fiboArr2[i] != 0)
+			continue;
+
+		fiboArr2[i] = fiboArr2[i - 1] + fiboArr2[i - 2];
+	}
+
+	return fiboArr2[x];
+}
+
 
 int main()
 {
@@ -245,13 +265,19 @@ int main()
 	int p3 = Palindrom(str15);
 	
 
-	int x1 = Fibonacci1(10);
+	int x1 = Fibonacci1(100);
 	int x2 = Fibonacci2(10);
 
 	fiboArr[0] = 0;
 	fiboArr[1] = 1;
 
-	int x3 = Fibonacci3(10);
+	int x3 = Fibonacci3(100);
+
+	fiboArr2[0] = 0;
+	fiboArr2[1] = 1;
+	int x4 = Fibonacci4(10);
+	int x5 = Fibonacci4(7);
+
 
 	return 0;
 }
