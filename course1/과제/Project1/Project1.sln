@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03BIT", "03BIT\03BIT.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04C_Style_String", "04C_Style_String\04C_Style_String.vcxproj", "{864E0BEE-EA8D-41E8-8C55-7E2B4D62E0FD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05BytePadding", "05BytePadding\05BytePadding.vcxproj", "{9AC0A9C9-F5B8-485E-B182-32C34EE8CE58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{864E0BEE-EA8D-41E8-8C55-7E2B4D62E0FD}.Release|x64.Build.0 = Release|x64
 		{864E0BEE-EA8D-41E8-8C55-7E2B4D62E0FD}.Release|x86.ActiveCfg = Release|Win32
 		{864E0BEE-EA8D-41E8-8C55-7E2B4D62E0FD}.Release|x86.Build.0 = Release|Win32
+		{9AC0A9C9-F5B8-485E-B182-32C34EE8CE58}.Debug|x64.ActiveCfg = Debug|x64
+		{9AC0A9C9-F5B8-485E-B182-32C34EE8CE58}.Debug|x64.Build.0 = Debug|x64
+		{9AC0A9C9-F5B8-485E-B182-32C34EE8CE58}.Debug|x86.ActiveCfg = Debug|Win32
+		{9AC0A9C9-F5B8-485E-B182-32C34EE8CE58}.Debug|x86.Build.0 = Debug|Win32
+		{9AC0A9C9-F5B8-485E-B182-32C34EE8CE58}.Release|x64.ActiveCfg = Release|x64
+		{9AC0A9C9-F5B8-485E-B182-32C34EE8CE58}.Release|x64.Build.0 = Release|x64
+		{9AC0A9C9-F5B8-485E-B182-32C34EE8CE58}.Release|x86.ActiveCfg = Release|Win32
+		{9AC0A9C9-F5B8-485E-B182-32C34EE8CE58}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
