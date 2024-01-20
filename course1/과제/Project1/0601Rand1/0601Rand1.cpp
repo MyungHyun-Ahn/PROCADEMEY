@@ -99,26 +99,26 @@ int SumRate()
 		g_RateTable[i] = g_RateTable[i - 1] + g_Gatcha[i].Rate;
 	}
 
-	i = g_RateTable[sizeof(g_Gatcha) / sizeof(st_ITEM) - 1];
-	return i;
+	int ret = g_RateTable[sizeof(g_Gatcha) / sizeof(st_ITEM) - 1];
+	return ret;
 }
 
 // 템플릿 버전
 template<int N>
-st_ITEM tempGatcha(WORD randVal)
+st_ITEM* tempGatcha(WORD randVal)
 {
 	if (randVal > g_RateTable[N - 1] && randVal <= g_RateTable[N])
 	{
-		return g_Gatcha[N];
+		return &g_Gatcha[N];
 	}
 
 	return tempGatcha<N - 1>(randVal);
 }
 
 template<>
-st_ITEM tempGatcha<0>(WORD randVal)
+st_ITEM *tempGatcha<0>(WORD randVal)
 {
-	return g_Gatcha[0]; // 0 까지 왔으면 그냥 0인것
+	return &g_Gatcha[0]; // 0 까지 왔으면 그냥 0인것
 }
 
 int count = 0;
@@ -126,8 +126,8 @@ int count = 0;
 void Gatcha()
 {
 	static int rateSum = 0;
-	if (rateSum != 0)
-		SumRate();
+	if (rateSum == 0)
+		rateSum = SumRate();
 
 	WORD randVal = RandASM() % rateSum + 1;
 
@@ -135,22 +135,22 @@ void Gatcha()
 
 
 #ifdef TEMPLATE
-	st_ITEM stItem = tempGatcha<sizeof(g_Gatcha) / sizeof(st_ITEM) - 1>(randVal);
+	st_ITEM *stItem = tempGatcha<sizeof(g_Gatcha) / sizeof(st_ITEM) - 1>(randVal);
 #else
-	st_ITEM stItem;
+	st_ITEM *stItem;
 
 	for (int i = 0; i < sizeof(g_Gatcha) / sizeof(st_ITEM); i++)
 	{
 		if (randVal > prevVal && randVal <= g_RateTable[i]) // 미리 계산해둔 테이블과 비교
 		{
-			stItem = g_Gatcha[i];
+			stItem = &g_Gatcha[i];
 			break;
 		}
 
 		prevVal = g_RateTable[i]; // 이전 값 저장
 	}
 #endif
-	_tprintf(TEXT("Num : %3d\tItem : %.40s\t\tRate : %5d / %3d\n"), ++count, stItem.Name, stItem.Rate, g_RateTable[sizeof(g_Gatcha) / sizeof(st_ITEM) - 1]);
+	_tprintf(TEXT("Num : %3d\tItem : %.40s\t\tRate : %5d / %3d\n"), ++count, stItem->Name, stItem->Rate, g_RateTable[sizeof(g_Gatcha) / sizeof(st_ITEM) - 1]);
 }
 
 
@@ -171,7 +171,7 @@ int _tmain()
 
 	while (true)
 	{
-		_gettch();
+		TCHAR ch = _gettch();
 		Gatcha();
 	}
 }
