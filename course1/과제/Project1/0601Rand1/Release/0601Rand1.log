@@ -1,0 +1,7 @@
+﻿  0601Rand1.cpp
+C:\Procademy\PROCADEMEY\course1\과제\Project1\0601Rand1\0601Rand1.cpp(43,10): warning C4244: '초기화 중': 'time_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다.
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 16 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  0601Rand1.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\Project1\Release\0601Rand1.exe
