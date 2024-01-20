@@ -10,6 +10,8 @@
 #include <windows.h>
 #include <locale.h>
 
+#define TEMPLATE
+
 time_t seedAsm = 1;
 time_t seedC = 1;
 
@@ -82,10 +84,6 @@ int g_RateTable[MAX_ITEM_SIZE];
 
 int SumRate()
 {
-	static int i = 0;
-	if (i != 0)
-		return i;
-
 	for (int i = 0; i < sizeof(g_Gatcha) / sizeof(st_ITEM); i++)
 	{
 		g_RateTable[i] += g_Gatcha[i].Rate;
@@ -127,25 +125,31 @@ int count = 0;
 
 void Gatcha()
 {
-	int rateSum = SumRate();
+	static int rateSum = 0;
+	if (rateSum != 0)
+		SumRate();
 
 	WORD randVal = RandASM() % rateSum + 1;
 
 	int prevVal = 0;
 
+
+#ifdef TEMPLATE
 	st_ITEM stItem = tempGatcha<sizeof(g_Gatcha) / sizeof(st_ITEM) - 1>(randVal);
+#else
+	st_ITEM stItem;
 
-	//for (int i = 0; i < sizeof(g_Gatcha) / sizeof(st_ITEM); i++)
-	//{
-	//	if (randVal > prevVal && randVal <= g_RateTable[i]) // 미리 계산해둔 테이블과 비교
-	//	{
-	//		stItem = g_Gatcha[i];
-	//		break;
-	//	}
+	for (int i = 0; i < sizeof(g_Gatcha) / sizeof(st_ITEM); i++)
+	{
+		if (randVal > prevVal && randVal <= g_RateTable[i]) // 미리 계산해둔 테이블과 비교
+		{
+			stItem = g_Gatcha[i];
+			break;
+		}
 
-	//	prevVal = g_RateTable[i]; // 이전 값 저장
-	//}
-
+		prevVal = g_RateTable[i]; // 이전 값 저장
+	}
+#endif
 	_tprintf(TEXT("Num : %3d\tItem : %.40s\t\tRate : %5d / %3d\n"), ++count, stItem.Name, stItem.Rate, g_RateTable[sizeof(g_Gatcha) / sizeof(st_ITEM) - 1]);
 }
 
