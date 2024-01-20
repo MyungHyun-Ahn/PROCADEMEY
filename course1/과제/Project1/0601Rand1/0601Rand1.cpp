@@ -131,12 +131,10 @@ void Gatcha()
 
 	SHORT randVal = RandASM() % rateSum + 1;
 
-	int prevVal = 0;
-
-
 #ifdef TEMPLATE
 	st_ITEM *stItem = tempGatcha<sizeof(g_Gatcha) / sizeof(st_ITEM) - 1>(randVal);
 #else
+	int prevVal = 0;
 	st_ITEM *stItem;
 
 	for (int i = 0; i < sizeof(g_Gatcha) / sizeof(st_ITEM); i++)
