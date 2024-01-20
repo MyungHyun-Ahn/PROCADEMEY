@@ -1,0 +1,10 @@
+﻿  bit01.cpp
+C:\Procademy\PROCADEMEY\course1\과제\Project1\01BIT\bit01.cpp(20,8): warning C4477: 'scanf' : 서식 문자열 '%d'에 'int *' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'unsigned char *'입니다.
+  C:\Procademy\PROCADEMEY\course1\과제\Project1\01BIT\bit01.cpp(20,8):
+  서식 문자열에서 '%hhd'을(를) 사용하는 것이 좋습니다.
+  
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  All 79 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  01BIT.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\Project1\Release\01BIT.exe

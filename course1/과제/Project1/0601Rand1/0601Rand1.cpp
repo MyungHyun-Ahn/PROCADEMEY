@@ -23,7 +23,7 @@ void Srand(time_t time)
 	seedC = time;
 }
 
-__declspec(naked) WORD RandASM()
+__declspec(naked) SHORT RandASM()
 {
 	__asm
 	{
@@ -40,9 +40,9 @@ __declspec(naked) WORD RandASM()
 	}
 }
 
-WORD RandC()
+SHORT RandC()
 {
-	int ret = seedC * 0x343FD;
+	time_t ret = seedC * 0x343FD;
 	ret += 0x269EC3;
 	seedC = ret;
 	ret = ret >> 0x10;
@@ -104,8 +104,8 @@ int SumRate()
 }
 
 // 템플릿 버전
-template<int N>
-st_ITEM* tempGatcha(WORD randVal)
+template<SHORT N>
+st_ITEM *tempGatcha(SHORT randVal)
 {
 	if (randVal > g_RateTable[N - 1] && randVal <= g_RateTable[N])
 	{
@@ -116,7 +116,7 @@ st_ITEM* tempGatcha(WORD randVal)
 }
 
 template<>
-st_ITEM *tempGatcha<0>(WORD randVal)
+st_ITEM *tempGatcha<0>(SHORT randVal)
 {
 	return &g_Gatcha[0]; // 0 까지 왔으면 그냥 0인것
 }
@@ -129,7 +129,7 @@ void Gatcha()
 	if (rateSum == 0)
 		rateSum = SumRate();
 
-	WORD randVal = RandASM() % rateSum + 1;
+	SHORT randVal = RandASM() % rateSum + 1;
 
 	int prevVal = 0;
 
@@ -152,7 +152,6 @@ void Gatcha()
 #endif
 	_tprintf(TEXT("Num : %3d\tItem : %.40s\t\tRate : %5d / %3d\n"), ++count, stItem->Name, stItem->Rate, g_RateTable[sizeof(g_Gatcha) / sizeof(st_ITEM) - 1]);
 }
-
 
 int _tmain()
 {
