@@ -28,8 +28,19 @@ CDictionary::~CDictionary()
 			delete word;
 	}
 
+#ifdef MODE_MMF
 	if (m_pLoadData != nullptr)
+	{
+		UnmapViewOfFile(m_pLoadData);
+		m_pLoadData = nullptr;
+	}
+#else
+	if (m_pLoadData != nullptr)
+	{
 		delete m_pLoadData;
+		m_pLoadData = nullptr;
+	}
+#endif
 }
 
 // 프로그램이 종료될 때 자동으로 소멸된다. (소멸자도 호출)
