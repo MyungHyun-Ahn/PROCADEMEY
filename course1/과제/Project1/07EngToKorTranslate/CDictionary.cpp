@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CDictionary.h"
 #include "CFileLoader.h"
+#include "CMMFLoader.h"
 #include "TString.h"
 
 // 초기 단어 목록은 여기서 추가
@@ -9,7 +10,11 @@ CDictionary::CDictionary()
 	m_WordList.clear();
 	m_WordList.reserve(50); // 미리 50칸 정도 확보
 
+#ifdef MODE_MMF
+	CMMFLoader fileLoader(TEXT("word.txt"), MAX_DICT_SIZE);
+#else
 	CFileLoader fileLoader(TEXT("word.txt"), MAX_DICT_SIZE);
+#endif
 	m_pLoadData = fileLoader.Load();
 	Parse();
 }

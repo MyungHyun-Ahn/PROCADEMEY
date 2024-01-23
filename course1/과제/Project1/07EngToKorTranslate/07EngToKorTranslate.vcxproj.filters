@@ -15,6 +15,9 @@
     <ClCompile Include="CFileLoader.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="CMMFLoader.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -28,6 +31,9 @@
       <Filter>String</Filter>
     </ClInclude>
     <ClInclude Include="CFileLoader.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CMMFLoader.h">
       <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
