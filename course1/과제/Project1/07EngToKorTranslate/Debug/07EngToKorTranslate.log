@@ -1,4 +1,13 @@
-﻿  Main.cpp
-C:\Procademy\PROCADEMEY\course1\과제\Project1\07EngToKorTranslate\Main.cpp(1,1): error C1041: 프로그램 데이터베이스 'C:\Procademy\PROCADEMEY\course1\과제\Project1\07EngToKorTranslate\Debug\vc143.pdb'을(를) 열 수 없습니다. 여러 CL.EXE에서 동일한 .PDB 파일에 쓰는 경우 /FS를 사용하십시오.
-  (소스 파일 '/Main.cpp'을(를) 컴파일하는 중)
-  
+﻿  pch.cpp
+  CDictionary.cpp
+  CFileLoader.cpp
+  CMMFLoader.cpp
+  CTranslator.cpp
+  Main.cpp
+  TString.cpp
+  C/C++ 코드 분석을 실행하고 있습니다...
+  코드를 생성하고 있습니다...
+C:\Procademy\PROCADEMEY\course1\과제\Project1\07EngToKorTranslate\CFileLoader.cpp(29): warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
+  07EngToKorTranslate.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\Project1\Debug\07EngToKorTranslate.exe
+C:\Procademy\PROCADEMEY\course1\과제\Project1\07EngToKorTranslate\CMMFLoader.cpp(35): warning C6387: 'm_ReadBuffer'이(가) '0'일 수 있습니다.  이 경우 'wcslen' 함수의 사양과 일치하지 않습니다. 
+C:\Procademy\PROCADEMEY\course1\과제\Project1\07EngToKorTranslate\CMMFLoader.cpp(36): warning C6011: NULL 포인터 'm_ReadBuffer'을(를) 역참조하고 있습니다. 이 오류가 발생할 수 있는 이전 위치는 줄 35을(를) 참조하십시오.

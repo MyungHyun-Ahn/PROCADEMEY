@@ -1,0 +1,217 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C6387",
+          "message": {
+            "text": "'m_ReadBuffer'이(가) '0'일 수 있습니다.  이 경우 'wcslen' 함수의 사양과 일치하지 않습니다. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Procademy/PROCADEMEY/course1/과제/Project1/07EngToKorTranslate/CMMFLoader.cpp"
+                },
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 9,
+                  "endLine": 35,
+                  "endColumn": 28
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "CMMFLoader::Load",
+                  "decoratedName": "?Load@CMMFLoader@@QAE$$QAPA_WXZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Procademy/PROCADEMEY/course1/과제/Project1/07EngToKorTranslate/CMMFLoader.cpp"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "startColumn": 15
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Procademy/PROCADEMEY/course1/과제/Project1/07EngToKorTranslate/CMMFLoader.cpp"
+                          },
+                          "region": {
+                            "startLine": 35,
+                            "startColumn": 9
+                          }
+                        },
+                        "message": {
+                          "text": "'m_ReadBuffer'은(는) NULL(이)면 안 됩니다. 이는 'wcslen'의 SAL 주석과 일치하지 않습니다."
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6011",
+          "message": {
+            "text": "NULL 포인터 'm_ReadBuffer'을(를) 역참조하고 있습니다. 이 오류가 발생할 수 있는 이전 위치는 줄 35을(를) 참조하십시오."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Procademy/PROCADEMEY/course1/과제/Project1/07EngToKorTranslate/CMMFLoader.cpp"
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 2,
+                  "endLine": 36,
+                  "endColumn": 31
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "CMMFLoader::Load",
+                  "decoratedName": "?Load@CMMFLoader@@QAE$$QAPA_WXZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Procademy/PROCADEMEY/course1/과제/Project1/07EngToKorTranslate/CMMFLoader.cpp"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "startColumn": 15
+                          }
+                        },
+                        "message": {
+                          "text": "'<기호>'은(는) NULL일 수 있습니다."
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Procademy/PROCADEMEY/course1/과제/Project1/07EngToKorTranslate/CMMFLoader.cpp"
+                          },
+                          "region": {
+                            "startLine": 35,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Procademy/PROCADEMEY/course1/과제/Project1/07EngToKorTranslate/CMMFLoader.cpp"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "startColumn": 29
+                          }
+                        },
+                        "message": {
+                          "text": "'<기호>'이(가) 역참조되었지만 여전히 NULL일 수 있습니다."
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.38.33133.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Procademy/PROCADEMEY/course1/과제/Project1/07EngToKorTranslate/CMMFLoader.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "46ea931cc2bf26a05803fc4638274cdce8d08a92fbcbf33c4f671f0812e032bd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/procademy/procademey/course1/과제/project1/07engtokortranslate/pch.h"
+          },
+          "hashes": {
+            "sha-256": "7ee2f97319351481352730a1e45c1113a75ca8ee7a1d32d402a9db79e6f50386"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/procademy/procademey/course1/과제/project1/07engtokortranslate/cmmfloader.h"
+          },
+          "hashes": {
+            "sha-256": "8447f0cfb34619f5ef3ff7083e39d956f24ac66e972a7ebede5114ff3059ab5b"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.38.33133.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/procademy/procademey/course1/과제/project1/07engtokortranslate/main.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "f620813a0d1348ecac8109ea6a38da05704f8485fc2064fc04b9b2764d51cc7d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/procademy/procademey/course1/과제/project1/07engtokortranslate/pch.h"
+          },
+          "hashes": {
+            "sha-256": "7ee2f97319351481352730a1e45c1113a75ca8ee7a1d32d402a9db79e6f50386"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/procademy/procademey/course1/과제/project1/07engtokortranslate/cdictionary.h"
+          },
+          "hashes": {
+            "sha-256": "a370acef2a1e3279c311e05638b85d6cf4e0487f64ac52016a7bc61a9890ba8d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/procademy/procademey/course1/과제/project1/07engtokortranslate/ctranslator.h"
+          },
+          "hashes": {
+            "sha-256": "13c55f8ff5c0089fd4cb10850a29cf5f954a4162b20164012a7f9c22ae3d4163"
+          }
+        }
+      ]
+    }
+  ]
+}

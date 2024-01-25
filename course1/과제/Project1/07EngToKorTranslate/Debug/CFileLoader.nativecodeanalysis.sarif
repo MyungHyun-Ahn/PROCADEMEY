@@ -1,0 +1,51 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.38.33133.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/procademy/procademey/course1/과제/project1/07engtokortranslate/cfileloader.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "6d7e3fb3d3f9f12208fd1526f61e4d495eda70c24b9ec371847524beffe68fe4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/procademy/procademey/course1/과제/project1/07engtokortranslate/pch.h"
+          },
+          "hashes": {
+            "sha-256": "7ee2f97319351481352730a1e45c1113a75ca8ee7a1d32d402a9db79e6f50386"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/procademy/procademey/course1/과제/project1/07engtokortranslate/cfileloader.h"
+          },
+          "hashes": {
+            "sha-256": "a88ae6d4c2801a5ea093c6c00a6dcf90af4542d21a759f825727a369d7a12801"
+          }
+        }
+      ]
+    }
+  ]
+}
