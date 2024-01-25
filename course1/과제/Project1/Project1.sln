@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0701TString", "0701TString\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0702fileopen", "0702fileopen\0702fileopen.vcxproj", "{D3963269-B746-4787-89B8-30FAAF7EAABB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "08_Timing_Game", "08_Timing_Game\08_Timing_Game.vcxproj", "{8676F20D-80EC-45F3-B0E5-ED7B18343EA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -141,6 +143,14 @@ Global
 		{D3963269-B746-4787-89B8-30FAAF7EAABB}.Release|x64.Build.0 = Release|x64
 		{D3963269-B746-4787-89B8-30FAAF7EAABB}.Release|x86.ActiveCfg = Release|Win32
 		{D3963269-B746-4787-89B8-30FAAF7EAABB}.Release|x86.Build.0 = Release|Win32
+		{8676F20D-80EC-45F3-B0E5-ED7B18343EA1}.Debug|x64.ActiveCfg = Debug|x64
+		{8676F20D-80EC-45F3-B0E5-ED7B18343EA1}.Debug|x64.Build.0 = Debug|x64
+		{8676F20D-80EC-45F3-B0E5-ED7B18343EA1}.Debug|x86.ActiveCfg = Debug|Win32
+		{8676F20D-80EC-45F3-B0E5-ED7B18343EA1}.Debug|x86.Build.0 = Debug|Win32
+		{8676F20D-80EC-45F3-B0E5-ED7B18343EA1}.Release|x64.ActiveCfg = Release|x64
+		{8676F20D-80EC-45F3-B0E5-ED7B18343EA1}.Release|x64.Build.0 = Release|x64
+		{8676F20D-80EC-45F3-B0E5-ED7B18343EA1}.Release|x86.ActiveCfg = Release|Win32
+		{8676F20D-80EC-45F3-B0E5-ED7B18343EA1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

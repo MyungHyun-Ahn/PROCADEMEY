@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="pch.cpp" />
     <ClCompile Include="CDictionary.cpp">
       <Filter>Translator</Filter>
     </ClCompile>
@@ -18,9 +17,11 @@
     <ClCompile Include="CMMFLoader.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
     <ClInclude Include="CDictionary.h">
       <Filter>Translator</Filter>
     </ClInclude>
@@ -34,6 +35,9 @@
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="CMMFLoader.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
       <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>

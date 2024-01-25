@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="CKeyManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameLogic.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameEngine.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CTimeManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameLogic.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameEngine.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{95fe02da-d038-4cb0-a8ba-d6fffacae6ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{4153991d-d59d-4be9-bd56-9d277129da90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{9abebc42-e3fa-4907-ae70-6114fabf5f02}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

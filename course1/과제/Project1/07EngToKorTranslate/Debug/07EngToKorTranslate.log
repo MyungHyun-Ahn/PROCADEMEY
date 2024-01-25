@@ -1,2 +1,4 @@
-﻿  CDictionary.cpp
-  07EngToKorTranslate.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\Project1\Debug\07EngToKorTranslate.exe
+﻿  Main.cpp
+C:\Procademy\PROCADEMEY\course1\과제\Project1\07EngToKorTranslate\Main.cpp(1,1): error C1041: 프로그램 데이터베이스 'C:\Procademy\PROCADEMEY\course1\과제\Project1\07EngToKorTranslate\Debug\vc143.pdb'을(를) 열 수 없습니다. 여러 CL.EXE에서 동일한 .PDB 파일에 쓰는 경우 /FS를 사용하십시오.
+  (소스 파일 '/Main.cpp'을(를) 컴파일하는 중)
+  

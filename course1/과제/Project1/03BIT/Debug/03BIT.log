@@ -1,0 +1,7 @@
+﻿  bit03.cpp
+C:\Procademy\PROCADEMEY\course1\과제\Project1\03BIT\bit03.cpp(40,9): warning C4477: 'scanf' : 서식 문자열 '%d'에 'int *' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'unsigned char *'입니다.
+  C:\Procademy\PROCADEMEY\course1\과제\Project1\03BIT\bit03.cpp(40,9):
+  서식 문자열에서 '%hhd'을(를) 사용하는 것이 좋습니다.
+  
+C:\Procademy\PROCADEMEY\course1\과제\Project1\03BIT\bit03.cpp(70,10): warning C4477: 'printf' : 서식 문자열 '%p'에 'void *' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'unsigned int'입니다.
+  03BIT.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\Project1\Debug\03BIT.exe
