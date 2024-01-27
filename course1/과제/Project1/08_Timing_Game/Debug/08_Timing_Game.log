@@ -1,2 +1,14 @@
-﻿  CGameEngine.cpp
+﻿  pch.cpp
+  CGameEngine.cpp
+  CGameLogic.cpp
+  CKeyManager.cpp
+  CTimeManager.cpp
+  Main.cpp
+  코드를 생성하고 있습니다...
+C:\Procademy\PROCADEMEY\course1\과제\Project1\08_Timing_Game\CGameLogic.cpp(29,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/CGameLogic.cpp'을(를) 컴파일하는 중)
+  
+C:\Procademy\PROCADEMEY\course1\과제\Project1\08_Timing_Game\CGameLogic.cpp(61,42): warning C4244: '인수': 'ULONGLONG'에서 'long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/CGameLogic.cpp'을(를) 컴파일하는 중)
+  
   08_Timing_Game.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\Project1\Debug\08_Timing_Game.exe
