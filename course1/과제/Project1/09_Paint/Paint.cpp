@@ -237,7 +237,7 @@ int main()
 	QueryPerformanceCounter(&recursiveEnd);
 	float recurTime = (recursiveEnd.QuadPart - recursiveStart.QuadPart) / (float)freq.QuadPart;
 
-	cstack.Reserve(1000);
+	// cstack.Reserve(1000);
 
 	LARGE_INTEGER cstackStart;
 	LARGE_INTEGER cstackEnd;
