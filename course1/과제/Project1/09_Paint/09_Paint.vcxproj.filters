@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClCompile Include="Paint.cpp" />
     <ClCompile Include="CStack.cpp" />
+    <ClCompile Include="PaintMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CStack.h" />

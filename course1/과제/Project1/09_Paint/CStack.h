@@ -17,7 +17,7 @@ public:
 	};
 
 	bool Pop(OUT T &outData);
-	bool Push(IN T data);
+	bool Push(IN const T &data);
 	void Reserve(int size);
 	bool isEmpty() { return m_iSize == 0; }
 
@@ -43,7 +43,7 @@ inline bool CStack<T>::Pop(OUT T &outData)
 }
 
 template<typename T>
-inline bool CStack<T>::Push(IN T data)
+inline bool CStack<T>::Push(IN const T &data)
 {
 	if (m_iSize >= m_iCapacity)
 	{
@@ -79,6 +79,9 @@ inline int CStack<T>::CalcNewStackSize()
 template<typename T>
 inline void CStack<T>::Expansion(int size)
 {
+	if (size < m_iCapacity)
+		return;
+
 	T *newArr = new T[size];
 	// บนป็
 	for (int i = 0; i < m_iSize - 1; i++)

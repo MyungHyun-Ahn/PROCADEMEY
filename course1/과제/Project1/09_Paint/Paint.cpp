@@ -4,6 +4,8 @@
 #include <deque>
 #include <windows.h>
 #include "CStack.h"
+#include "PaintMap.h"
+
 
 constexpr int g_MaxX = 20;
 constexpr int g_MaxY = 20;
@@ -90,7 +92,7 @@ void DFS(int _y, int _x)
 {
 	// system("cls");
 
-	if (_y < 0 || _y > 20 || _x < 0 || _x > 20)
+	if (_y < 0 || _y >= g_MaxY || _x < 0 || _x >= g_MaxX)
 		return;
 
 	if (g_ArrMap[_y][_x] == '.' || g_ArrMap[_y][_x] == ' ')
@@ -194,13 +196,13 @@ void DFSCStack(int y, int x)
 		{
 			for (int x = 0; x < g_MaxX; x++)
 			{
-				printf("%c ", g_ArrMap[y][x]);
+				printf("%c ", g_ArrMap2[y][x]);
 			}
 
 			printf("\n");
-		}*/
+		}
 
-		// Sleep(0);
+		Sleep(0);*/
 
 
 
@@ -235,7 +237,7 @@ int main()
 	QueryPerformanceCounter(&recursiveEnd);
 	float recurTime = (recursiveEnd.QuadPart - recursiveStart.QuadPart) / (float)freq.QuadPart;
 
-	cstack.Reserve(500);
+	cstack.Reserve(1000);
 
 	LARGE_INTEGER cstackStart;
 	LARGE_INTEGER cstackEnd;
@@ -252,7 +254,7 @@ int main()
 	{
 		for (int x = 0; x < g_MaxX; x++)
 		{
-			printf("%c ", g_ArrMap[y][x]);
+			printf("%c ", g_ArrMap2[y][x]);
 		}
 
 		printf("\n");
