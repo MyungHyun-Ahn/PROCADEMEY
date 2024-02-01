@@ -127,8 +127,8 @@ void MazeBFS(int y, int x)
 
 int main()
 {
-	MazeDFS(1, 1);
-	// MazeBFS(1, 1);
+	// MazeDFS(1, 1);
+	MazeBFS(1, 1);
 
 	return 0;
 }
