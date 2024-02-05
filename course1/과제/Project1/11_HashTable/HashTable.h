@@ -14,8 +14,8 @@ template<typename Key, typename Value>
 struct Pair
 {
 	Pair() = default;
-	Pair(const Key &key) : m_Key(key) {}
-	Pair(const Key &key, const Value &value) : m_Key(key), m_Value(value) {}
+	Pair(IN const Key &key) : m_Key(key) {}
+	Pair(IN const Key &key, IN const Value &value) : m_Key(key), m_Value(value) {}
 	Key m_Key;
 	Value m_Value;
 };
@@ -43,7 +43,7 @@ public:
 			}
 		}
 	}
-	bool Insert(const Key &key, const Value &value)
+	bool Insert(IN const Key &key, IN const Value &value)
 	{
 		if (Search(key))
 		{
@@ -56,7 +56,7 @@ public:
 		return true;
 	}
 
-	bool Delete(const Key &key)
+	bool Delete(IN const Key &key)
 	{
 		int encryptKey = Encryption(key);
 
@@ -73,10 +73,16 @@ public:
 		return false;
 	}
 
-	bool Search(const Key &key)
+	bool Search(IN const Key &key)
 	{
 		int encryptKey = Encryption(key);
 		
+		/*for (auto &pair : *m_ListTable[encryptKey])
+		{
+			if (pair.m_Key == key)
+				return true;
+		}*/
+
 		for (auto it = m_ListTable[encryptKey]->begin(); it != m_ListTable[encryptKey]->end(); ++it)
 		{
 			Pair<Key, Value> pair = *it;
@@ -87,7 +93,7 @@ public:
 		return false;
 	}
 
-	Value &operator[](const Key &key)
+	Value &operator[](IN const Key &key)
 	{
 		int encryptKey = Encryption(key);
 		Value *retVal = nullptr;
@@ -104,7 +110,7 @@ public:
 	}
 
 private:
-	int Encryption(Key key) {
+	int Encryption(IN Key key) {
 		
 		size_t keyByteSize = sizeof(Key);
 		unsigned char* pKeySlice = reinterpret_cast<unsigned char*>(&key);
@@ -118,7 +124,7 @@ private:
 		return sum % TABLE_SIZE;
 	}
 
-	bool SearchValue(const Key& key, OUT Value **retVal)
+	bool SearchValue(IN const Key& key, OUT Value **retVal)
 	{
 		int encryptKey = Encryption(key);
 		for (auto it = m_ListTable[encryptKey]->begin(); it != m_ListTable[encryptKey]->end(); ++it)

@@ -7,7 +7,7 @@ struct Node
 {
 	Node() : m_Data(nullptr), m_Prev(nullptr), m_Next(nullptr) { }
 
-	Node(const T &data) : m_Prev(nullptr), m_Next(nullptr)
+	Node(IN const T &data) : m_Prev(nullptr), m_Next(nullptr)
 	{
 		// TODO : 클래스인 경우 복사 생성자 구현해야 함
 		m_Data = new T;
@@ -32,7 +32,7 @@ template<typename T>
 class Iterator
 {
 public:
-	Iterator(Node<T> *pNode) : m_pCur(pNode) {}
+	Iterator(IN Node<T> *pNode) : m_pCur(pNode) {}
 
 	Node<T>* GetNode()
 	{
@@ -70,12 +70,12 @@ public:
 		return temp;
 	}
 
-	bool operator==(const Iterator& other)
+	bool operator==(IN const Iterator& other)
 	{
 		return m_pCur == other.m_pCur;
 	}
 
-	bool operator!=(const Iterator& other)
+	bool operator!=(IN const Iterator& other)
 	{
 		return m_pCur != other.m_pCur;
 	}
@@ -167,7 +167,7 @@ public:
 	}
 
 	// node 삭제
-	bool Delete(Node<T>* node)
+	bool Delete(IN Node<T>* node)
 	{
 		Node<T>* delNodePrev = node->m_Prev;
 		Node<T>* delNodeNext = node->m_Next;
@@ -199,7 +199,7 @@ public:
 
 private:
 	// 무조건 node의 뒤에 삽입
-	bool Push(Node<T> *node, const T &data)
+	bool Push(IN Node<T> *node, IN const T &data)
 	{
 		Node<T> *newNode = new Node<T>(data);
 		Node<T> *nextNode = node->m_Next;
