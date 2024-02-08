@@ -1,0 +1,5 @@
+﻿  Console.cpp
+  Main.cpp
+  코드를 생성하고 있습니다...
+C:\Procademy\PROCADEMEY\course1\과제\TextShootingGame\TextShootingGame\Sample\Main.cpp(280,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+  Sample.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\TextShootingGame\TextShootingGame\x64\Debug\Sample.exe

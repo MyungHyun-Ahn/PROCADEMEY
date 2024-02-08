@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Console.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Console.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h" />
+    <ClInclude Include="Missile.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSetting.h" />
+    <ClInclude Include="TimeManager.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Util">
+      <UniqueIdentifier>{5601312a-0c3d-4c93-bec6-08c17c4b9ee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{dc4d2ec7-a1db-4c11-a794-458c89f22886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{6a9b281b-a87f-4ce6-ac04-0f103decf03d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
