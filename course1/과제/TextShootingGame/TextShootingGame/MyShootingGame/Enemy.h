@@ -18,6 +18,13 @@ struct stEnemy
 	int m_iPosCount;
 	int m_iCurPos;
 	stPos *m_ArrPos;
+
+	int m_iDamage;
+
+	// 공격 쿨타임 : ms 단위
+	int m_iCoolTime;
+	// 이전 스킬 사용 시간 : 기본값 0
+	unsigned __int64 m_iPrevSkillTime = 0;
 };
 
 // 몬스터 동적할당
@@ -34,5 +41,7 @@ void EnemyUpdate(void);
 void EnemyMove(void);
 
 void EnemyAttack(void);
+
+void EnemyGetDamage(stEnemy &enemy, int damage);
 
 void EnemyDraw(void);

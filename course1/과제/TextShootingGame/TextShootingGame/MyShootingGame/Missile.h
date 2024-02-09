@@ -9,6 +9,8 @@ struct stMissile
 
 	wchar_t m_chShape;
 
+	int m_iDamage;
+
 	// ÇöÀç ÁÂÇ¥
 	stPos m_stPos;
 
@@ -20,7 +22,7 @@ extern stMissile g_arrMissile[dfMAX_MISSILE_COUNT];
 
 void MissileInit();
 
-void MissileCreate(bool isEnemy, int posY, int posX, const stPos &&dir);
+void MissileCreate(bool isEnemy, int damage, const stPos &&startPos, const stPos &&dir);
 
 wchar_t MissileGetShape(stPos &dir);
 
@@ -30,4 +32,4 @@ void MissileMove();
 
 void MissileDraw();
 
-void MissileCollison();
+void MissileCollision();

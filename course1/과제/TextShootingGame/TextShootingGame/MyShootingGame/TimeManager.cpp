@@ -18,11 +18,18 @@ void TimerUpdate(void)
 // 이전 시간과 지금 얼마나 지났는가
 int TimerGetTimeDiff(unsigned __int64 prevTime)
 {
-    return 0;
+    return (int)(g_stTimer.m_uliCurTime - prevTime);
 }
 
 // 인자로 받은 쿨타임으로 지금 사용 가능한지 여부
-bool TimerCalCoolTime(unsigned __int64 prevTime, int coolTime)
+// int coolTime : ms 단위
+bool TimerCalCoolTime(unsigned __int64 &prevTime, int coolTime)
 {
-    return false;
+    if (TimerGetTimeDiff(prevTime) < coolTime)
+    {
+        return false;
+    }
+   
+    prevTime = g_stTimer.m_uliCurTime; // 현재 시간으로 갱신
+    return true;
 }

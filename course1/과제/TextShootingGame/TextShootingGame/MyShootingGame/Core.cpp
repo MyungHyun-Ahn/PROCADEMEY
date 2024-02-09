@@ -5,12 +5,14 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Missile.h"
+#include "TimeManager.h"
 
 // 초기화
 void Init(void)
 {
 	ConsoleInitial();
 	KeyInit();
+	TimerInit();
 	PlayerInit(dfSCREEN_HEIGHT / 2, dfSCREEN_WIDTH / 2, 500);
 	EnemyInit(48);
 	MissileInit();
@@ -21,6 +23,7 @@ void Input(void)
 {
 	// 키보드 상태 업데이트
 	KeyUpdate();
+	TimerUpdate();
 }
 
 // 게임 로직 업데이트
@@ -45,6 +48,6 @@ void GameMain(void)
 		Input();
 		Update();
 		Render();
-		Sleep(15);
+		Sleep(40);
 	}
 }

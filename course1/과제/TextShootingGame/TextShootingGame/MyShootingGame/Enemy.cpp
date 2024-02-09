@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Console.h"
 #include "Missile.h"
+#include "TimeManager.h"
 
 int g_iEnemyCount;
 stEnemy *g_arrEnemy = nullptr;
@@ -33,6 +34,10 @@ void EnemyInit(int enemyCount)
 		g_arrEnemy[curEnemyCount].m_stPos.m_iX = startPos + xGap * curXLine;
 		g_arrEnemy[curEnemyCount].m_bIsActive = true;
 
+		// 적 체력 설정
+		g_arrEnemy[curEnemyCount].m_iMaxHp = 50;
+		g_arrEnemy[curEnemyCount].m_iCurHp = 50;
+
 		g_arrEnemy[curEnemyCount].m_chShape = L'E';
 
 		// 좌 우 4칸 이동
@@ -52,6 +57,12 @@ void EnemyInit(int enemyCount)
 		g_arrEnemy[curEnemyCount].m_ArrPos[6] = stPos{ 0, -1 };
 		g_arrEnemy[curEnemyCount].m_ArrPos[7] = stPos{ 0, -1 };
 
+		// 공격력 설정
+		g_arrEnemy[curEnemyCount].m_iDamage = 10;
+
+		// 공격 쿨타임 설정
+		g_arrEnemy[curEnemyCount].m_iCoolTime = 2000; // 2초
+		
 		curEnemyCount++;
 		curXLine++;
 
@@ -105,9 +116,21 @@ void EnemyAttack(void)
 		if (!g_arrEnemy[i].m_bIsActive)
 			continue;
 
+		// 쿨타임이면 continue
+		if (!TimerCalCoolTime(g_arrEnemy[i].m_iPrevSkillTime, g_arrEnemy[i].m_iCoolTime))
+			continue;
+		
 		stPos nextDir{ 1,0 };
-		MissileCreate(true, g_arrEnemy[i].m_stPos.m_iY + nextDir.m_iY, g_arrEnemy[i].m_stPos.m_iX + nextDir.m_iX, std::move(nextDir));
+		MissileCreate(true, g_arrEnemy[i].m_iDamage, stPos{ g_arrEnemy[i].m_stPos.m_iY + nextDir.m_iY, g_arrEnemy[i].m_stPos.m_iX + nextDir.m_iX }, std::move(nextDir));
 	}
+}
+
+void EnemyGetDamage(stEnemy &enemy, int damage)
+{
+	enemy.m_iCurHp -= damage;
+	// 0 보다 작으면 사망
+	if (enemy.m_iCurHp <= 0)
+		enemy.m_bIsActive = false;
 }
 
 void EnemyDraw(void)
