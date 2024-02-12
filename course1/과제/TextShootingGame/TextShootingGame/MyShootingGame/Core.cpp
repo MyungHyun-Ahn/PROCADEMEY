@@ -6,16 +6,16 @@
 #include "Enemy.h"
 #include "Missile.h"
 #include "TimeManager.h"
+#include "SceneManager.h"
 
 // 초기화
 void Init(void)
 {
 	ConsoleInitial();
+	SceneInit();
 	KeyInit();
 	TimerInit();
 	PlayerInit(dfSCREEN_HEIGHT / 2, dfSCREEN_WIDTH / 2, 500);
-	EnemyInit(48);
-	MissileInit();
 }
 
 // 입력
@@ -45,9 +45,7 @@ void GameMain(void)
 {
 	while (true)
 	{
-		Input();
-		Update();
-		Render();
+		SceneMain();
 		Sleep(40);
 	}
 }

@@ -24,6 +24,12 @@
     <ClCompile Include="TimeManager.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="FileLoader.cpp">
+      <Filter>Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -50,6 +56,12 @@
     <ClInclude Include="TimeManager.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="FileLoader.h">
+      <Filter>Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Util">
@@ -60,6 +72,9 @@
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{6a9b281b-a87f-4ce6-ac04-0f103decf03d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Loader">
+      <UniqueIdentifier>{d8a9af71-7bef-45ec-9612-653953613865}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

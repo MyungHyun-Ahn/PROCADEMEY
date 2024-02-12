@@ -22,7 +22,7 @@ extern stMissile g_arrMissile[dfMAX_MISSILE_COUNT];
 
 void MissileInit();
 
-void MissileCreate(bool isEnemy, int damage, const stPos &&startPos, const stPos &&dir);
+void MissileCreate(bool isEnemy, int damage, const stPos &&startPos, const stPos &&dir, const wchar_t shape);
 
 wchar_t MissileGetShape(stPos &dir);
 

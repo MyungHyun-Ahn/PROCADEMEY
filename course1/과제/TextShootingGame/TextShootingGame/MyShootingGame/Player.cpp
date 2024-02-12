@@ -89,7 +89,7 @@ void PlayerAttack()
 	if (nextDir.m_iY == 0 && nextDir.m_iX == 0)
 		nextDir.m_iY -= 1;
 
-	MissileCreate(false, g_stPlayer.m_iDamage, stPos{ g_stPlayer.m_stPos.m_iY + nextDir.m_iY, g_stPlayer.m_stPos.m_iX + nextDir.m_iX }, std::move(nextDir));
+	MissileCreate(false, g_stPlayer.m_iDamage, stPos{ g_stPlayer.m_stPos.m_iY + nextDir.m_iY, g_stPlayer.m_stPos.m_iX + nextDir.m_iX }, std::move(nextDir), '*');
 }
 
 void PlayerGetDamage(int damage)

@@ -14,7 +14,7 @@ void MissileInit()
 	}
 }
 
-void MissileCreate(bool isEnemy, int damage, const stPos&& startPos, const stPos &&dir)
+void MissileCreate(bool isEnemy, int damage, const stPos&& startPos, const stPos &&dir, const wchar_t shape)
 {
 	for (int i = 0; i < dfMAX_MISSILE_COUNT; i++)
 	{
@@ -29,8 +29,9 @@ void MissileCreate(bool isEnemy, int damage, const stPos&& startPos, const stPos
 		g_arrMissile[i].m_stPos = startPos;
 		g_arrMissile[i].m_stDir = dir;
 
-		// 방향에 따른 미사일 Shape 판단
-		g_arrMissile[i].m_chShape = MissileGetShape(g_arrMissile[i].m_stDir);
+		// 방향에 따른 미사일 Shape 판단 - 미사일 Shape 이상하므로 미사일 모양 * 로 고정
+		// g_arrMissile[i].m_chShape = MissileGetShape(g_arrMissile[i].m_stDir);
+		g_arrMissile[i].m_chShape = shape;
 		break;
 	}
 }

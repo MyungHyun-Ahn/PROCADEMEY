@@ -121,7 +121,7 @@ void EnemyAttack(void)
 			continue;
 		
 		stPos nextDir{ 1,0 };
-		MissileCreate(true, g_arrEnemy[i].m_iDamage, stPos{ g_arrEnemy[i].m_stPos.m_iY + nextDir.m_iY, g_arrEnemy[i].m_stPos.m_iX + nextDir.m_iX }, std::move(nextDir));
+		MissileCreate(true, g_arrEnemy[i].m_iDamage, stPos{ g_arrEnemy[i].m_stPos.m_iY + nextDir.m_iY, g_arrEnemy[i].m_stPos.m_iX + nextDir.m_iX }, std::move(nextDir), L'v');
 	}
 }
 

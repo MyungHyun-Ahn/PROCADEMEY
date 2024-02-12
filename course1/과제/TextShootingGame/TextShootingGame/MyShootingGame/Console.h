@@ -7,9 +7,9 @@
 
 
 // 더블 버퍼링 관련 변수
-static HANDLE g_hScreen;
+extern HANDLE g_hScreen;
 
-static wchar_t g_szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
+extern wchar_t g_szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
 
 //-------------------------------------------------------------
 // 콘솔 제어를 위한 준비 작업.
