@@ -1,0 +1,4 @@
+3
+STAGE01.txt, 1, E
+STAGE02.txt, 2, EW
+STAGE03.txt, 4, QWER

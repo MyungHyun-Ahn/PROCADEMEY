@@ -5,7 +5,7 @@
 #include "Missile.h"
 
 HANDLE g_hScreen;
-wchar_t g_szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
+char g_szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
 
 //-------------------------------------------------------------
 // 콘솔 제어를 위한 준비 작업.
@@ -55,7 +55,7 @@ void ConsoleBufferFlip(void)
 	for (int iCnt = 0; iCnt < dfSCREEN_HEIGHT; iCnt++)
 	{
 		ConsoleMoveCursor(0, iCnt);
-		wprintf(g_szScreenBuffer[iCnt]);
+		printf(g_szScreenBuffer[iCnt]);
 	}
 }
 
@@ -63,12 +63,12 @@ void ConsoleBufferClear(void)
 {
 	for (int iCnt = 0; iCnt < dfSCREEN_HEIGHT; iCnt++)
 	{
-		wmemset(g_szScreenBuffer[iCnt], L' ', dfSCREEN_WIDTH);
-		g_szScreenBuffer[iCnt][dfSCREEN_WIDTH - 1] = (wchar_t)NULL;
+		memset(g_szScreenBuffer[iCnt], ' ', dfSCREEN_WIDTH);
+		g_szScreenBuffer[iCnt][dfSCREEN_WIDTH - 1] = (char)NULL;
 	}
 }
 
-void ConsoleSpriteDraw(const stPos &pos, wchar_t chSprite)
+void ConsoleSpriteDraw(const stPos &pos, char chSprite)
 {
 	if (pos.m_iX < 0 || pos.m_iY < 0 || pos.m_iX >= dfSCREEN_WIDTH - 1 || pos.m_iY >= dfSCREEN_HEIGHT)
 		return;
@@ -79,8 +79,5 @@ void ConsoleSpriteDraw(const stPos &pos, wchar_t chSprite)
 void ConsoleRender(void)
 {
 	ConsoleBufferClear();
-	PlayerDraw();
-	EnemyDraw();
-	MissileDraw();
 	ConsoleBufferFlip();
 }

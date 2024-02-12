@@ -9,7 +9,7 @@
 // 더블 버퍼링 관련 변수
 extern HANDLE g_hScreen;
 
-extern wchar_t g_szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
+extern char g_szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
 
 //-------------------------------------------------------------
 // 콘솔 제어를 위한 준비 작업.
@@ -45,7 +45,7 @@ void ConsoleBufferClear(void);
 //
 // 입력 받은 X,Y 좌표에 아스키코드 하나를 출력한다. (버퍼에 그림)
 //--------------------------------------------------------------------
-void ConsoleSpriteDraw(const stPos &pos, wchar_t chSprite);
+void ConsoleSpriteDraw(const stPos &pos, char chSprite);
 
 
 void ConsoleRender(void);

@@ -7,6 +7,7 @@
 #include "Missile.h"
 #include "TimeManager.h"
 #include "FileLoader.h"
+#include "StageInfo.h"
 
 stScene g_curScene;
 
@@ -21,12 +22,6 @@ void SceneMain(void)
 	case SCENE_CODE::LOADING:
 		SceneLoading();
 		break;
-
-	[[fallthrough]];
-	case SCENE_CODE::STAGE1:
-	case SCENE_CODE::STAGE2:
-	case SCENE_CODE::STAGE3:
-		SceneLogic();
 		break;
 	case SCENE_CODE::END:
 		break;
@@ -39,7 +34,7 @@ void SceneInit(void)
 	// 로비 Scene 로드
 	g_curScene.m_eCurScene = SCENE_CODE::LOBBY;
 	g_curScene.m_eNextScene = SCENE_CODE::LOADING;
-	wchar_t *loadbuffer = FileLoad(L"Resources\\Scene\\LOBBY_SCENE.txt");
+	char *loadbuffer = FileLoad("Resources\\Scene\\LOBBY_SCENE.txt");
 	FileSceneParse(loadbuffer);
 	free(loadbuffer);
 }
@@ -57,7 +52,6 @@ void SceneLobbyUpdate(void)
 	{
 		// Scene 전환
 		g_curScene.m_eCurScene = g_curScene.m_eNextScene; // Loading
-		g_curScene.m_eNextScene = SCENE_CODE::STAGE1;
 	}
 }
 
@@ -66,7 +60,7 @@ void SceneLobbyRender(void)
 	// 콘솔 버퍼에 쓰기
 	for (int iCnt = 0; iCnt < dfSCREEN_HEIGHT; iCnt++)
 	{
-		wmemcpy_s(g_szScreenBuffer[iCnt], dfSCREEN_WIDTH, g_curScene.m_szConsoleBuffer[iCnt], dfSCREEN_WIDTH);
+		memcpy_s(g_szScreenBuffer[iCnt], dfSCREEN_WIDTH, g_curScene.m_szConsoleBuffer[iCnt], dfSCREEN_WIDTH);
 		g_szScreenBuffer[iCnt][dfSCREEN_WIDTH - 1] = (wchar_t)NULL;
 	}
 	ConsoleBufferFlip();
@@ -80,16 +74,22 @@ void SceneLoading(void)
 		free(g_curScene.m_pBuffer);
 		g_curScene.m_pBuffer = nullptr;
 	}
-	wchar_t *loadbuffer = FileLoad(L"Resources\\Scene\\LOADING_SCENE.txt");
+	char *loadbuffer = FileLoad("Resources\\Scene\\LOADING_SCENE.txt");
 	FileSceneParse(loadbuffer);
 	SceneLoadingRender();
+	SceneLoadingUpdate();
 }
 
 void SceneLoadingUpdate(void)
 {
 	// 게임 로딩 작업
-
 	// enemy 로딩
+	for (int i = 0; i < g_StageInfos[g_iCurStage].m_iEnemyCount; i++)
+	{
+		FileEnemyParse('R');
+		// FileEnemyParse(g_StageInfos[g_iCurStage].m_arrEnemys[i]);
+	}
+	
 }
 
 void SceneLoadingRender(void)
@@ -97,8 +97,8 @@ void SceneLoadingRender(void)
 	// 콘솔 버퍼에 쓰기
 	for (int iCnt = 0; iCnt < dfSCREEN_HEIGHT; iCnt++)
 	{
-		wmemcpy_s(g_szScreenBuffer[iCnt], dfSCREEN_WIDTH, g_curScene.m_szConsoleBuffer[iCnt], dfSCREEN_WIDTH);
-		g_szScreenBuffer[iCnt][dfSCREEN_WIDTH - 1] = (wchar_t)NULL;
+		memcpy_s(g_szScreenBuffer[iCnt], dfSCREEN_WIDTH, g_curScene.m_szConsoleBuffer[iCnt], dfSCREEN_WIDTH);
+		g_szScreenBuffer[iCnt][dfSCREEN_WIDTH - 1] = (char)NULL;
 	}
 	ConsoleBufferFlip();
 }
@@ -109,8 +109,6 @@ void SceneLoad(void)
 
 
 	// 로드한 정보로 초기화
-	EnemyInit(48);
-	MissileInit();
 }
 
 // Scene 실행 흐름
@@ -124,9 +122,6 @@ void SceneInput(void)
 void SceneUpdate(void)
 {
 	// GetKeyState로 입력 체크
-	PlayerUpdate();
-	EnemyUpdate();
-	MissileUpdate();
 }
 
 void SceneRender(void)

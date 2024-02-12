@@ -3,7 +3,12 @@
 // Scene, Enemy 등을 불러오기 위함
 
 // 파일 읽기
-wchar_t *FileLoad(const wchar_t *filePath);
+char *FileLoad(const char *filePath);
 
 // Scene Parse
-void FileSceneParse(wchar_t *buffer);
+void FileSceneParse(char *buffer);
+
+// Stage Load
+void FileStageInfoParse(const char *filePath);
+
+void FileEnemyParse(const char enemyName);

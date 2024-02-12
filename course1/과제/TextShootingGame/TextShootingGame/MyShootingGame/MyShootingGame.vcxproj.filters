@@ -2,15 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="pch.cpp" />
     <ClCompile Include="Console.cpp">
       <Filter>Util</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp">
       <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyManager.cpp">
-      <Filter>Util</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Object</Filter>
@@ -21,26 +17,31 @@
     <ClCompile Include="Missile.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
-      <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="FileLoader.cpp">
-      <Filter>Loader</Filter>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoader.cpp">
       <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="StageInfo.cpp">
+      <Filter>Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
     <ClInclude Include="Console.h">
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="Core.h">
       <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyManager.h">
-      <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Object</Filter>
@@ -48,19 +49,32 @@
     <ClInclude Include="Enemy.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Define.h" />
     <ClInclude Include="Missile.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="GameSetting.h" />
     <ClInclude Include="TimeManager.h">
-      <Filter>Util</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="FileLoader.h">
-      <Filter>Loader</Filter>
+    <ClInclude Include="KeyManager.h">
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoader.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSetting.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="StageInfo.h">
+      <Filter>Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -73,8 +87,14 @@
     <Filter Include="Object">
       <UniqueIdentifier>{6a9b281b-a87f-4ce6-ac04-0f103decf03d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Loader">
-      <UniqueIdentifier>{d8a9af71-7bef-45ec-9612-653953613865}</UniqueIdentifier>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{24ab3354-03e4-455c-94e6-dc74e4383eba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Define">
+      <UniqueIdentifier>{ecfecb0c-f573-4cf1-b1d6-1242a18446b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage">
+      <UniqueIdentifier>{cd347180-2cc9-4fd1-9d38-05a2bda78051}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

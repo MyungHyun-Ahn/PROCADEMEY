@@ -7,6 +7,7 @@
 #include "Missile.h"
 #include "TimeManager.h"
 #include "SceneManager.h"
+#include "FileLoader.h"
 
 // 초기화
 void Init(void)
@@ -15,7 +16,7 @@ void Init(void)
 	SceneInit();
 	KeyInit();
 	TimerInit();
-	PlayerInit(dfSCREEN_HEIGHT / 2, dfSCREEN_WIDTH / 2, 500);
+	FileStageInfoParse("Resources\\Stage\\STAGE_INFO.txt");
 }
 
 // 입력
@@ -29,10 +30,6 @@ void Input(void)
 // 게임 로직 업데이트
 void Update(void)
 {
-	// GetKeyState로 입력 체크
-	PlayerUpdate();
-	EnemyUpdate();
-	MissileUpdate();
 }
 
 // 렌더

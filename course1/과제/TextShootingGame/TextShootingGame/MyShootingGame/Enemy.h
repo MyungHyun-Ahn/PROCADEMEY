@@ -1,47 +1,52 @@
 #pragma once
 
-struct stPos;
+struct stMissileInfo;
 
+struct stEnemyInfo
+{
+	// Shape
+	char m_chShape;
+	
+	// hp
+	int m_iHp;
+
+	int m_iMissileCount;
+	stMissileInfo *m_MissileInfos;
+
+	int m_iMovesCount;
+	stPos *m_Moves;
+};
+
+// Enemy 구조체
 struct stEnemy
 {
 	// 생존 여부
-	bool m_bIsActive;
+	bool				m_bIsActive;
 
-	int m_iCurHp;
-	int m_iMaxHp;
+	// 현재 좌표
+	stPos				m_stPos;
 
-	stPos m_stPos;
+	// SHAPE
+	wchar_t				m_chShape;
 
-	wchar_t m_chShape;
+	// STATS
+	int					m_iCurHp;
+	int					m_iMaxHp;
+
+	// 미사일 정보
+	int					m_iMissileCount = 0;
+	stMissileInfo		*m_MissileInfos = nullptr;
 
 	// 이동 경로
-	int m_iPosCount;
-	int m_iCurPos;
-	stPos *m_ArrPos;
-
-	int m_iDamage;
-
-	// 공격 쿨타임 : ms 단위
-	int m_iCoolTime;
-	// 이전 스킬 사용 시간 : 기본값 0
-	unsigned __int64 m_iPrevSkillTime = 0;
+	int					m_iMoveCount;
+	int					m_iCurMoveIndex;
+	stPos				*m_arrMovePos = nullptr;
 };
 
-// 몬스터 동적할당
-// 파일에서 몬스터 마리수 받아서 배치
+// Enemy 전역변수
+// 파일에서 Enemy 수 받아서 할당
 extern int g_iEnemyCount;
 extern stEnemy *g_arrEnemy;
 
-void EnemyInit(int enemyCount);
-
-void EnemyReset(void);
-
-void EnemyUpdate(void);
-
-void EnemyMove(void);
-
-void EnemyAttack(void);
-
-void EnemyGetDamage(stEnemy &enemy, int damage);
-
-void EnemyDraw(void);
+// enemy templete
+extern std::map<char, stEnemyInfo*> g_mapEnemyInfos;
