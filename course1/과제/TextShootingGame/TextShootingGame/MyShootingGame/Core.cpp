@@ -19,25 +19,6 @@ void Init(void)
 	FileStageInfoParse("Resources\\Stage\\STAGE_INFO.txt");
 }
 
-// 입력
-void Input(void)
-{
-	// 키보드 상태 업데이트
-	KeyUpdate();
-	TimerUpdate();
-}
-
-// 게임 로직 업데이트
-void Update(void)
-{
-}
-
-// 렌더
-void Render(void)
-{
-	ConsoleRender();
-}
-
 void GameMain(void)
 {
 	while (true)

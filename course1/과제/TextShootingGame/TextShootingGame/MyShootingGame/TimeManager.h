@@ -4,7 +4,7 @@ struct stTimer
 {
 	// 시작 시간 계산용
 	unsigned __int64 m_uliStartTime;
-	unsigned __int64 m_uliCurTime;
+	int m_uliCurTime;
 };
 
 
@@ -14,7 +14,7 @@ void TimerInit(void);
 
 void TimerUpdate(void);
 
-int TimerGetTimeDiff(unsigned __int64 prevTime);
+int TimerGetTimeDiff(int prevTime);
 
-bool TimerCalCoolTime(unsigned __int64 &prevTime, int coolTime);
+bool TimerCalCoolTime(int &prevTime, int coolTime);
 

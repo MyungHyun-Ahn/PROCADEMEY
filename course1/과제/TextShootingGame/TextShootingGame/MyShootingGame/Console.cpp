@@ -75,9 +75,3 @@ void ConsoleSpriteDraw(const stPos &pos, char chSprite)
 
 	g_szScreenBuffer[pos.m_iY][pos.m_iX] = chSprite;
 }
-
-void ConsoleRender(void)
-{
-	ConsoleBufferClear();
-	ConsoleBufferFlip();
-}

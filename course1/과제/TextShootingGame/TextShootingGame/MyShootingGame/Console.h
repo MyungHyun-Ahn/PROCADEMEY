@@ -46,6 +46,3 @@ void ConsoleBufferClear(void);
 // 입력 받은 X,Y 좌표에 아스키코드 하나를 출력한다. (버퍼에 그림)
 //--------------------------------------------------------------------
 void ConsoleSpriteDraw(const stPos &pos, char chSprite);
-
-
-void ConsoleRender(void);

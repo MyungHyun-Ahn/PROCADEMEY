@@ -5,6 +5,11 @@ enum class SCENE_CODE
 	LOBBY = 100,
 	LOADING = 110,
 
+	GAME = 500,
+
+	CLEAR = 600,
+	GAMEOVER = 700,
+
 	END = 9999
 };
 
@@ -20,7 +25,6 @@ struct stScene
 	char *m_pBuffer; // 파일 로드 버퍼
 	char m_szConsoleBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH]; // 화면 버퍼
 	SCENE_CODE m_eCurScene;
-	SCENE_CODE m_eNextScene;
 };
 
 // 전역 변수로 제어
@@ -47,7 +51,7 @@ void SceneMain(void);
 void SceneLoad(void);
 
 void SceneInput(void);
-void SceneUpdate(void);
-void SceneRender(void);
+void SceneGameUpdate(void);
+void SceneGameRender(void);
 
-void SceneLogic(void);
+void SceneGame(void);

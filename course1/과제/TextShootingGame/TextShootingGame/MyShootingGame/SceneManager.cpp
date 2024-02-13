@@ -22,6 +22,12 @@ void SceneMain(void)
 	case SCENE_CODE::LOADING:
 		SceneLoading();
 		break;
+	case SCENE_CODE::GAME:
+		SceneGame();
+		break;
+	case SCENE_CODE::CLEAR:
+		break;
+	case SCENE_CODE::GAMEOVER:
 		break;
 	case SCENE_CODE::END:
 		break;
@@ -33,10 +39,7 @@ void SceneInit(void)
 {
 	// 로비 Scene 로드
 	g_curScene.m_eCurScene = SCENE_CODE::LOBBY;
-	g_curScene.m_eNextScene = SCENE_CODE::LOADING;
-	char *loadbuffer = FileLoad("Resources\\Scene\\LOBBY_SCENE.txt");
-	FileSceneParse(loadbuffer);
-	free(loadbuffer);
+	FileSceneParse("Resources\\Scene\\LOBBY_SCENE.txt");
 }
 
 void SceneLobby(void)
@@ -51,7 +54,7 @@ void SceneLobbyUpdate(void)
 	if (KEY_TAP(KEY::SPACE))
 	{
 		// Scene 전환
-		g_curScene.m_eCurScene = g_curScene.m_eNextScene; // Loading
+		g_curScene.m_eCurScene = SCENE_CODE::LOADING; // Loading
 	}
 }
 
@@ -74,22 +77,30 @@ void SceneLoading(void)
 		free(g_curScene.m_pBuffer);
 		g_curScene.m_pBuffer = nullptr;
 	}
-	char *loadbuffer = FileLoad("Resources\\Scene\\LOADING_SCENE.txt");
-	FileSceneParse(loadbuffer);
+	FileSceneParse("Resources\\Scene\\LOADING_SCENE.txt");
 	SceneLoadingRender();
+
+	// 씬 로드
 	SceneLoadingUpdate();
 }
 
+// 게임 로딩 작업
 void SceneLoadingUpdate(void)
 {
-	// 게임 로딩 작업
+	// Stage Scene 로딩
+	FileStageParse(g_StageInfos[g_iCurStage].m_chFileName);
+	
 	// enemy 로딩
 	for (int i = 0; i < g_StageInfos[g_iCurStage].m_iEnemyCount; i++)
 	{
-		FileEnemyParse('R');
-		// FileEnemyParse(g_StageInfos[g_iCurStage].m_arrEnemys[i]);
+		FileEnemyParse(g_StageInfos[g_iCurStage].m_arrEnemys[i]);
 	}
-	
+
+	// enemy 배치
+	EnemyInit();
+	TimerInit(); // 쿨타임 계산을 위해 타이머를 다시 초기화
+
+	g_curScene.m_eCurScene = SCENE_CODE::GAME; // 게임 씬으로 전환
 }
 
 void SceneLoadingRender(void)
@@ -111,7 +122,7 @@ void SceneLoad(void)
 	// 로드한 정보로 초기화
 }
 
-// Scene 실행 흐름
+// Input
 void SceneInput(void)
 {
 	// 키보드 상태 업데이트
@@ -119,21 +130,27 @@ void SceneInput(void)
 	TimerUpdate();
 }
 
-void SceneUpdate(void)
+// Update - 게임 로직
+void SceneGameUpdate(void)
 {
-	// GetKeyState로 입력 체크
+	EnemyUpdate();
+	MissileUpdate();
 }
 
-void SceneRender(void)
+// Render
+void SceneGameRender(void)
 {
-	ConsoleRender();
+	ConsoleBufferClear();
+	MissileRender();
+	EnemyRender();
+	ConsoleBufferFlip();
 }
 
-void SceneLogic(void)
+void SceneGame(void)
 {
 	SceneInput();
-	SceneUpdate();
-	SceneRender();
-	Sleep(40);
+	SceneGameUpdate();
+	SceneGameRender();
+	Sleep(15);
 }
 

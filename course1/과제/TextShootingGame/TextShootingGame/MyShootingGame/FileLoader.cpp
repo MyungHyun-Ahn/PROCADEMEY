@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Missile.h"
 
+// 파일 버퍼 읽기 - 외부에서 직접 호출하는 일은 없다. (헤더에는 선언 안함)
 char *FileLoad(const char *filePath)
 {
     FILE *loadFile;
@@ -31,8 +32,9 @@ char *FileLoad(const char *filePath)
     return loadBuffer;
 }
 
-void FileSceneParse(char *buffer)
+void FileSceneParse(const char *filePath)
 {
+    char *buffer = FileLoad(filePath);
     const char *del = "\r\n";
     char *nextTok = nullptr;
     char *token = strtok_s(buffer, del, &nextTok);
@@ -43,6 +45,17 @@ void FileSceneParse(char *buffer)
         memcpy_s(g_curScene.m_szConsoleBuffer[colNum++], dfSCREEN_WIDTH, token, dfSCREEN_WIDTH);
         token = strtok_s(nullptr, del, &nextTok);
     }
+
+    free(buffer);
+}
+
+void FileStageParse(const char *stageName)
+{
+	char stagePath[MAX_FILE_NAME] = "Resources\\Stage\\";
+
+	strcat_s(stagePath, stageName);
+
+    FileSceneParse(stagePath);
 }
 
 void FileStageInfoParse(const char *filePath)
@@ -83,12 +96,14 @@ void FileStageInfoParse(const char *filePath)
 		token = strtok_s(nullptr, del, &nextTok);
 		g_StageInfos[stageIndex].m_iEnemyCount = atoi(token);
 
-		g_StageInfos[stageIndex].m_arrEnemys = (char *)malloc(sizeof(char) * g_StageInfos[stageIndex].m_iEnemyCount + 1);
+		token = strtok_s(nullptr, del, &nextTok);
+		g_StageInfos[stageIndex].m_iEnemyTypeCount = atoi(token);
+
+		g_StageInfos[stageIndex].m_arrEnemys = (char *)malloc(sizeof(char) * (g_StageInfos[stageIndex].m_iEnemyTypeCount + 1));
 
 		token = strtok_s(nullptr, del, &nextTok);
 		size_t enemySize = strlen(token) * sizeof(char) + 1;
 		memcpy_s(g_StageInfos[stageIndex].m_arrEnemys, enemySize, token, enemySize);
-		// g_StageInfos[stageIndex].m_arrEnemys[(sizeof(wchar_t) + 1) * g_StageInfos[stageIndex].m_iEnemyCount] = (wchar_t)NULL;
 		token = strtok_s(nullptr, del, &nextTok);
         stageIndex++;
     }
@@ -96,17 +111,17 @@ void FileStageInfoParse(const char *filePath)
 
 void FileEnemyParse(const char enemyName)
 {
+	if (g_mapEnemyInfos.find(enemyName) != g_mapEnemyInfos.end())
+	{
+		// 이미 로드한 것
+		return;
+	}
+
     char enemyPath[MAX_FILE_NAME] = "Resources\\Enemy\\";
     enemyPath[16] = enemyName;
     enemyPath[17] = '\0';
 
     strcat_s(enemyPath, ".txt");
-
-    if (g_mapEnemyInfos.find(enemyName) != g_mapEnemyInfos.end())
-    {
-        // 이미 로드한 것
-        return;
-    }
 
     char *enemyBuffer = FileLoad(enemyPath);
     if (enemyBuffer == nullptr)
@@ -155,6 +170,7 @@ void FileEnemyParse(const char enemyName)
 
 
     // 미사일 파싱
+    // 미사일 또한 map에 저장하고 싶지만 key 값이 애매해서 패스
     for (int i = 0; i < newEnemy->m_iMissileCount; i++)
     {
         // 미사일 파일 경로
@@ -221,14 +237,14 @@ void FileEnemyParse(const char enemyName)
 
         token2 = strtok_s(NULL, del, &nextTok2);
 
-        newEnemy->m_MissileInfos[i].m_iMissileMaxIndex = atoi(token2);
+        newEnemy->m_MissileInfos[i].m_iMissileMaxMoveIndex = atoi(token2);
 
-        newEnemy->m_MissileInfos[i].m_iMissileMoves = (stPos *)malloc(sizeof(stPos) * newEnemy->m_MissileInfos[i].m_iMissileMaxIndex);
+        newEnemy->m_MissileInfos[i].m_iMissileMoves = (stPos *)malloc(sizeof(stPos) * newEnemy->m_MissileInfos[i].m_iMissileMaxMoveIndex);
         if (newEnemy->m_MissileInfos[i].m_iMissileMoves == nullptr)
             return;
 
 
-        for (int j = 0; j < newEnemy->m_MissileInfos[i].m_iMissileMaxIndex; j++)
+        for (int j = 0; j < newEnemy->m_MissileInfos[i].m_iMissileMaxMoveIndex; j++)
         {
             token2 = strtok_s(NULL, del, &nextTok2);
             int my = atoi(token2);

@@ -11,7 +11,7 @@ struct stMissileInfo
 	int					m_iDamage;					// 미사일 데미지
 	char				m_chShape;
 	int					m_iLifetime;
-	int					m_iMissileMaxIndex;			// 미사일 종류 별 최대 인덱스
+	int					m_iMissileMaxMoveIndex;		// 미사일 종류 별 최대 인덱스
 	stPos				*m_iMissileMoves;			// 미사일 움직임
 };
 
@@ -38,8 +38,6 @@ struct stMissile
 	int m_iMaxLife = INT32_MAX;
 
 	// 진행 방향 - 다양한 진행 방향을 위해
-	// m_arrDir의 원본 포인터는 다른 곳에서 가지고 있다.
-	// 그저 전달받을 뿐
 	// Missile에서 절대 할당 해제해서는 안된다.
 	int m_iDirSize;
 	int m_iDirIndex = 0;
@@ -47,3 +45,16 @@ struct stMissile
 };
 
 extern stMissile g_arrMissile[dfMAX_MISSILE_COUNT];
+
+
+// Enemy 미사일 생성
+void MissileEnemyCreate(const stMissileInfo &info, const stPos &curPos);
+
+// 미사일 Logic Update
+void MissileUpdate(void);
+
+// 미사일 움직임
+void MissileMove(void);
+
+// 미사일 Render
+void MissileRender(void);

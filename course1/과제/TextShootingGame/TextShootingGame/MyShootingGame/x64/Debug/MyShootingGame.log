@@ -1,8 +1,2 @@
-﻿  Console.cpp
-  Core.cpp
-  Enemy.cpp
-  FileLoader.cpp
-  Missile.cpp
-  SceneManager.cpp
-  코드를 생성하고 있습니다...
+﻿  SceneManager.cpp
   MyShootingGame.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\TextShootingGame\TextShootingGame\x64\Debug\MyShootingGame.exe

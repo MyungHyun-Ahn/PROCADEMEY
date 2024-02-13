@@ -14,7 +14,7 @@ struct stPlayer
 	// 플레이어 공격력
 	int m_iDamage;
 
-	// 플레이어 기본 공격 쿨타임 - Space
+	// 플레이어 미사일 쿨타임 - Space
 	int m_iCoolTime;
 	unsigned __int64 m_iPrevAttackTime = 0;
 
