@@ -39,7 +39,7 @@ struct stEnemy
 	stMissileInfo		*m_MissileInfos = nullptr;
 
 	// 미사일 쿨타임 정보 - 이것은 Enemy 가 동적할당 해제해야 한다.
-	int					*m_arrMissilePrevTime;
+	unsigned int					*m_arrMissilePrevTime;
 
 	// 이동 경로
 	int					m_iMoveCount;
@@ -47,16 +47,11 @@ struct stEnemy
 	stPos				*m_arrMovePos = nullptr; // 이것 또한 여기서 할당해제하지 않는다.
 };
 
-// Enemy 전역변수
-// 파일에서 Enemy 수 받아서 할당
-extern int g_iEnemyCount;
-extern stEnemy *g_arrEnemy;
-
-// enemy template 저장하는 map - 중복 로드 방지
-extern std::map<char, stEnemyInfo*> g_mapEnemyInfos;
-
 // Stage 로드한 정보대로 Enemy 생성
 void EnemyInit(void);
+
+// Enumy 삭제
+void EnemyRelease(void);
 
 // Enemy Logic Update
 void EnemyUpdate(void);
@@ -66,6 +61,11 @@ void EnemyMove(void);
 
 // Enemy 미사일
 void EnemyAttack(void);
+
+// Enemy Get Damage
+void EnemyGetDamage(int enemyIndex, int damage);
+
+void EnemyClearCheck(void);
 
 // Enemy를 버퍼에 씀
 void EnemyRender(void);

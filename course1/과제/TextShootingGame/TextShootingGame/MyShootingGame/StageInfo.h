@@ -8,8 +8,3 @@ struct stStageInfo
 	int				m_iEnemyTypeCount;	// Enemy 종류 수
 	char			*m_arrEnemys;		// Enemy 저장 배열
 };
-
-extern int g_iStageCount;
-extern stStageInfo *g_StageInfos;
-
-extern int g_iCurStage;

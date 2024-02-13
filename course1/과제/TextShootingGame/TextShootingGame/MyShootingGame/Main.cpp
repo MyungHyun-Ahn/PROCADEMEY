@@ -1,11 +1,7 @@
 #include "pch.h"
 #include "Core.h"
 
-
-
-int wmain(void)
+int main(void)
 {
-	Init();
-
 	GameMain();
 }

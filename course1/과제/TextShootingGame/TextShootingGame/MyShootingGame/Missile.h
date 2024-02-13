@@ -30,7 +30,7 @@ struct stMissile
 	stPos m_stPos;
 
 	// 미사일 모양
-	wchar_t m_chShape;
+	char m_chShape;
 
 	// 미사일 라이프 타임
 	// 몇 프레임 존재할 수 있는가
@@ -42,19 +42,27 @@ struct stMissile
 	int m_iDirSize;
 	int m_iDirIndex = 0;
 	stPos *m_arrDir = nullptr;
-};
 
-extern stMissile g_arrMissile[dfMAX_MISSILE_COUNT];
+	// 플레이어 전용 진행 방향 백업용
+	stPos m_DirBak;
+};
 
 
 // Enemy 미사일 생성
 void MissileEnemyCreate(const stMissileInfo &info, const stPos &curPos);
+
+// Player Defualt 미사일 생성
+// curDir는 진행 방향
+void MissilePlayerDefualtCreate(const stPos &curDir);
 
 // 미사일 Logic Update
 void MissileUpdate(void);
 
 // 미사일 움직임
 void MissileMove(void);
+
+// 미사일 충돌 처리
+void MissileCollision(void);
 
 // 미사일 Render
 void MissileRender(void);

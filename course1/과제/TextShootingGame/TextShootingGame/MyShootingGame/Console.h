@@ -5,12 +5,6 @@
 
 #pragma once
 
-
-// 더블 버퍼링 관련 변수
-extern HANDLE g_hScreen;
-
-extern char g_szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
-
 //-------------------------------------------------------------
 // 콘솔 제어를 위한 준비 작업.
 //

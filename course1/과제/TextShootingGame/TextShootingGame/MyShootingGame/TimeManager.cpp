@@ -1,9 +1,6 @@
 #include "pch.h"
 #include "TimeManager.h"
 
-
-stTimer g_stTimer;
-
 void TimerInit(void)
 {
     g_stTimer.m_uliStartTime = GetTickCount64();
@@ -17,14 +14,14 @@ void TimerUpdate(void)
 }
 
 // 이전 시간과 지금 얼마나 지났는가
-int TimerGetTimeDiff(int prevTime)
+int TimerGetTimeDiff(unsigned int prevTime)
 {
     return (int)(g_stTimer.m_uliCurTime - prevTime);
 }
 
 // 인자로 받은 쿨타임으로 지금 사용 가능한지 여부
 // int coolTime : ms 단위
-bool TimerCalCoolTime(int &prevTime, int coolTime)
+bool TimerCalCoolTime(unsigned int &prevTime, int coolTime)
 {
     if (TimerGetTimeDiff(prevTime) < coolTime)
     {

@@ -9,8 +9,6 @@
 #include "FileLoader.h"
 #include "StageInfo.h"
 
-stScene g_curScene;
-
 void SceneMain(void)
 {
 	// 장면 전환 switch case 문
@@ -71,12 +69,6 @@ void SceneLobbyRender(void)
 
 void SceneLoading(void)
 {
-	// 기존에 있던 버퍼는 비워주기
-	if (g_curScene.m_pBuffer != nullptr)
-	{
-		free(g_curScene.m_pBuffer);
-		g_curScene.m_pBuffer = nullptr;
-	}
 	FileSceneParse("Resources\\Scene\\LOADING_SCENE.txt");
 	SceneLoadingRender();
 
@@ -96,9 +88,13 @@ void SceneLoadingUpdate(void)
 		FileEnemyParse(g_StageInfos[g_iCurStage].m_arrEnemys[i]);
 	}
 
+	// 이전 스테이지에서 할당한 것 할당 해제
+	EnemyRelease();
+
 	// enemy 배치
 	EnemyInit();
 	TimerInit(); // 쿨타임 계산을 위해 타이머를 다시 초기화
+	PlayerCooltimeReset(); // 쿨타임을 0부터 계산하므로 초기화
 
 	g_curScene.m_eCurScene = SCENE_CODE::GAME; // 게임 씬으로 전환
 }
@@ -114,14 +110,6 @@ void SceneLoadingRender(void)
 	ConsoleBufferFlip();
 }
 
-void SceneLoad(void)
-{
-	// 파일 로드 작업
-
-
-	// 로드한 정보로 초기화
-}
-
 // Input
 void SceneInput(void)
 {
@@ -135,6 +123,7 @@ void SceneGameUpdate(void)
 {
 	EnemyUpdate();
 	MissileUpdate();
+	PlayerUpdate();
 }
 
 // Render
@@ -143,7 +132,30 @@ void SceneGameRender(void)
 	ConsoleBufferClear();
 	MissileRender();
 	EnemyRender();
+	PlayerRender();
 	ConsoleBufferFlip();
+}
+
+SCENE_CODE SceneCheckGameStatus(void)
+{
+	if (g_bIsGameOver)
+	{
+		return SCENE_CODE::GAMEOVER;
+	}
+
+	if (g_bIsStageClear)
+	{
+		g_iCurStage++;
+		if (g_iCurStage == g_iStageCount)
+		{
+			return SCENE_CODE::CLEAR;
+		}
+
+		return SCENE_CODE::LOADING;
+	}
+
+	// 현재 GAME 상태 유지
+	return SCENE_CODE::GAME;
 }
 
 void SceneGame(void)
@@ -151,6 +163,11 @@ void SceneGame(void)
 	SceneInput();
 	SceneGameUpdate();
 	SceneGameRender();
-	Sleep(15);
+
+	if (SCENE_CODE code = SceneCheckGameStatus(); code != SCENE_CODE::GAME)
+	{
+		g_curScene.m_eCurScene = code;
+	}
+	Sleep(40);
 }
 

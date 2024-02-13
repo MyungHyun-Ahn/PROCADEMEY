@@ -1,11 +1,5 @@
 #include "pch.h"
 #include "Console.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Missile.h"
-
-HANDLE g_hScreen;
-char g_szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
 
 //-------------------------------------------------------------
 // 콘솔 제어를 위한 준비 작업.

@@ -10,4 +10,5 @@ void FileStageParse(const char *stageName);
 // Stage Load
 void FileStageInfoParse(const char *filePath);
 
+// Enemy Parse
 void FileEnemyParse(const char enemyName);

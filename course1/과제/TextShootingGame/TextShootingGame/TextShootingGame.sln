@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FilePacker", "FilePacker\FilePacker.vcxproj", "{CDB4469A-C310-49DD-A7FC-8BF3C4C98067}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyShootingGame", "MyShootingGame\MyShootingGame.vcxproj", "{E0E04DAE-8DF8-479C-BF86-5FD08B11D1AA}"
 EndProject
 Global
@@ -15,14 +13,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CDB4469A-C310-49DD-A7FC-8BF3C4C98067}.Debug|x64.ActiveCfg = Debug|x64
-		{CDB4469A-C310-49DD-A7FC-8BF3C4C98067}.Debug|x64.Build.0 = Debug|x64
-		{CDB4469A-C310-49DD-A7FC-8BF3C4C98067}.Debug|x86.ActiveCfg = Debug|Win32
-		{CDB4469A-C310-49DD-A7FC-8BF3C4C98067}.Debug|x86.Build.0 = Debug|Win32
-		{CDB4469A-C310-49DD-A7FC-8BF3C4C98067}.Release|x64.ActiveCfg = Release|x64
-		{CDB4469A-C310-49DD-A7FC-8BF3C4C98067}.Release|x64.Build.0 = Release|x64
-		{CDB4469A-C310-49DD-A7FC-8BF3C4C98067}.Release|x86.ActiveCfg = Release|Win32
-		{CDB4469A-C310-49DD-A7FC-8BF3C4C98067}.Release|x86.Build.0 = Release|Win32
 		{E0E04DAE-8DF8-479C-BF86-5FD08B11D1AA}.Debug|x64.ActiveCfg = Debug|x64
 		{E0E04DAE-8DF8-479C-BF86-5FD08B11D1AA}.Debug|x64.Build.0 = Debug|x64
 		{E0E04DAE-8DF8-479C-BF86-5FD08B11D1AA}.Debug|x86.ActiveCfg = Debug|Win32

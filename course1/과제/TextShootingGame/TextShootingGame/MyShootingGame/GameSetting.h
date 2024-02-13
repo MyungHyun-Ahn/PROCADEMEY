@@ -5,4 +5,17 @@
 #define dfMAX_MISSILE_COUNT 1000 // 미사일 풀 개수
 
 
+// 플레이어 모양
+#define dfPLAYER_SHAPE 'A'
+
+// 플레이어 미사일 모양
+#define dfPLAYER_MISSILE_SHAPE 'o'
+
 // 플레이어 능력치
+#define dfPLAYER_HP 20
+#define dfPLAYER_DAMAGE 10
+
+#define dfPLAYER_START_POS_Y 35
+#define dfPLAYER_START_POS_X 76
+
+#define dfPLAYER_ATTACK_COOLTIME 300

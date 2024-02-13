@@ -6,11 +6,6 @@
 #include "StageInfo.h"
 #include "SceneManager.h"
 
-int g_iEnemyCount;
-stEnemy *g_arrEnemy = nullptr;
-
-std::map<char, stEnemyInfo*> g_mapEnemyInfos;
-
 void EnemyInit(void)
 {
 	g_iEnemyCount = g_StageInfos[g_iCurStage].m_iEnemyCount;
@@ -50,7 +45,7 @@ void EnemyInit(void)
 			g_arrEnemy[enemyIndex].m_iMissileCount = info->m_iMissileCount;		// 미사일 종류
 			g_arrEnemy[enemyIndex].m_MissileInfos = info->m_MissileInfos;		// 가져다 쓸 것 - 얕은 복사
 
-			g_arrEnemy[enemyIndex].m_arrMissilePrevTime = (int *)malloc(sizeof(int) * info->m_iMissileCount);
+			g_arrEnemy[enemyIndex].m_arrMissilePrevTime = (unsigned int *)malloc(sizeof(unsigned int) * info->m_iMissileCount);
 			if (g_arrEnemy[enemyIndex].m_arrMissilePrevTime == nullptr)
 				return;
 			// 첫 발사 타이밍을 기록
@@ -67,12 +62,34 @@ void EnemyInit(void)
 			enemyIndex++;
 		}
 	}
+
+	// 모든 적을 초기화하고 스테이지 클리어 정보를 false로 초기화
+	g_bIsStageClear = false;
+}
+
+void EnemyRelease(void)
+{
+	if (g_arrEnemy != nullptr)
+	{
+		for (int i = 0; i < g_iEnemyCount; i++)
+		{
+			if (g_arrEnemy[i].m_arrMissilePrevTime != nullptr)
+			{
+				free(g_arrEnemy[i].m_arrMissilePrevTime);
+				g_arrEnemy[i].m_arrMissilePrevTime = nullptr;
+			}
+		}
+
+		free(g_arrEnemy);
+		g_arrEnemy = nullptr;
+	}
 }
 
 void EnemyUpdate(void)
 {
 	EnemyMove();
 	EnemyAttack();
+	EnemyClearCheck();
 }
 
 void EnemyMove(void)
@@ -117,6 +134,35 @@ void EnemyAttack(void)
 			MissileEnemyCreate(info, g_arrEnemy[i].m_stPos);
 		}
 	}
+}
+
+void EnemyGetDamage(int enemyIndex, int damage)
+{
+	g_arrEnemy[enemyIndex].m_iCurHp -= damage;
+
+	if (g_arrEnemy[enemyIndex].m_iCurHp <= 0)
+	{
+		// enemy 비활성화
+		g_arrEnemy[enemyIndex].m_bIsActive = false;
+	}
+}
+
+void EnemyClearCheck(void)
+{
+	// 모든 적이 죽었는가를 판단.
+	bool allEnemyIsDead = true;
+
+	for (int i = 0; i < g_iEnemyCount; i++)
+	{
+		// 1명이라도 살아있는 적이 있으면 break;
+		if (g_arrEnemy[i].m_bIsActive)
+		{
+			allEnemyIsDead = false;
+			break;
+		}
+	}
+
+	g_bIsStageClear = allEnemyIsDead;
 }
 
 void EnemyRender(void)

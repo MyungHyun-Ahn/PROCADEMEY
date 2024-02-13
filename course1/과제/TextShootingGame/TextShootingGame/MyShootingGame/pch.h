@@ -10,6 +10,7 @@
 
 #include "Define.h"
 #include "GameSetting.h"
+#include "GlobalVariable.h"
 
 // 초기화 경고 비활성화
 #pragma warning(disable : 26495)

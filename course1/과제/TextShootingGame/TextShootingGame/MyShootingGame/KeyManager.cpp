@@ -1,23 +1,6 @@
 #include "pch.h"
 #include "KeyManager.h"
 
-int g_arrVKKey[(int)KEY::END] =
-{
-	VK_LEFT,
-	VK_RIGHT,
-	VK_UP,
-	VK_DOWN,
-
-	'Q', 'W', 'E', 'R',
-	'D', 'F',
-
-	VK_CONTROL,
-	VK_SPACE,
-	VK_ESCAPE
-};
-
-stKeyInfo g_KeyInfo[(int)KEY::END];
-
 void KeyInit()
 {
 	// 키 배열 초기화

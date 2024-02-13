@@ -134,6 +134,7 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FileLoader.cpp" />
+    <ClCompile Include="GlobalVariable.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Missile.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="GameSetting.h" />
+    <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="pch.h" />

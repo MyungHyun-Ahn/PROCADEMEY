@@ -6,39 +6,11 @@
 #define KEY_AWAY(key) KEY_CHECK(key, KEY_STATE::AWAY)
 #define KEY_NONE(key) KEY_CHECK(key, KEY_STATE::NONE)
 
-enum class KEY_STATE
-{
-	TAP,
-	HOLD,
-	AWAY,
-	NONE
-};
-
-enum class KEY
-{
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN,
-
-	Q, W, E, R,
-	D, F,
-	CTRL,
-	SPACE,
-	ESC,
-
-	END
-};
-
 struct stKeyInfo
 {
 	KEY_STATE		m_eState;
 	bool			m_bPrevPush;	// 이전에 눌렸는지 여부
 };
-
-extern int g_arrVKKey[(int)KEY::END];
-
-extern stKeyInfo g_KeyInfo[(int)KEY::END];
 
 void KeyInit();
 
