@@ -45,3 +45,6 @@ extern int g_iCurStage;
 // Console
 extern HANDLE g_hScreen;
 extern char g_szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
+
+// Program Exit
+extern bool g_bProgramExit;

@@ -2,7 +2,7 @@
 #include "Core.h"
 #include "Console.h"
 #include "KeyManager.h"
-#include "Player.h"
+#include "TimeManager.h"
 #include "SceneManager.h"
 #include "FileLoader.h"
 
@@ -12,7 +12,7 @@ void Init(void)
 	ConsoleInitial();
 	SceneInit();
 	KeyInit();
-	PlayerInit();
+	TimerInit();
 	FileStageInfoParse("Resources\\Stage\\STAGE_INFO.txt");
 }
 
@@ -24,5 +24,8 @@ void GameMain(void)
 	while (true)
 	{
 		SceneMain();
+
+		if (g_bProgramExit)
+			break;
 	}
 }

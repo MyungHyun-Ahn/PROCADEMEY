@@ -53,3 +53,6 @@ int g_iCurStage = 0;
 // Console
 HANDLE g_hScreen;
 char g_szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
+
+// Program Exit
+bool g_bProgramExit = false;

@@ -46,7 +46,8 @@ void FileSceneParse(const char *filePath)
         token = strtok_s(nullptr, del, &nextTok);
     }
 
-    free(buffer);
+    if (buffer != nullptr)
+        free(buffer);
 }
 
 void FileStageParse(const char *stageName)
@@ -99,14 +100,16 @@ void FileStageInfoParse(const char *filePath)
 		token = strtok_s(nullptr, del, &nextTok);
 		g_StageInfos[stageIndex].m_iEnemyTypeCount = atoi(token);
 
-		g_StageInfos[stageIndex].m_arrEnemys = (char *)malloc(sizeof(char) * (g_StageInfos[stageIndex].m_iEnemyTypeCount + 1));
-
 		token = strtok_s(nullptr, del, &nextTok);
 		size_t enemySize = strlen(token) * sizeof(char) + 1;
+        g_StageInfos[stageIndex].m_arrEnemys = (char *)malloc(enemySize);
 		memcpy_s(g_StageInfos[stageIndex].m_arrEnemys, enemySize, token, enemySize);
 		token = strtok_s(nullptr, del, &nextTok);
         stageIndex++;
     }
+
+    if (stageInfoBuffer != nullptr)
+        free(stageInfoBuffer);
 }
 
 void FileEnemyParse(const char enemyName)
@@ -239,8 +242,8 @@ void FileEnemyParse(const char enemyName)
 
         newEnemy->m_MissileInfos[i].m_iMissileMaxMoveIndex = atoi(token2);
 
-        newEnemy->m_MissileInfos[i].m_iMissileMoves = (stPos *)malloc(sizeof(stPos) * newEnemy->m_MissileInfos[i].m_iMissileMaxMoveIndex);
-        if (newEnemy->m_MissileInfos[i].m_iMissileMoves == nullptr)
+        newEnemy->m_MissileInfos[i].m_MissileMoves = (stPos *)malloc(sizeof(stPos) * newEnemy->m_MissileInfos[i].m_iMissileMaxMoveIndex);
+        if (newEnemy->m_MissileInfos[i].m_MissileMoves == nullptr)
             return;
 
 
@@ -250,7 +253,7 @@ void FileEnemyParse(const char enemyName)
             int my = atoi(token2);
             token2 = strtok_s(NULL, del, &nextTok2);
             int mx = atoi(token2);
-            newEnemy->m_MissileInfos[i].m_iMissileMoves[j] = stPos{ my, mx };
+            newEnemy->m_MissileInfos[i].m_MissileMoves[j] = stPos{ my, mx };
         }
 
         if (missileBuffer != nullptr)
@@ -282,6 +285,9 @@ void FileEnemyParse(const char enemyName)
     }
 
     g_mapEnemyInfos.insert(std::pair<char, stEnemyInfo*>(enemyName, newEnemy));
-    if (enemyBuffer == nullptr)
+    if (enemyBuffer != nullptr)
+    {
         free(enemyBuffer);
+        enemyBuffer = nullptr;
+    }
 }

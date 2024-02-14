@@ -7,6 +7,7 @@
 
 void PlayerInit(void)
 {
+	g_bIsGameOver = false;
 	g_stPlayer.m_iCurHp = dfPLAYER_HP;
 	g_stPlayer.m_iMaxHp = dfPLAYER_HP;
 	g_stPlayer.m_iDamage = dfPLAYER_DAMAGE;

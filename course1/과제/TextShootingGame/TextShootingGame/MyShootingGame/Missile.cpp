@@ -29,10 +29,18 @@ void MissileEnemyCreate(const stMissileInfo &info, const stPos &curPos)
 		// 진행 방향 세팅
 		g_arrMissile[i].m_iDirIndex = 0;
 		g_arrMissile[i].m_iDirSize = info.m_iMissileMaxMoveIndex;
-		g_arrMissile[i].m_arrDir = info.m_iMissileMoves;
+		g_arrMissile[i].m_arrDir = info.m_MissileMoves;
 
 		// 하나 만들었으면 빠져나오기
 		break;
+	}
+}
+
+void MissileRelease(void)
+{
+	for (int i = 0; i < dfMAX_MISSILE_COUNT; i++)
+	{
+		g_arrMissile[i].m_bIsActive = false;
 	}
 }
 

@@ -12,7 +12,7 @@ struct stMissileInfo
 	char				m_chShape;
 	int					m_iLifetime;
 	int					m_iMissileMaxMoveIndex;		// 미사일 종류 별 최대 인덱스
-	stPos				*m_iMissileMoves;			// 미사일 움직임
+	stPos				*m_MissileMoves;			// 미사일 움직임
 };
 
 struct stMissile
@@ -50,6 +50,9 @@ struct stMissile
 
 // Enemy 미사일 생성
 void MissileEnemyCreate(const stMissileInfo &info, const stPos &curPos);
+
+// 모든 미사일 비활성화
+void MissileRelease(void);
 
 // Player Defualt 미사일 생성
 // curDir는 진행 방향

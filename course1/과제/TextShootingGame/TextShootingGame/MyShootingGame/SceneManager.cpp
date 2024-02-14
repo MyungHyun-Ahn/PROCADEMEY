@@ -24,13 +24,16 @@ void SceneMain(void)
 		SceneGame();
 		break;
 	case SCENE_CODE::CLEAR:
+		SceneClear();
 		break;
 	case SCENE_CODE::GAMEOVER:
+		SceneGameOver();
 		break;
 	case SCENE_CODE::END:
 		break;
 	}
 
+	SceneExitCommand();
 }
 
 void SceneInit(void)
@@ -53,6 +56,9 @@ void SceneLobbyUpdate(void)
 	{
 		// Scene 전환
 		g_curScene.m_eCurScene = SCENE_CODE::LOADING; // Loading
+
+		// Scene 전환되면서 Player 초기화
+		PlayerInit();
 	}
 }
 
@@ -67,11 +73,80 @@ void SceneLobbyRender(void)
 	ConsoleBufferFlip();
 }
 
+void SceneClear(void)
+{
+	SceneInput();
+	SceneClearUpdate();
+	SceneClearRender();
+}
+
+void SceneClearInit(void)
+{
+	SceneGameReset();
+	FileSceneParse("Resources\\Scene\\CLEAR_SCENE.txt");
+}
+
+void SceneClearUpdate(void)
+{
+	if (KEY_TAP(KEY::SPACE))
+	{
+		// Scene 전환
+		g_curScene.m_eCurScene = SCENE_CODE::LOBBY; // Loading
+
+		SceneInit();
+	}
+}
+
+void SceneClearRender(void)
+{
+	// 콘솔 버퍼에 쓰기
+	for (int iCnt = 0; iCnt < dfSCREEN_HEIGHT; iCnt++)
+	{
+		memcpy_s(g_szScreenBuffer[iCnt], dfSCREEN_WIDTH, g_curScene.m_szConsoleBuffer[iCnt], dfSCREEN_WIDTH);
+		g_szScreenBuffer[iCnt][dfSCREEN_WIDTH - 1] = (wchar_t)NULL;
+	}
+	ConsoleBufferFlip();
+}
+
+void SceneGameOver(void)
+{
+	SceneInput();
+	SceneGameOverUpdate();
+	SceneGameOverRender();
+}
+
+void SceneGameOverInit(void)
+{
+	SceneGameReset();
+	FileSceneParse("Resources\\Scene\\GAMEOVER_SCENE.txt");
+}
+
+void SceneGameOverUpdate(void)
+{
+	if (KEY_TAP(KEY::SPACE))
+	{
+		// Scene 전환
+		g_curScene.m_eCurScene = SCENE_CODE::LOBBY; // Loading
+
+		SceneInit();
+	}
+}
+
+void SceneGameOverRender(void)
+{
+	// 콘솔 버퍼에 쓰기
+	for (int iCnt = 0; iCnt < dfSCREEN_HEIGHT; iCnt++)
+	{
+		memcpy_s(g_szScreenBuffer[iCnt], dfSCREEN_WIDTH, g_curScene.m_szConsoleBuffer[iCnt], dfSCREEN_WIDTH);
+		g_szScreenBuffer[iCnt][dfSCREEN_WIDTH - 1] = (wchar_t)NULL;
+	}
+	ConsoleBufferFlip();
+}
+
 void SceneLoading(void)
 {
 	FileSceneParse("Resources\\Scene\\LOADING_SCENE.txt");
 	SceneLoadingRender();
-
 	// 씬 로드
 	SceneLoadingUpdate();
 }
@@ -82,14 +157,15 @@ void SceneLoadingUpdate(void)
 	// Stage Scene 로딩
 	FileStageParse(g_StageInfos[g_iCurStage].m_chFileName);
 	
+	// 이전 스테이지에서 할당한 것 할당 해제
+	EnemyRelease();
+	MissileRelease();
+
 	// enemy 로딩
-	for (int i = 0; i < g_StageInfos[g_iCurStage].m_iEnemyCount; i++)
+	for (int i = 0; i < g_StageInfos[g_iCurStage].m_iEnemyTypeCount; i++)
 	{
 		FileEnemyParse(g_StageInfos[g_iCurStage].m_arrEnemys[i]);
 	}
-
-	// 이전 스테이지에서 할당한 것 할당 해제
-	EnemyRelease();
 
 	// enemy 배치
 	EnemyInit();
@@ -124,6 +200,10 @@ void SceneGameUpdate(void)
 	EnemyUpdate();
 	MissileUpdate();
 	PlayerUpdate();
+
+#ifdef STAGE_SKIP
+	SceneStageSkip();
+#endif
 }
 
 // Render
@@ -140,6 +220,7 @@ SCENE_CODE SceneCheckGameStatus(void)
 {
 	if (g_bIsGameOver)
 	{
+		SceneGameOverInit();
 		return SCENE_CODE::GAMEOVER;
 	}
 
@@ -148,6 +229,7 @@ SCENE_CODE SceneCheckGameStatus(void)
 		g_iCurStage++;
 		if (g_iCurStage == g_iStageCount)
 		{
+			SceneClearInit();
 			return SCENE_CODE::CLEAR;
 		}
 
@@ -169,5 +251,86 @@ void SceneGame(void)
 		g_curScene.m_eCurScene = code;
 	}
 	Sleep(40);
+}
+
+void SceneGameReset(void)
+{
+	g_iCurStage = 0;
+	EnemyRelease();
+	MissileRelease();
+}
+
+void SceneExitCommand(void)
+{
+	if (!(KEY_TAP(KEY::ESC)))
+		return;
+
+	EnemyRelease();
+	MissileRelease();
+
+	g_bProgramExit = true;
+
+	if (g_StageInfos != nullptr)
+	{
+		for (int i = 0; i < g_iStageCount; i++)
+		{
+			if (g_StageInfos[i].m_chFileName != nullptr)
+			{
+				free(g_StageInfos[i].m_chFileName);
+				g_StageInfos[i].m_chFileName = nullptr;
+			}
+
+			if (g_StageInfos[i].m_arrEnemys != nullptr)
+			{
+				free(g_StageInfos[i].m_arrEnemys);
+				g_StageInfos[i].m_arrEnemys = nullptr;
+			}
+		}
+
+		free(g_StageInfos);
+		g_StageInfos = nullptr;
+	}
+
+	for (auto it = g_mapEnemyInfos.begin(); it != g_mapEnemyInfos.end(); ++it)
+	{
+		stEnemyInfo *enemyInfo = it->second;
+
+		if (enemyInfo != nullptr)
+		{
+			if (enemyInfo->m_MissileInfos != nullptr)
+			{
+				for (int i = 0; i < enemyInfo->m_iMissileCount; i++)
+				{
+					if (enemyInfo->m_MissileInfos[i].m_MissileMoves != nullptr)
+					{
+						free(enemyInfo->m_MissileInfos[i].m_MissileMoves);
+						enemyInfo->m_MissileInfos[i].m_MissileMoves = nullptr;
+					}
+				}
+				
+				free(enemyInfo->m_MissileInfos);
+				enemyInfo->m_MissileInfos = nullptr;
+			}
+
+			if (enemyInfo->m_Moves != nullptr)
+			{
+				free(enemyInfo->m_Moves);
+				enemyInfo->m_Moves = nullptr;
+			}
+
+			free(enemyInfo);
+			enemyInfo = nullptr;
+		}
+	}
+
+	g_mapEnemyInfos.clear();
+}
+
+void SceneStageSkip(void)
+{
+	if (!(KEY_TAP(KEY::CTRL)))
+		return;
+
+	g_bIsStageClear = true;
 }
 
