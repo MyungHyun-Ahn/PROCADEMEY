@@ -1,9 +1,2 @@
 ﻿  Main.cpp
-C:\Procademy\PROCADEMEY\course1\과제\TextShootingGame\TextShootingGame\MyShootingGame\Main.cpp(1,1): warning C4603: '_CRTDBG_MAP_ALLOC': 매크로가 정의되지 않았거나 미리 컴파일된 헤더 사용 후와 정의가 다릅니다.
-  (소스 파일 '/Main.cpp'을(를) 컴파일하는 중)
-  C:\Procademy\PROCADEMEY\course1\과제\TextShootingGame\TextShootingGame\MyShootingGame\Main.cpp(1,1):
-  여기에서 정의하지 않고 미리 컴파일된 헤더에 매크로 추가
-  C:\Procademy\PROCADEMEY\course1\과제\TextShootingGame\TextShootingGame\MyShootingGame\Main.cpp(5,1):
-  미리 컴파일된 헤더 사용
-  
   MyShootingGame.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\TextShootingGame\TextShootingGame\x64\Debug\MyShootingGame.exe

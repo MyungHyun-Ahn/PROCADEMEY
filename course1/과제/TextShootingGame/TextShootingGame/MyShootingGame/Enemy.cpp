@@ -63,6 +63,9 @@ void EnemyInit(void)
 		}
 	}
 
+	// enemyIndex가 g_iEnemyCount를 초과하는 순간 assert
+	assert(enemyIndex >= g_iEnemyCount);
+
 	// 모든 적을 초기화하고 스테이지 클리어 정보를 false로 초기화
 	g_bIsStageClear = false;
 }

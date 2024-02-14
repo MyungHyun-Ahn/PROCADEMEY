@@ -1,0 +1,21 @@
+SHAPE
+W
+
+STATS
+1
+
+MISSILE_TYPE
+2
+DOWN_LEFT.txt, -1, -1, 0, 1000, 1
+DOWN_RIGHT.txt, -1, 1, 0, 1000, 1
+
+MOVE_PATTERN
+8
+-1, 1
+-1, 1
+-1, 1
+-1, 1
+1, -1
+1, -1
+1, -1
+1, -1

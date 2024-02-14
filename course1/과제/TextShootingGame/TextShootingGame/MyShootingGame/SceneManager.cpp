@@ -32,7 +32,6 @@ void SceneMain(void)
 	case SCENE_CODE::END:
 		break;
 	}
-
 	SceneExitCommand();
 }
 
@@ -162,6 +161,8 @@ void SceneLoadingUpdate(void)
 	MissileRelease();
 
 	// enemy 로딩
+	// 한번 로드된 enemy는 게임이 종료될 때까지 다시 로드하지 않는다.
+	// map에 저장해놓고 이미 로드된 데이터를 불러와서 사용
 	for (int i = 0; i < g_StageInfos[g_iCurStage].m_iEnemyTypeCount; i++)
 	{
 		FileEnemyParse(g_StageInfos[g_iCurStage].m_arrEnemys[i]);
@@ -201,7 +202,7 @@ void SceneGameUpdate(void)
 	MissileUpdate();
 	PlayerUpdate();
 
-#ifdef STAGE_SKIP
+#ifdef _DEBUG
 	SceneStageSkip();
 #endif
 }
@@ -265,6 +266,8 @@ void SceneExitCommand(void)
 	if (!(KEY_TAP(KEY::ESC)))
 		return;
 
+
+	// 종료될 때 수행되어야 하는 것
 	EnemyRelease();
 	MissileRelease();
 

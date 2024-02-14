@@ -6,6 +6,8 @@
 #include "Enemy.h"
 #include "Missile.h"
 
+#include <conio.h>
+
 // 파일 버퍼 읽기 - 외부에서 직접 호출하는 일은 없다. (헤더에는 선언 안함)
 char *FileLoad(const char *filePath)
 {
@@ -21,14 +23,18 @@ char *FileLoad(const char *filePath)
     int fileSize = ftell(loadFile);
     fseek(loadFile, 0, SEEK_SET);
 
-    char *loadBuffer = (char *)malloc((sizeof(char)) * fileSize);
+    int loadBufferSize = sizeof(char) * (fileSize + 1);
+    char *loadBuffer = (char *)malloc(loadBufferSize);
     if (loadBuffer == nullptr)
     {
         // error 상황
         return nullptr;
     }
     
-    fread_s(loadBuffer, sizeof(char) * fileSize, sizeof(char), fileSize, loadFile);
+    fread_s(loadBuffer, loadBufferSize, sizeof(char), fileSize, loadFile);
+    loadBuffer[loadBufferSize - 1] = '\0';
+
+    fclose(loadFile);
     return loadBuffer;
 }
 
@@ -47,7 +53,10 @@ void FileSceneParse(const char *filePath)
     }
 
     if (buffer != nullptr)
-        free(buffer);
+    {
+		free(buffer);
+        buffer = nullptr;
+    }
 }
 
 void FileStageParse(const char *stageName)
@@ -138,7 +147,11 @@ void FileEnemyParse(const char enemyName)
 	char *token = strtok_s(enemyBuffer, del, &nextTok);
     if (strcmp(token, "SHAPE") != 0)
     {
-        // 잘못된 구분자
+		if (enemyBuffer != nullptr)
+		{
+			free(enemyBuffer);
+			enemyBuffer = nullptr;
+		}
         return;
     }
     stEnemyInfo *newEnemy = (stEnemyInfo *)malloc(sizeof(stEnemyInfo));
@@ -151,7 +164,11 @@ void FileEnemyParse(const char enemyName)
     token = strtok_s(NULL, del, &nextTok);
 	if (strcmp(token, "STATS") != 0)
 	{
-		// 잘못된 구분자
+		if (enemyBuffer != nullptr)
+		{
+			free(enemyBuffer);
+			enemyBuffer = nullptr;
+		}
 		return;
 	}
 
@@ -161,7 +178,11 @@ void FileEnemyParse(const char enemyName)
     token = strtok_s(NULL, del, &nextTok);
 	if (strcmp(token, "MISSILE_TYPE") != 0)
 	{
-		// 잘못된 구분자
+		if (enemyBuffer != nullptr)
+		{
+			free(enemyBuffer);
+			enemyBuffer = nullptr;
+		}
 		return;
 	}
 
@@ -210,7 +231,11 @@ void FileEnemyParse(const char enemyName)
 
 		if (strcmp(token2, "SHAPE") != 0)
 		{
-			// 잘못된 구분자
+			if (missileBuffer != nullptr)
+			{
+				free(missileBuffer);
+                missileBuffer = nullptr;
+			}
 			return;
 		}
 
@@ -220,7 +245,11 @@ void FileEnemyParse(const char enemyName)
         token2 = strtok_s(NULL, del, &nextTok2);
 		if (strcmp(token2, "LIFETIME") != 0)
 		{
-			// 잘못된 구분자
+			if (missileBuffer != nullptr)
+			{
+				free(missileBuffer);
+                missileBuffer = nullptr;
+			}
 			return;
 		}
 
@@ -234,7 +263,11 @@ void FileEnemyParse(const char enemyName)
         token2 = strtok_s(NULL, del, &nextTok2);
 		if (strcmp(token2, "PATTERN") != 0)
 		{
-			// 잘못된 구분자
+			if (missileBuffer != nullptr)
+			{
+				free(missileBuffer);
+                missileBuffer = nullptr;
+			}
 			return;
 		}
 
@@ -254,6 +287,9 @@ void FileEnemyParse(const char enemyName)
             token2 = strtok_s(NULL, del, &nextTok2);
             int mx = atoi(token2);
             newEnemy->m_MissileInfos[i].m_MissileMoves[j] = stPos{ my, mx };
+
+            // printf("%d %d \n", mx, my);
+            // _getch();
         }
 
         if (missileBuffer != nullptr)
@@ -263,7 +299,11 @@ void FileEnemyParse(const char enemyName)
     token = strtok_s(NULL, del, &nextTok);
 	if (strcmp(token, "MOVE_PATTERN") != 0)
 	{
-		// 잘못된 구분자
+		if (enemyBuffer != nullptr)
+		{
+			free(enemyBuffer);
+			enemyBuffer = nullptr;
+		}
 		return;
 	}
 
