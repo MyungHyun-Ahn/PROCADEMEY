@@ -45,8 +45,9 @@ void SceneInit(void)
 void SceneLobby(void)
 {
 	SceneInput();
-	SceneLobbyUpdate();
+	TimerFixedUpdate(SceneLobbyUpdate);
 	SceneLobbyRender();
+	TimerRenderCheck();
 }
 
 void SceneLobbyUpdate(void)
@@ -75,8 +76,9 @@ void SceneLobbyRender(void)
 void SceneClear(void)
 {
 	SceneInput();
-	SceneClearUpdate();
+	TimerFixedUpdate(SceneClearUpdate);
 	SceneClearRender();
+	TimerRenderCheck();
 }
 
 void SceneClearInit(void)
@@ -110,8 +112,9 @@ void SceneClearRender(void)
 void SceneGameOver(void)
 {
 	SceneInput();
-	SceneGameOverUpdate();
+	TimerFixedUpdate(SceneGameOverUpdate);
 	SceneGameOverRender();
+	TimerRenderCheck();
 }
 
 void SceneGameOverInit(void)
@@ -244,14 +247,17 @@ SCENE_CODE SceneCheckGameStatus(void)
 void SceneGame(void)
 {
 	SceneInput();
-	SceneGameUpdate();
+
+	TimerFixedUpdate(SceneGameUpdate);
+
 	SceneGameRender();
 
 	if (SCENE_CODE code = SceneCheckGameStatus(); code != SCENE_CODE::GAME)
 	{
 		g_curScene.m_eCurScene = code;
 	}
-	Sleep(40);
+
+	TimerRenderCheck();
 }
 
 void SceneGameReset(void)

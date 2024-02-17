@@ -63,34 +63,36 @@ void PlayerAttack(void)
 	if (!TimerCalCoolTime(g_stPlayer.m_iPrevAttackTime, g_stPlayer.m_iCoolTime))
 		return;
 
-	stPos mDir{ 0,0 };
+	stPos mDir{ -1,0 };
 
-	// 플레이어가 주시하고 있는 방향으로 발사
-	if (KEY_TAP(KEY::UP) || KEY_HOLD(KEY::UP))
-	{
-		mDir.m_iY -= 1;
-	}
+#pragma region SHOOTING_DIR
+	//// 플레이어가 주시하고 있는 방향으로 발사
+	//if (KEY_TAP(KEY::UP) || KEY_HOLD(KEY::UP))
+	//{
+	//	mDir.m_iY -= 1;
+	//}
 
-	if (KEY_TAP(KEY::DOWN) || KEY_HOLD(KEY::DOWN))
-	{
-		mDir.m_iY += 1;
-	}
+	//if (KEY_TAP(KEY::DOWN) || KEY_HOLD(KEY::DOWN))
+	//{
+	//	mDir.m_iY += 1;
+	//}
 
-	if (KEY_TAP(KEY::LEFT) || KEY_HOLD(KEY::LEFT))
-	{
-		mDir.m_iX -= 1;
-	}
+	//if (KEY_TAP(KEY::LEFT) || KEY_HOLD(KEY::LEFT))
+	//{
+	//	mDir.m_iX -= 1;
+	//}
 
-	if (KEY_TAP(KEY::RIGHT) || KEY_HOLD(KEY::RIGHT))
-	{
-		mDir.m_iX += 1;
-	}
+	//if (KEY_TAP(KEY::RIGHT) || KEY_HOLD(KEY::RIGHT))
+	//{
+	//	mDir.m_iX += 1;
+	//}
 
-	// 만약 아무 키도 누르고 있지 않았다면 전방 발사
-	if (mDir.m_iY == 0 && mDir.m_iX == 0)
-	{
-		mDir.m_iY -= 1;
-	}
+	//// 만약 아무 키도 누르고 있지 않았다면 전방 발사
+	//if (mDir.m_iY == 0 && mDir.m_iX == 0)
+	//{
+	//	mDir.m_iY -= 1;
+	//}
+#pragma endregion
 
 	MissilePlayerDefualtCreate(mDir);
 }
@@ -110,4 +112,12 @@ void PlayerGetDamage(int damage)
 void PlayerRender(void)
 {
 	ConsoleSpriteDraw(g_stPlayer.m_stPos, dfPLAYER_SHAPE);
+
+	char playerHpUi[20];
+	sprintf_s(playerHpUi, "HP : %02d / %02d", g_stPlayer.m_iCurHp, g_stPlayer.m_iMaxHp);
+
+	for (int i = 0; playerHpUi[i] != '\0'; i++)
+	{
+		ConsoleSpriteDraw({0, i}, playerHpUi[i]);
+	}
 }

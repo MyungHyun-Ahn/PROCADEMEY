@@ -40,6 +40,7 @@ void EnemyInit(void)
 			g_arrEnemy[enemyIndex].m_chShape = info->m_chShape;					// Shape
 			g_arrEnemy[enemyIndex].m_iCurHp = info->m_iHp;						// Hp
 			g_arrEnemy[enemyIndex].m_iMaxHp = info->m_iHp;						// Hp
+			g_arrEnemy[enemyIndex].m_iSpeed = info->m_iSpeed;					// Speed
 
 			// 미사일 정보 세팅
 			g_arrEnemy[enemyIndex].m_iMissileCount = info->m_iMissileCount;		// 미사일 종류
@@ -57,14 +58,12 @@ void EnemyInit(void)
 			// 이동 정보 세팅
 			g_arrEnemy[enemyIndex].m_iMoveCount = info->m_iMovesCount;
 			g_arrEnemy[enemyIndex].m_iCurMoveIndex = 0;
+			g_arrEnemy[enemyIndex].m_dCurMoveIndex = 0.;
 			g_arrEnemy[enemyIndex].m_arrMovePos = info->m_Moves;
 
 			enemyIndex++;
 		}
 	}
-
-	// enemyIndex가 g_iEnemyCount를 초과하는 순간 assert
-	assert(enemyIndex >= g_iEnemyCount);
 
 	// 모든 적을 초기화하고 스테이지 클리어 정보를 false로 초기화
 	g_bIsStageClear = false;
@@ -103,7 +102,17 @@ void EnemyMove(void)
 		if (!g_arrEnemy[i].m_bIsActive)
 			continue;
 
-		stPos &nextPos = g_arrEnemy[i].m_arrMovePos[g_arrEnemy[i].m_iCurMoveIndex % g_arrEnemy[i].m_iMoveCount];
+		g_arrEnemy[i].m_dCurMoveIndex += g_arrEnemy[i].m_iSpeed * dfFIXED_DELTATIME;
+		// m_dDirIndex를 int 로 캐스팅한게 m_iDirIndex 보다 커지면
+		// 다음 칸으로 이동 가능한 것
+		if ((int)g_arrEnemy[i].m_dCurMoveIndex < g_arrEnemy[i].m_iCurMoveIndex)
+			continue;
+
+		g_arrEnemy[i].m_iCurMoveIndex++;
+
+		int index = (g_arrEnemy[i].m_iCurMoveIndex - 1) % g_arrEnemy[i].m_iMoveCount;
+
+		stPos &nextPos = g_arrEnemy[i].m_arrMovePos[index];
 
 		g_arrEnemy[i].m_stPos.m_iY += nextPos.m_iY;
 		g_arrEnemy[i].m_stPos.m_iX += nextPos.m_iX;

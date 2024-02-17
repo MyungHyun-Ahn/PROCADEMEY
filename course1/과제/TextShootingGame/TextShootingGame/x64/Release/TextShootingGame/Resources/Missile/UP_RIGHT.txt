@@ -1,5 +1,5 @@
 SHAPE
-*
+@
 
 LIFETIME
 0

@@ -28,9 +28,6 @@
     <ClCompile Include="FileLoader.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Util</Filter>
-    </ClCompile>
     <ClCompile Include="StageInfo.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
@@ -38,6 +35,9 @@
       <Filter>Define</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="pch.cpp">
+      <Filter>Define</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h">
@@ -73,13 +73,13 @@
     <ClInclude Include="GameSetting.h">
       <Filter>Define</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Util</Filter>
-    </ClInclude>
     <ClInclude Include="StageInfo.h">
       <Filter>Stage</Filter>
     </ClInclude>
     <ClInclude Include="GlobalVariable.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
       <Filter>Define</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,14 +2,14 @@ SHAPE
 R
 
 STATS
-1
+1, 10
 
 MISSILE_TYPE
 4
-UP.txt, 1, 0, 0, 2000, 1
-DOWN.txt, -1, 0, 0, 2000, 1
-LEFT.txt, 0, -1, 0, 2000, 1
-RIGHT.txt, 0, 1, 0, 2000, 1
+UP.txt, 1, 0, 0, 2000, 1, 30
+DOWN.txt, -1, 0, 0, 2000, 1, 30
+LEFT.txt, 0, -1, 0, 2000, 1, 30
+RIGHT.txt, 0, 1, 0, 2000, 1, 30
 
 MOVE_PATTERN
 16

@@ -17,6 +17,7 @@ void MissileEnemyCreate(const stMissileInfo &info, const stPos &curPos)
 		g_arrMissile[i].m_bIsEnemy = true;
 		g_arrMissile[i].m_chShape = info.m_chShape;
 		g_arrMissile[i].m_iDamage = info.m_iDamage;
+		g_arrMissile[i].m_iSpeed = info.m_iSpeed;
 
 		// 몇 프레임 존재할 수 있는지
 		g_arrMissile[i].m_iCurLife = 0;
@@ -28,6 +29,7 @@ void MissileEnemyCreate(const stMissileInfo &info, const stPos &curPos)
 
 		// 진행 방향 세팅
 		g_arrMissile[i].m_iDirIndex = 0;
+		g_arrMissile[i].m_dDirIndex = 0.;
 		g_arrMissile[i].m_iDirSize = info.m_iMissileMaxMoveIndex;
 		g_arrMissile[i].m_arrDir = info.m_MissileMoves;
 
@@ -57,6 +59,7 @@ void MissilePlayerDefualtCreate(const stPos &curDir)
 		g_arrMissile[i].m_bIsEnemy = false;
 		g_arrMissile[i].m_chShape = dfPLAYER_MISSILE_SHAPE;
 		g_arrMissile[i].m_iDamage = g_stPlayer.m_iDamage;
+		g_arrMissile[i].m_iSpeed = 50;
 
 		// 몇 프레임 존재할 수 있는지
 		g_arrMissile[i].m_iCurLife = 0;
@@ -64,6 +67,7 @@ void MissilePlayerDefualtCreate(const stPos &curDir)
 
 		// 진행 방향 세팅
 		g_arrMissile[i].m_iDirIndex = 0;
+		g_arrMissile[i].m_dDirIndex = 0.;
 		g_arrMissile[i].m_iDirSize = 1;
 		g_arrMissile[i].m_DirBak = curDir;
 		g_arrMissile[i].m_arrDir = &g_arrMissile[i].m_DirBak;
@@ -90,7 +94,18 @@ void MissileMove(void)
 		if (!g_arrMissile[i].m_bIsActive)
 			continue;
 
-		stPos &nextDir = g_arrMissile[i].m_arrDir[g_arrMissile[i].m_iDirIndex % g_arrMissile[i].m_iDirSize];
+		g_arrMissile[i].m_dDirIndex += g_arrMissile[i].m_iSpeed * dfFIXED_DELTATIME;
+		// m_dDirIndex를 int 로 캐스팅한게 m_iDirIndex 보다 커지면
+		// 다음 칸으로 이동 가능한 것
+		if ((int)g_arrMissile[i].m_dDirIndex < g_arrMissile[i].m_iDirIndex)	
+			continue;
+
+		// index 가 1부터 시작하게 됨
+		g_arrMissile[i].m_iDirIndex++;
+
+		int index = (g_arrMissile[i].m_iDirIndex - 1) % g_arrMissile[i].m_iDirSize;
+
+		stPos &nextDir = g_arrMissile[i].m_arrDir[index];
 		g_arrMissile[i].m_stPos.m_iY += nextDir.m_iY;
 		g_arrMissile[i].m_stPos.m_iX += nextDir.m_iX;
 

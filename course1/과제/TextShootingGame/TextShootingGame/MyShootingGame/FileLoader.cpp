@@ -161,6 +161,7 @@ void FileEnemyParse(const char enemyName)
     token = strtok_s(NULL, del, &nextTok);
     newEnemy->m_chShape = token[0]; // 복사
 
+    // Stats
     token = strtok_s(NULL, del, &nextTok);
 	if (strcmp(token, "STATS") != 0)
 	{
@@ -174,6 +175,9 @@ void FileEnemyParse(const char enemyName)
 
     token = strtok_s(NULL, del, &nextTok);
     newEnemy->m_iHp = atoi(token);
+
+	token = strtok_s(NULL, del, &nextTok);
+	newEnemy->m_iSpeed = atoi(token);
 
     token = strtok_s(NULL, del, &nextTok);
 	if (strcmp(token, "MISSILE_TYPE") != 0)
@@ -220,6 +224,10 @@ void FileEnemyParse(const char enemyName)
         // 데미지
 		token = strtok_s(NULL, del, &nextTok);
 		newEnemy->m_MissileInfos[i].m_iDamage = atoi(token);
+
+		// 스피드
+		token = strtok_s(NULL, del, &nextTok);
+		newEnemy->m_MissileInfos[i].m_iSpeed = atoi(token);
 
         // 미사일 정보 파싱
         char *missileBuffer = FileLoad(newEnemy->m_MissileInfos[i].m_szFileName);

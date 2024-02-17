@@ -2,18 +2,18 @@ SHAPE
 Q
 
 STATS
-1
+1, 20
 
 MISSILE_TYPE
 8
-UP.txt, -1, 0, 0, 2000, 1
-DOWN.txt, 1, 0, 0, 2000, 1
-LEFT.txt, 0, -1, 0, 2000, 1
-RIGHT.txt, 0, 1, 0, 2000, 1
-UP_LEFT.txt, -1, -1, 0, 2000, 1
-UP_RIGHT.txt, -1, 1, 0, 2000, 1
-DOWN_LEFT.txt, 1, -1, 0, 2000, 1
-DOWN_RIGHT.txt, 1, 1, 0, 2000, 1
+UP.txt, -1, 0, 0, 2000, 1, 25
+DOWN.txt, 1, 0, 0, 2000, 1, 25
+LEFT.txt, 0, -1, 0, 2000, 1, 25
+RIGHT.txt, 0, 1, 0, 2000, 1, 25
+UP_LEFT.txt, -1, -1, 0, 2000, 1, 25
+UP_RIGHT.txt, -1, 1, 0, 2000, 1, 25
+DOWN_LEFT.txt, 1, -1, 0, 2000, 1, 25
+DOWN_RIGHT.txt, 1, 1, 0, 2000, 1, 25
 
 MOVE_PATTERN
 16

@@ -34,7 +34,6 @@ void SceneLoadingRender(void);
 void SceneMain(void);
 
 // Scene Logic
-
 void SceneInput(void);
 void SceneGameUpdate(void);
 void SceneGameRender(void);
