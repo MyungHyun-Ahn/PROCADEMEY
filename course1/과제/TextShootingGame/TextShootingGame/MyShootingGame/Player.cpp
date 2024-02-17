@@ -11,8 +11,8 @@ void PlayerInit(void)
 	g_stPlayer.m_iCurHp = dfPLAYER_HP;
 	g_stPlayer.m_iMaxHp = dfPLAYER_HP;
 	g_stPlayer.m_iDamage = dfPLAYER_DAMAGE;
-
-	g_stPlayer.m_stPos = stPos{ dfPLAYER_START_POS_Y, dfPLAYER_START_POS_X };
+	g_stPlayer.m_iSpeed = dfPLAYER_SPEED;
+	g_stPlayer.m_stPosD = stPosD{ dfPLAYER_START_POS_Y, dfPLAYER_START_POS_X };
 
 	PlayerCooltimeReset();
 	g_stPlayer.m_iCoolTime = dfPLAYER_ATTACK_COOLTIME;
@@ -28,29 +28,29 @@ void PlayerMove(void)
 {
 	if (KEY_TAP(KEY::UP) || KEY_HOLD(KEY::UP))
 	{
-		g_stPlayer.m_stPos.m_iY -= 1;
+		g_stPlayer.m_stPosD.m_dY -= g_stPlayer.m_iSpeed * dfFIXED_DELTATIME;
 	}
 
 	if (KEY_TAP(KEY::DOWN) || KEY_HOLD(KEY::DOWN))
 	{
-		g_stPlayer.m_stPos.m_iY += 1;
+		g_stPlayer.m_stPosD.m_dY += g_stPlayer.m_iSpeed * dfFIXED_DELTATIME;
 	}
 
 	if (KEY_TAP(KEY::LEFT) || KEY_HOLD(KEY::LEFT))
 	{
-		g_stPlayer.m_stPos.m_iX -= 1;
+		g_stPlayer.m_stPosD.m_dX -= g_stPlayer.m_iSpeed * dfFIXED_DELTATIME;
 	}
 
 	if (KEY_TAP(KEY::RIGHT) || KEY_HOLD(KEY::RIGHT))
 	{
-		g_stPlayer.m_stPos.m_iX += 1;
+		g_stPlayer.m_stPosD.m_dX += g_stPlayer.m_iSpeed * dfFIXED_DELTATIME;
 	}
 
 	// 좌표 유효성 체크
-	g_stPlayer.m_stPos.m_iY = max(g_stPlayer.m_stPos.m_iY, 0);
-	g_stPlayer.m_stPos.m_iY = min(g_stPlayer.m_stPos.m_iY, dfSCREEN_HEIGHT - 1);
-	g_stPlayer.m_stPos.m_iX = max(g_stPlayer.m_stPos.m_iX, 0);
-	g_stPlayer.m_stPos.m_iX = min(g_stPlayer.m_stPos.m_iX, dfSCREEN_WIDTH - 2);
+	g_stPlayer.m_stPosD.m_dY = max(g_stPlayer.m_stPosD.m_dY, 0);
+	g_stPlayer.m_stPosD.m_dY = min(g_stPlayer.m_stPosD.m_dY, dfSCREEN_HEIGHT - 1);
+	g_stPlayer.m_stPosD.m_dX = max(g_stPlayer.m_stPosD.m_dX, 0);
+	g_stPlayer.m_stPosD.m_dX = min(g_stPlayer.m_stPosD.m_dX, dfSCREEN_WIDTH - 2);
 }
 
 void PlayerAttack(void)
@@ -111,7 +111,7 @@ void PlayerGetDamage(int damage)
 
 void PlayerRender(void)
 {
-	ConsoleSpriteDraw(g_stPlayer.m_stPos, dfPLAYER_SHAPE);
+	ConsoleSpriteDraw(POS_DTOI(g_stPlayer.m_stPosD), dfPLAYER_SHAPE);
 
 	char playerHpUi[20];
 	sprintf_s(playerHpUi, "HP : %02d / %02d", g_stPlayer.m_iCurHp, g_stPlayer.m_iMaxHp);

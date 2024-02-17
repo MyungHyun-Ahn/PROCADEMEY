@@ -9,8 +9,11 @@ struct stPlayer
 	// 플레이어 공격력
 	int m_iDamage;
 
+	// 플레이어 스피드
+	int m_iSpeed;
+
 	// 플레이어 좌표
-	stPos m_stPos;
+	stPosD m_stPosD;
 
 	// 플레이어 미사일 쿨타임 - Space
 	unsigned int m_iCoolTime;

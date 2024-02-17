@@ -23,22 +23,7 @@ void TimerInit(void);
 void TimerRelease(void);
 
 // 타이머 갱신
-inline void TimerUpdate(void)
-{
-	// 시작 시간을 빼서 0부터 얼마나 시간이 흘렀는지를 측정
-	g_stTimer.m_uliCurTime = (int)(GetTickCount64() - g_stTimer.m_uliStartTime);
-
-	g_stTimer.m_iCurTime = timeGetTime();
-	if (g_stTimer.m_iCurTime - g_stTimer.m_iPrevTimeSec >= 1000)
-	{
-		char title[256];
-		sprintf_s(title, "Text Shooting Game : Update : %d, Render : %d", g_stTimer.m_iUpdateFps, g_stTimer.m_iRenderFps);
-		SetConsoleTitleA(title);
-		g_stTimer.m_iPrevTimeSec += 1000;
-		g_stTimer.m_iUpdateFps = 0;
-		g_stTimer.m_iRenderFps = 0;
-	}
-}
+void TimerUpdate(void);
 
 // fixedUpdate
 inline void TimerFixedUpdate(fixedUpdate fix)

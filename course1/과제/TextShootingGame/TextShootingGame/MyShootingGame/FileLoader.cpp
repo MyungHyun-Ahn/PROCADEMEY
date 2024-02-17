@@ -95,12 +95,12 @@ void FileStageInfoParse(const char *filePath)
     {
 		// 파일 이름
 		size_t fileNameSize = (strlen(token) + 1) * sizeof(char); // NULL 문자 자리 포함
-		g_StageInfos[stageIndex].m_chFileName = (char *)malloc(fileNameSize);
-		if (g_StageInfos[stageIndex].m_chFileName == nullptr)
+		g_StageInfos[stageIndex].m_szFileName = (char *)malloc(fileNameSize);
+		if (g_StageInfos[stageIndex].m_szFileName == nullptr)
 		{
 			return;
 		}
-		memcpy_s(g_StageInfos[stageIndex].m_chFileName, fileNameSize, token, fileNameSize);
+		memcpy_s(g_StageInfos[stageIndex].m_szFileName, fileNameSize, token, fileNameSize);
 
 
 		token = strtok_s(nullptr, del, &nextTok);

@@ -54,3 +54,5 @@ struct stPosD
 	double m_dY;
 	double m_dX;
 };
+
+#define POS_DTOI(pos) stPos{(int)pos.m_dY, (int)pos.m_dX}

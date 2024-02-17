@@ -59,7 +59,7 @@ void MissilePlayerDefualtCreate(const stPos &curDir)
 		g_arrMissile[i].m_bIsEnemy = false;
 		g_arrMissile[i].m_chShape = dfPLAYER_MISSILE_SHAPE;
 		g_arrMissile[i].m_iDamage = g_stPlayer.m_iDamage;
-		g_arrMissile[i].m_iSpeed = 50;
+		g_arrMissile[i].m_iSpeed = dfPLAYER_MISSILE_SPEED;
 
 		// 몇 프레임 존재할 수 있는지
 		g_arrMissile[i].m_iCurLife = 0;
@@ -73,8 +73,8 @@ void MissilePlayerDefualtCreate(const stPos &curDir)
 		g_arrMissile[i].m_arrDir = &g_arrMissile[i].m_DirBak;
 
 		// 시작 좌표 세팅
-		g_arrMissile[i].m_stPos.m_iY = g_stPlayer.m_stPos.m_iY + curDir.m_iY;
-		g_arrMissile[i].m_stPos.m_iX = g_stPlayer.m_stPos.m_iX + curDir.m_iX;
+		g_arrMissile[i].m_stPos.m_iY = (int)g_stPlayer.m_stPosD.m_dY + curDir.m_iY;
+		g_arrMissile[i].m_stPos.m_iX = (int)g_stPlayer.m_stPosD.m_dX + curDir.m_iX;
 		
 		break;
 	}
@@ -145,7 +145,7 @@ void MissileCollision(void)
 		if (g_arrMissile[i].m_bIsEnemy)
 		{
 			// 좌표가 겹친 경우에 충돌
-			if (!(mPos.m_iY == g_stPlayer.m_stPos.m_iY && mPos.m_iX == g_stPlayer.m_stPos.m_iX))
+			if (!(mPos.m_iY == (int)g_stPlayer.m_stPosD.m_dY && mPos.m_iX == (int)g_stPlayer.m_stPosD.m_dX))
 				continue;
 
 			// 충돌처리 - 데미지

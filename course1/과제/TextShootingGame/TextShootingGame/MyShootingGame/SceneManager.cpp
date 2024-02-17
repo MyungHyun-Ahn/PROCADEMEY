@@ -157,7 +157,7 @@ void SceneLoading(void)
 void SceneLoadingUpdate(void)
 {
 	// Stage Scene 로딩
-	FileStageParse(g_StageInfos[g_iCurStage].m_chFileName);
+	FileStageParse(g_StageInfos[g_iCurStage].m_szFileName);
 	
 	// 이전 스테이지에서 할당한 것 할당 해제
 	EnemyRelease();
@@ -283,10 +283,10 @@ void SceneExitCommand(void)
 	{
 		for (int i = 0; i < g_iStageCount; i++)
 		{
-			if (g_StageInfos[i].m_chFileName != nullptr)
+			if (g_StageInfos[i].m_szFileName != nullptr)
 			{
-				free(g_StageInfos[i].m_chFileName);
-				g_StageInfos[i].m_chFileName = nullptr;
+				free(g_StageInfos[i].m_szFileName);
+				g_StageInfos[i].m_szFileName = nullptr;
 			}
 
 			if (g_StageInfos[i].m_arrEnemys != nullptr)

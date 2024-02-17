@@ -1,5 +1,0 @@
-4
-Q.txt
-W.txt
-E.txt
-R.txt
