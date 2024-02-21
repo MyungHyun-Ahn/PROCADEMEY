@@ -1,0 +1,20 @@
+SHAPE
+Y
+
+STATS
+1, 10
+
+MISSILE_TYPE
+1
+ZigZag_DOWN.txt, 1, 0, 0, 500, 1, 20
+
+MOVE_PATTERN
+8
+0, 1
+0, 1
+0, 1
+0, 1
+0, -1
+0, -1
+0, -1
+0, -1

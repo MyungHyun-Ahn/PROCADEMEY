@@ -1,0 +1,18 @@
+﻿  Console.cpp
+  Core.cpp
+  Enemy.cpp
+  FileLoader.cpp
+  GlobalVariable.cpp
+  KeyManager.cpp
+  Main.cpp
+  Missile.cpp
+  pch.cpp
+  Player.cpp
+  SceneManager.cpp
+  StageInfo.cpp
+  TimeManager.cpp
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  All 212 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  MyShootingGame.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\TextShootingGame\TextShootingGame\x64\Release\MyShootingGame.exe
