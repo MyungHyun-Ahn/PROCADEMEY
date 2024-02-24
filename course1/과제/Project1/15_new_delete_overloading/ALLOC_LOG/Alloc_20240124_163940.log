@@ -1,0 +1,8 @@
+NOALLOC [0x00000000] C:\Procademy\PROCADEMEY\course1\苞力\Project1\15_new_delete_overloading\Main.cpp : 26
+NOALLOC [0x005E0728] C:\Procademy\PROCADEMEY\course1\苞力\Project1\15_new_delete_overloading\Main.cpp : 29
+NOALLOC [0x00008123] C:\Procademy\PROCADEMEY\course1\苞力\Project1\15_new_delete_overloading\Main.cpp : 30
+ARRAY [0x005E0FBC] C:\Procademy\PROCADEMEY\course1\苞力\Project1\15_new_delete_overloading\Main.cpp : 32
+LEAK [0x005D9488] [00000008] C:\Procademy\PROCADEMEY\course1\苞力\Project1\15_new_delete_overloading\Main.cpp : 22
+LEAK [0x005D9538] [00000004] C:\Procademy\PROCADEMEY\course1\苞力\Project1\15_new_delete_overloading\Main.cpp : 20
+LEAK [0x005E0968] [00000040] C:\Procademy\PROCADEMEY\course1\苞力\Project1\15_new_delete_overloading\Main.cpp : 21
+LEAK [0x005E0FB8] [00000084] C:\Procademy\PROCADEMEY\course1\苞力\Project1\15_new_delete_overloading\Main.cpp : 23
