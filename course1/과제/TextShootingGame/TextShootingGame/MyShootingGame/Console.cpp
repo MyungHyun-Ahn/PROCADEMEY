@@ -35,6 +35,7 @@ void ConsoleInitial(void)
 //-------------------------------------------------------------
 void ConsoleMoveCursor(int iPosX, int iPosY)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	COORD stCoord;
 	stCoord.X = iPosX;
 	stCoord.Y = iPosY;
@@ -46,6 +47,7 @@ void ConsoleMoveCursor(int iPosX, int iPosY)
 
 void ConsoleBufferFlip(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	for (int iCnt = 0; iCnt < dfSCREEN_HEIGHT; iCnt++)
 	{
 		ConsoleMoveCursor(0, iCnt);
@@ -55,6 +57,7 @@ void ConsoleBufferFlip(void)
 
 void ConsoleBufferClear(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	for (int iCnt = 0; iCnt < dfSCREEN_HEIGHT; iCnt++)
 	{
 		memset(g_szScreenBuffer[iCnt], ' ', dfSCREEN_WIDTH);
@@ -64,6 +67,7 @@ void ConsoleBufferClear(void)
 
 void ConsoleSpriteDraw(const stPos &pos, char chSprite)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	if (pos.m_iX < 0 || pos.m_iY < 0 || pos.m_iX >= dfSCREEN_WIDTH - 1 || pos.m_iY >= dfSCREEN_HEIGHT)
 		return;
 

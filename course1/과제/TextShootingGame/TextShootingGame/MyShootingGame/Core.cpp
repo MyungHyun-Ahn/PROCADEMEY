@@ -23,6 +23,7 @@ void GameMain(void)
 
 	while (true)
 	{
+		PROFILE_BEGIN(__WFUNC__, 0);
 		SceneMain();
 
 		if (g_bProgramExit)

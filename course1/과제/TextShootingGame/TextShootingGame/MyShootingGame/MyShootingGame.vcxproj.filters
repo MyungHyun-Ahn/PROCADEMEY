@@ -38,6 +38,9 @@
     <ClCompile Include="pch.cpp">
       <Filter>Define</Filter>
     </ClCompile>
+    <ClCompile Include="CProfiler.cpp">
+      <Filter>Profiler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h">
@@ -82,6 +85,9 @@
     <ClInclude Include="pch.h">
       <Filter>Define</Filter>
     </ClInclude>
+    <ClInclude Include="CProfiler.h">
+      <Filter>Profiler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Util">
@@ -101,6 +107,9 @@
     </Filter>
     <Filter Include="Stage">
       <UniqueIdentifier>{cd347180-2cc9-4fd1-9d38-05a2bda78051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Profiler">
+      <UniqueIdentifier>{31ca2053-a090-48d6-bf96-e22284d5c81c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

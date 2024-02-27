@@ -71,6 +71,7 @@ void EnemyInit(void)
 
 void EnemyRelease(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	if (g_arrEnemy != nullptr)
 	{
 		for (int i = 0; i < g_iEnemyCount; i++)
@@ -89,6 +90,7 @@ void EnemyRelease(void)
 
 void EnemyUpdate(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	EnemyMove();
 	EnemyAttack();
 	EnemyClearCheck();
@@ -96,6 +98,7 @@ void EnemyUpdate(void)
 
 void EnemyMove(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	for (int i = 0; i < g_iEnemyCount; i++)
 	{
 		// 비활성 enemy continue
@@ -128,6 +131,7 @@ void EnemyMove(void)
 
 void EnemyAttack(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	for (int i = 0; i < g_iEnemyCount; i++)
 	{
 		// 비활성 enemy continue
@@ -150,6 +154,7 @@ void EnemyAttack(void)
 
 void EnemyGetDamage(int enemyIndex, int damage)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	g_arrEnemy[enemyIndex].m_iCurHp -= damage;
 
 	if (g_arrEnemy[enemyIndex].m_iCurHp <= 0)
@@ -161,6 +166,7 @@ void EnemyGetDamage(int enemyIndex, int damage)
 
 void EnemyClearCheck(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	// 모든 적이 죽었는가를 판단.
 	bool allEnemyIsDead = true;
 
@@ -179,6 +185,7 @@ void EnemyClearCheck(void)
 
 void EnemyRender(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	for (int i = 0; i < g_iEnemyCount; i++)
 	{
 		// 비활성 enemy continue

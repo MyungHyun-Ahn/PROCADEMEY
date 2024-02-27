@@ -20,12 +20,14 @@ void PlayerInit(void)
 
 void PlayerUpdate(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	PlayerMove();
 	PlayerAttack();
 }
 
 void PlayerMove(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	if (KEY_TAP(KEY::UP) || KEY_HOLD(KEY::UP))
 	{
 		g_stPlayer.m_stPosD.m_dY -= g_stPlayer.m_iSpeed * dfFIXED_DELTATIME;
@@ -55,6 +57,7 @@ void PlayerMove(void)
 
 void PlayerAttack(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	// SPACE가 눌리지 않았다면 return
 	if (!(KEY_TAP(KEY::SPACE) || KEY_HOLD(KEY::SPACE)))
 		return;
@@ -99,6 +102,7 @@ void PlayerAttack(void)
 
 void PlayerGetDamage(int damage)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	g_stPlayer.m_iCurHp -= damage;
 
 	if (g_stPlayer.m_iCurHp <= 0)
@@ -111,6 +115,7 @@ void PlayerGetDamage(int damage)
 
 void PlayerRender(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	ConsoleSpriteDraw(POS_DTOI(g_stPlayer.m_stPosD), dfPLAYER_SHAPE);
 
 	char playerHpUi[20];

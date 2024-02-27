@@ -6,6 +6,7 @@
 
 void MissileEnemyCreate(const stMissileInfo &info, const stPos &curPos)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	for (int i = 0; i < dfMAX_MISSILE_COUNT; i++)
 	{
 		// 활성화된 미사일 패스
@@ -40,6 +41,8 @@ void MissileEnemyCreate(const stMissileInfo &info, const stPos &curPos)
 
 void MissileRelease(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
+	 
 	for (int i = 0; i < dfMAX_MISSILE_COUNT; i++)
 	{
 		g_arrMissile[i].m_bIsActive = false;
@@ -48,6 +51,7 @@ void MissileRelease(void)
 
 void MissilePlayerDefualtCreate(const stPos &curDir)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	for (int i = 0; i < dfMAX_MISSILE_COUNT; i++)
 	{
 		// 활성화된 미사일 패스
@@ -82,12 +86,14 @@ void MissilePlayerDefualtCreate(const stPos &curDir)
 
 void MissileUpdate(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	MissileMove();
 	MissileCollision();
 }
 
 void MissileMove(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	for (int i = 0; i < dfMAX_MISSILE_COUNT; i++)
 	{
 		// 비활성화 미사일 패스
@@ -132,6 +138,7 @@ void MissileMove(void)
 
 void MissileCollision(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	for (int i = 0; i < dfMAX_MISSILE_COUNT; i++)
 	{
 		// 비활성화 미사일 패스
@@ -184,6 +191,7 @@ void MissileCollision(void)
 
 void MissileRender(void)
 {
+	PROFILE_BEGIN(__WFUNC__, 0);
 	for (int i = 0; i < dfMAX_MISSILE_COUNT; i++)
 	{
 		// 비활성화 미사일 패스

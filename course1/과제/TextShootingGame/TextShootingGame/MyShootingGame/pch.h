@@ -4,13 +4,18 @@
 #include <memory.h>
 #include <Windows.h>
 #include <stdbool.h>
+#include <tchar.h>
 #include <wchar.h>
+#include <string>
 #include <utility>
 #include <map>
+#include <ctime>
 
 #include "Define.h"
 #include "GameSetting.h"
 #include "GlobalVariable.h"
+
+#include "CProfiler.h"
 
 #pragma comment(lib, "winmm.lib")
 
