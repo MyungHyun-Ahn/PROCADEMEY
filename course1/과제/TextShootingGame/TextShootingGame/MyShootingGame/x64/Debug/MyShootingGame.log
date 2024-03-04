@@ -1,2 +1,16 @@
-﻿  CProfiler.cpp
+﻿  pch.cpp
+  Console.cpp
+  Core.cpp
+  CProfiler.cpp
+  Enemy.cpp
+  FileLoader.cpp
+  GlobalVariable.cpp
+  KeyManager.cpp
+  Main.cpp
+  Missile.cpp
+  Player.cpp
+  SceneManager.cpp
+  StageInfo.cpp
+  TimeManager.cpp
+  코드를 생성하고 있습니다...
   MyShootingGame.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\TextShootingGame\TextShootingGame\x64\Debug\MyShootingGame.exe
