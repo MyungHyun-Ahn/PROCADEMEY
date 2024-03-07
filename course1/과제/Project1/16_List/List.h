@@ -81,6 +81,8 @@ public:
 		m_Tail.m_Prev = &m_Head;
 	}
 
+	~List()	{ clear(); }
+
 	T				back() { return m_Tail.m_Prev->m_Data; }
 	T				front() { return m_Head.m_Next->m_Data; }
 
