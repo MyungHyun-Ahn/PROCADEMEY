@@ -1,0 +1,13 @@
+﻿  CGameEngine.cpp
+  CGameLogic.cpp
+C:\Procademy\PROCADEMEY\course1\과제\Project1\08_Timing_Game\CGameLogic.cpp(29,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Procademy\PROCADEMEY\course1\과제\Project1\08_Timing_Game\CGameLogic.cpp(61,42): warning C4244: '인수': 'ULONGLONG'에서 'long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CKeyManager.cpp
+  CTimeManager.cpp
+  Main.cpp
+  pch.cpp
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  All 30 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  08_Timing_Game.vcxproj -> C:\Procademy\PROCADEMEY\course1\과제\Project1\Release\08_Timing_Game.exe

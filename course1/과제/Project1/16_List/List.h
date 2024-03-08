@@ -1,5 +1,7 @@
 #pragma once
 
+template<typename T>
+class List;
 
 template<typename T>
 struct Node
@@ -56,15 +58,17 @@ public:
 
 	bool operator!=(const iterator &other)
 	{
-		return !operator==(other);;
+		return !operator==(other);
 	}
+	
+	friend iterator List<T>::erase(iterator);
 
+private:
 	operator Node<T> *()
 	{
 		return m_Node;
 	}
 
-private:
 	Node<T> *m_Node;
 };
 
@@ -103,8 +107,7 @@ public:
 	iterator		erase(iterator it)
 	{
 		iterator delIt = it++;
-		delete_node((Node<T> *)delIt);
-
+		delete_node(delIt);
 		return it;
 	}
 
@@ -176,6 +179,7 @@ inline void List<T>::clear()
 		delNode = nextDelNode;
 	}
 
+	m_Size = 0;
 	m_Head.m_Next = &m_Tail;
 	m_Tail.m_Prev = &m_Head;
 }
