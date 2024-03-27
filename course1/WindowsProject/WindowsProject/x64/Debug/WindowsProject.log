@@ -1,0 +1,13 @@
+﻿  WindowsProject.cpp
+C:\Procademy\PROCADEMEY\course1\WindowsProject\WindowsProject\WindowsProject.cpp(117,5): error C2360: 'wmId' 초기화가 'case' 레이블에 의해 생략되었습니다.
+  C:\Procademy\PROCADEMEY\course1\WindowsProject\WindowsProject\WindowsProject.cpp(102,17):
+  'wmId' 선언을 참조하십시오.
+  
+C:\Procademy\PROCADEMEY\course1\WindowsProject\WindowsProject\WindowsProject.cpp(125,5): error C2360: 'wmId' 초기화가 'case' 레이블에 의해 생략되었습니다.
+  C:\Procademy\PROCADEMEY\course1\WindowsProject\WindowsProject\WindowsProject.cpp(102,17):
+  'wmId' 선언을 참조하십시오.
+  
+C:\Procademy\PROCADEMEY\course1\WindowsProject\WindowsProject\WindowsProject.cpp(128,5): error C2361: 'wmId' 초기화가 'default' 레이블에 의해 생략되었습니다.
+  C:\Procademy\PROCADEMEY\course1\WindowsProject\WindowsProject\WindowsProject.cpp(102,17):
+  'wmId' 선언을 참조하십시오.
+  
