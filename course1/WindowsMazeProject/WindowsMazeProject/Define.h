@@ -1,0 +1,39 @@
+#pragma once
+
+// 0 혹은 1이 아닐 때
+// 3을 빼주면 BRUSH_TYPE의 컬러값
+enum class TILE_TYPE
+{
+	NONE_OBSTACLE = 0,
+	OBSTACLE,
+	GRAY,
+	RED,
+	GREEN,
+	BLUE,
+	BLACK,
+	YELLOW,
+};
+
+enum class BRUSH_TYPE
+{
+	GRAY,
+	RED,
+	GREEN,
+	BLUE,
+	BLACK,
+	YELLOW,
+	STOCK_OBJECT_START,
+	HOLLOW,
+	END,
+};
+
+enum class PEN_TYPE
+{
+	RED,
+	GREEN,
+	BLUE,
+	BLACK,
+	STOCK_OBJECT_START,
+	NULLPEN,
+	END,
+};

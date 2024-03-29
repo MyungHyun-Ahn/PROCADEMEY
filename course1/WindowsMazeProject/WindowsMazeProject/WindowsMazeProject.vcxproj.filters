@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{05268376-523d-4055-9908-f4fbeb9948fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{8b61502d-eb3a-41eb-b67a-1a08da27a671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Define">
+      <UniqueIdentifier>{a658b75c-c71a-49e6-a93b-e6531c5039c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{d76f2325-d251-4b86-90d0-87a989919a66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{069738b8-9a22-41fe-8f49-1e4ccfba0909}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MazeLogic">
+      <UniqueIdentifier>{662f8fee-40fb-4181-9b1e-eba7cbc3780f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawGRID.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectGDI.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar.h">
+      <Filter>MazeLogic</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DrawGRID.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Define</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectGDI.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsMazeProject.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar.cpp">
+      <Filter>MazeLogic</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Etc</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
