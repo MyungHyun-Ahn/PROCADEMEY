@@ -15,12 +15,20 @@ public:
 
 	inline SCENE_CODE GetSceneCode() { return m_SceneCode; }
 
+	int DecreaseEnemy() { return --m_iCurEnemyCount; }
+
+	void ResetStageInfo();
+
 private:
 	SCENE_CODE		m_SceneCode;
 	Scene			*m_curScene = nullptr;
 	int				m_StageCount;
 	int				m_CurStageNum = 0;
 	stStageInfo		*m_StageInfos = nullptr;
+
+	// Àû±º ¼ö
+	int				m_iEnemyCount = 0;
+	int				m_iCurEnemyCount = 0;
 };
 
 extern SceneManager *g_SceneMgr;

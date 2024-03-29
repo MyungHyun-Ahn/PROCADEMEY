@@ -7,7 +7,7 @@ public:
 	void CreateEnemy(stPos pos, stEnemyInfo *info);
 	void CreatePlayer();
 	void CreatePlayerMissile(const stPos &curDir, const stPos &startPos);
-	void CreateEnemyMissile();
+	void CreateEnemyMissile(const stPos &startPos, const stMissileInfo &info);
 
 	void Update();
 	void Render();

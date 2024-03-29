@@ -18,10 +18,7 @@ public:
 	virtual void Render() = 0;
 	virtual void Register(char *buffer) = 0;
 
-	inline SceneType GetSceneType() { return m_sceneType; }
-
 protected:
-	SceneType	m_sceneType;
 	char		m_szConsoleBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH]; // 화면 버퍼
 };
 

@@ -80,3 +80,8 @@ void ConsoleManager::ConsoleWrite(char buffer[][dfSCREEN_WIDTH])
 		m_szScreenBuffer[iCnt][dfSCREEN_WIDTH - 1] = (wchar_t)NULL;
 	}
 }
+
+void ConsoleManager::WriteText(const stPos &pos, const char *text)
+{
+	memcpy_s(m_szScreenBuffer[pos.m_iY], dfSCREEN_WIDTH, text, strlen(text));
+}

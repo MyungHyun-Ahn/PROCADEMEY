@@ -8,6 +8,7 @@
 #include "Enemy.h"
 #include "Missile.h"
 #include "ObjectManager.h"
+#include "UiManager.h"
 
 Player::Player() : BaseObject(ObjectType::Player, { 0, 0 })
 {
@@ -26,6 +27,8 @@ void Player::Init()
 	m_iSpeed = dfPLAYER_SPEED;
 	m_stPosD = stPosD{ dfPLAYER_START_POS_Y, dfPLAYER_START_POS_X };
 	m_iCoolTime = dfPLAYER_ATTACK_COOLTIME;
+
+	g_UiMgr->SendPlayerHpData(dfPLAYER_HP);
 }
 
 void Player::Update()
@@ -84,6 +87,8 @@ void Player::Attack()
 void Player::GetDamage(int damage)
 {
 	m_iCurHp -= damage;
+
+	g_UiMgr->SendPlayerHpData(m_iCurHp);
 
 	if (m_iCurHp <= 0)
 	{

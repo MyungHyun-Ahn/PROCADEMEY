@@ -9,6 +9,8 @@ public:
 	char *StageLoad(const char *stageName);
 	stEnemyInfo *EnemyParse(const char enemyName);
 
+	void ResetEnemyInfo();
+
 private:
 	char *Load(const char *filePath);
 	

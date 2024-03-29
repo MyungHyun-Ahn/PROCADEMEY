@@ -11,6 +11,7 @@
 #include "FileManager.h"
 #include "SceneManager.h"
 #include "ObjectManager.h"
+#include "UiManager.h"
 
 SceneManager *g_SceneMgr;
 
@@ -86,6 +87,11 @@ void SceneManager::LoadScene(SCENE_CODE code)
 		Scene *delScene = m_curScene;
 		m_curScene = new GameScene();
 		m_curScene->Register(g_FileMgr->StageLoad(m_StageInfos[m_CurStageNum - 1].m_szFileName));
+		m_iEnemyCount = m_StageInfos[m_CurStageNum - 1].m_iEnemyCount;
+		m_iCurEnemyCount = m_StageInfos[m_CurStageNum - 1].m_iEnemyCount;
+		g_UiMgr->SendMaxEnemyCountData(m_iEnemyCount);
+		g_UiMgr->SendCurEnemyCountData(m_iCurEnemyCount);
+
 		delete delScene;
 	}
 		break;
@@ -93,8 +99,10 @@ void SceneManager::LoadScene(SCENE_CODE code)
 	{
 		Scene *delScene = m_curScene;
 		m_curScene = new PrintScene();
+		g_ObjMgr->ResetObject(false);
 		m_curScene->Register(g_FileMgr->SceneLoad("Resources\\Scene\\CLEAR_SCENE.txt"));
 		delete delScene;
+		m_CurStageNum = 0;
 	}
 		break;
 	case SCENE_CODE::GAMEOVER:
@@ -103,9 +111,31 @@ void SceneManager::LoadScene(SCENE_CODE code)
 		m_curScene = new PrintScene();
 		m_curScene->Register(g_FileMgr->SceneLoad("Resources\\Scene\\GAMEOVER_SCENE.txt"));
 		delete delScene;
+		m_CurStageNum = 0;
 	}
 		break;
 	case SCENE_CODE::END:
 		break;
+	}
+}
+
+void SceneManager::ResetStageInfo()
+{
+	if (m_StageInfos != nullptr)
+	{
+		for (int i = 0; i < m_StageCount; i++)
+		{
+			if (m_StageInfos[i].m_szFileName != nullptr)
+			{
+				delete m_StageInfos[i].m_szFileName;
+			}
+
+			if (m_StageInfos[i].m_arrEnemys != nullptr)
+			{
+				delete m_StageInfos[i].m_arrEnemys;
+			}
+		}
+
+		delete m_StageInfos;
 	}
 }

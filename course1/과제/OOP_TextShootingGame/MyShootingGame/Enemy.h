@@ -25,7 +25,6 @@ public:
 	~Enemy();
 
 	void Init(stEnemyInfo *info);
-	void Release();
 	void Update() override;
 	void GetDamage(int damage);
 	void Render() override;

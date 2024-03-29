@@ -275,3 +275,40 @@ char *FileManager::Load(const char *filePath)
 	fclose(loadFile);
 	return loadBuffer;
 }
+
+void FileManager::ResetEnemyInfo()
+{
+	for (auto it = m_mapEnemyInfos.begin(); it != m_mapEnemyInfos.end(); ++it)
+	{
+		stEnemyInfo *enemyInfo = it->second;
+
+		if (enemyInfo != nullptr)
+		{
+			if (enemyInfo->m_MissileInfos != nullptr)
+			{
+				for (int i = 0; i < enemyInfo->m_iMissileCount; i++)
+				{
+					if (enemyInfo->m_MissileInfos[i].m_MissileMoves != nullptr)
+					{
+						free(enemyInfo->m_MissileInfos[i].m_MissileMoves);
+						enemyInfo->m_MissileInfos[i].m_MissileMoves = nullptr;
+					}
+				}
+
+				free(enemyInfo->m_MissileInfos);
+				enemyInfo->m_MissileInfos = nullptr;
+			}
+
+			if (enemyInfo->m_Moves != nullptr)
+			{
+				free(enemyInfo->m_Moves);
+				enemyInfo->m_Moves = nullptr;
+			}
+
+			free(enemyInfo);
+			enemyInfo = nullptr;
+		}
+	}
+
+	m_mapEnemyInfos.clear();
+}

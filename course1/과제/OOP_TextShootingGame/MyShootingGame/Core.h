@@ -9,6 +9,12 @@ public:
 	void Input();
 	void Update();
 	void Render();
+
+private:
+	void Exit();
+
+private:
+	bool m_bIsGameRunning = false;
 };
 
 extern Core *g_Core;

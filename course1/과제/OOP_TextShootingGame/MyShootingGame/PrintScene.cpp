@@ -17,7 +17,7 @@ void PrintScene::Update()
 		g_SceneMgr->LoadScene(SCENE_CODE::GAME);
 	}
 
-	if (KEY_HOLD(KEY::SPACE))
+	if (KEY_TAP(KEY::SPACE))
 	{
 		switch (code)
 		{

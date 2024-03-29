@@ -30,6 +30,8 @@ public:
 
 	void Collision(BaseObject *obj);
 
+	inline bool isEnemyMissile() { return m_bIsEnemy; }
+
 private:
 	void Move();
 	bool CheckCollision(stPos &targetPos);

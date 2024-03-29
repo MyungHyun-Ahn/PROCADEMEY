@@ -11,6 +11,7 @@
 #include "FileManager.h"
 #include "TimeManager.h"
 #include "ConsoleManager.h"
+#include "UiManager.h"
 
 void GameScene::Update()
 {
@@ -21,6 +22,7 @@ void GameScene::Render()
 {
 	g_ConsoleMgr->BufferClear();
 	g_ObjMgr->Render();
+	g_UiMgr->Render();
 	g_ConsoleMgr->BufferFlip();
 }
 
@@ -49,7 +51,7 @@ void GameScene::Register(char *buffer)
 	{
 		for (int x = 0; x < dfSCREEN_WIDTH; x++)
 		{
-			if (m_szConsoleBuffer[y][x] == ' ' || m_szConsoleBuffer[y][x] == '\0')
+			if (m_szConsoleBuffer[y][x] == ' ' || m_szConsoleBuffer[y][x] == '\0' || m_szConsoleBuffer[y][x] == '\n')
 				continue;
 
 			stEnemyInfo *info = g_FileMgr->EnemyParse(m_szConsoleBuffer[y][x]);

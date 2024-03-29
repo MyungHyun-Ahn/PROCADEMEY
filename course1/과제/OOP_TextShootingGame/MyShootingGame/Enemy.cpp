@@ -5,6 +5,8 @@
 #include "TimeManager.h"
 #include "ConsoleManager.h"
 #include "Enemy.h"
+#include "Player.h"
+#include "ObjectManager.h"
 
 Enemy::Enemy(stPos pos, stEnemyInfo *info) : BaseObject(ObjectType::Enemy, pos)
 {
@@ -40,11 +42,6 @@ void Enemy::Init(stEnemyInfo *info)
 	m_iCurMoveIndex = 0;
 	m_dCurMoveIndex = 0.;
 	m_arrMovePos = info->m_Moves;
-}
-
-// 이건 ObjectManager로
-void Enemy::Release()
-{
 }
 
 void Enemy::Update()
@@ -92,6 +89,7 @@ void Enemy::Attack()
 
 		// 미사일 생성
 		// MissileEnemyCreate(info, m_Pos);
+		g_ObjMgr->CreateEnemyMissile(m_Pos, info);
 	}
 }
 

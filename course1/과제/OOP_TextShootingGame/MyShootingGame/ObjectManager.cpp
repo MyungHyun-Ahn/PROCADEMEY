@@ -10,6 +10,7 @@
 #include "PrintScene.h"
 #include "GameScene.h"
 #include "SceneManager.h"
+#include "UiManager.h"
 
 ObjectManager *g_ObjMgr;
 
@@ -34,8 +35,10 @@ void ObjectManager::CreatePlayerMissile(const stPos &curDir, const stPos &startP
 	m_ObjList.push_back(missile);
 }
 
-void ObjectManager::CreateEnemyMissile()
+void ObjectManager::CreateEnemyMissile(const stPos &startPos, const stMissileInfo &info)
 {
+	BaseObject *missile = new Missile(true, startPos, info);
+	m_ObjList.push_back(missile);
 }
 
 void ObjectManager::Update()
@@ -74,13 +77,21 @@ void ObjectManager::GarbageCollector()
 		if (baseObj->GetObjectType() == ObjectType::Player)
 		{
 			// 게임 오버 처리
-			g_SceneMgr->LoadScene(SCENE_CODE::GAMEOVER);
 			ResetObject(false);
+			g_SceneMgr->LoadScene(SCENE_CODE::GAMEOVER);
 			return;
 		}
 		else if (baseObj->GetObjectType() == ObjectType::Enemy)
 		{
 			// Scene에서 Enemy Count 갱신
+			int curEnemyCount = g_SceneMgr->DecreaseEnemy();
+			g_UiMgr->SendCurEnemyCountData(curEnemyCount);
+			if (curEnemyCount <= 0)
+			{
+				ResetObject(true);
+				g_SceneMgr->LoadScene(SCENE_CODE::GAME);
+				return;
+			}
 		}
 
 		delete baseObj;
@@ -134,13 +145,25 @@ void ObjectManager::Collision()
 		for (auto it2 = m_ObjList.begin(); it2 != m_ObjList.end(); ++it2)
 		{
 			// Player와 Enemy가 아니라면 PASS
-			if ((*it1)->GetObjectType() == ObjectType::Missile &&
-				(*it1)->GetObjectType() == ObjectType::UI &&
-				(*it1)->GetObjectType() == ObjectType::ETC)
+			if ((*it2)->GetObjectType() == ObjectType::Missile &&
+				(*it2)->GetObjectType() == ObjectType::UI &&
+				(*it2)->GetObjectType() == ObjectType::ETC)
 				continue;
 			
 			Missile *missile = static_cast<Missile *>((*it1));
-			missile->Collision((*it2)); // 충돌 판단 진행
+
+			// 적이 쐈고, 대상 오브젝트가 Player라면
+			if (missile->isEnemyMissile() && (*it2)->GetObjectType() == ObjectType::Player)
+			{
+				missile->Collision((*it2)); // 충돌 판단 진행
+				continue;
+			}
+
+			if (!missile->isEnemyMissile() && (*it2)->GetObjectType() == ObjectType::Enemy)
+			{
+				missile->Collision((*it2));
+				continue;
+			}
 		}
 	}
 }

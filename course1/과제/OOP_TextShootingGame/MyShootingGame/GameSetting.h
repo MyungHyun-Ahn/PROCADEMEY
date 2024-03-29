@@ -17,7 +17,7 @@ constexpr char		dfPLAYER_MISSILE_SHAPE = 'o';
 constexpr int		dfPLAYER_MISSILE_SPEED = 50;
 
 // 플레이어 능력치
-constexpr int		dfPLAYER_HP = 30;
+constexpr int		dfPLAYER_HP = 100;
 constexpr int		dfPLAYER_DAMAGE = 10;
 constexpr int		dfPLAYER_SPEED = 30;
 
