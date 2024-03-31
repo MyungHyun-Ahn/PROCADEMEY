@@ -10,7 +10,8 @@
 #include <windowsx.h>
 
 // C 런타임 헤더 파일입니다.
-#include <stdlib.h>
+#include <cstdlib>
+#include <ctime>
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
@@ -23,3 +24,6 @@
 #include "SelectGDI.h"
 #include "DrawGRID.h"
 #include "AStar.h"
+
+#pragma warning(disable : 26495)
+#pragma warning(disable : 4267)

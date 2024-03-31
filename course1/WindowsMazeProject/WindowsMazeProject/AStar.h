@@ -7,20 +7,21 @@ extern int destX;
 extern int destY;
 
 constexpr double Manhattan = 2.0;
-constexpr double Euclidean = 1.4;
+constexpr double Euclidean = 1.41;
 
 // y, x
 extern int g_Dir[8][2];
 
 struct Node
 {
-	int y;
-	int x;
-	double G;
-	double H;
-	double F;
+	bool pqPop = false;
+	int y = -1;
+	int x = -1;
+	double G = -1;
+	double H = -1;
+	double F = -1;
 
-	Node *parent;
+	Node *parent = NULL;
 
 	bool operator<(const Node &other)
 	{
@@ -53,39 +54,51 @@ struct Node
 	}
 };
 
+extern Node *curNode;
+
+extern Node *g_arrNodes[GRID_HEIGHT][GRID_WIDTH];
+
 class AStar
 {
 public:
 	AStar(bool modeG, bool modeH) : m_bModeG(modeG), m_bModeH(modeH)
 	{
-		ZeroMemory(m_Visited, sizeof(m_Visited));
+		ZeroMemory(g_arrNodes, sizeof(g_arrNodes));
+
 		{
 			m_destNode = new Node;
 			m_destNode->x = destX;
 			m_destNode->y = destY;
-			m_arrNodes[destY][destX] = m_destNode;
 		}
 
 		{
-			m_Visited[startY][startX] = true;
 			m_startNode = new Node;
 			m_startNode->x = startX;
 			m_startNode->y = startY;
-			m_arrNodes[destY][destX] = m_startNode;
 			m_startNode->G = 0;
+
+			g_arrNodes[m_startNode->y][m_startNode->x] = m_startNode;
 			
 			if (m_bModeG)
 				m_startNode->H = CalManhattanDistance(*m_startNode);
-			else 
+			else 		   
 				m_startNode->H = CalEuclideanDistance(*m_startNode);
 
-			m_Pq.push(m_startNode);
+			m_startNode->F = m_startNode->G + m_startNode->H;
+
+			m_Pq.push(*m_startNode);
 		}
 		
 	}
-	~AStar() {}
+	~AStar() 
+	{
+		delete m_destNode;
+	}
 
 	void Search(HWND hWnd, HDC hdc);
+	void PrintRoute(HWND hWnd);
+
+	inline bool PriorityQueueIsEmpty() { return m_Pq.empty(); }
 
 private:
 	inline double CalManhattanDistance(Node &node)
@@ -116,8 +129,6 @@ private:
 	Node *m_startNode;
 	Node *m_destNode;
 
-	std::priority_queue<Node *> m_Pq;
-	bool m_Visited[GRID_HEIGHT][GRID_WIDTH];
-	Node *m_arrNodes[GRID_HEIGHT][GRID_WIDTH];
+	std::priority_queue<Node, std::deque<Node>, std::greater<>> m_Pq;
 };
 

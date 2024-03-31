@@ -17,19 +17,9 @@ public:
 
 int main()
 {
-	int *p1 = new int;
-	int *p2 = new int[10];
-	A *p3 = new A;
 	A *p4 = new A[10];
-
-	int *p5 = nullptr;
-	delete p5;
 	
-	int *p6 = new int;
-	delete p6;
-	delete p6;
-
-	delete p4;
+	delete[] p4;
 	
 
 	return 0;

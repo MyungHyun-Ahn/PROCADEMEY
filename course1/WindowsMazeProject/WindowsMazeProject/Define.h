@@ -12,6 +12,7 @@ enum class TILE_TYPE
 	BLUE,
 	BLACK,
 	YELLOW,
+	PINK,
 };
 
 enum class BRUSH_TYPE
@@ -22,6 +23,7 @@ enum class BRUSH_TYPE
 	BLUE,
 	BLACK,
 	YELLOW,
+	PINK,
 	STOCK_OBJECT_START,
 	HOLLOW,
 	END,

@@ -122,6 +122,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -131,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AllocManager.h" />
     <ClInclude Include="AStar.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="DrawGRID.h" />
@@ -141,6 +144,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AllocManager.cpp" />
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="DrawGRID.cpp" />
     <ClCompile Include="pch.cpp">

@@ -45,6 +45,9 @@
     <ClInclude Include="AStar.h">
       <Filter>MazeLogic</Filter>
     </ClInclude>
+    <ClInclude Include="AllocManager.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DrawGRID.cpp">
@@ -61,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="AStar.cpp">
       <Filter>MazeLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="AllocManager.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

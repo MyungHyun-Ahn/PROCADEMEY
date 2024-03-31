@@ -87,9 +87,6 @@ int yPos;
 bool startPosOn = false;
 bool exitPosOn = false;
 
-bool modeG = false;
-bool modeH = true;
-
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -275,13 +272,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case L'3':
 		{
-
+			modeG = !modeG;
 		}
 		break;
 		
 		case L'4':
 		{
-
+			modeH = !modeH;
 		}
 		break;
 
@@ -332,6 +329,33 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 		}
 		break;
+
+		// Reset Map
+		case L'R':
+		{
+			startPosOn = false;
+			exitPosOn = false;
+
+			scrollUp = 0;
+			renderStartX = 0;
+			renderStartY = 0;
+
+			for (int y = 0; y < GRID_HEIGHT; y++)
+			{
+				for (int x = 0; x < GRID_WIDTH; x++)
+				{
+					if (g_arrNodes[y][x] != NULL)
+					{
+						delete g_arrNodes[y][x];
+						g_arrNodes[y][x] = NULL;
+					}
+
+					g_Tile[y][x] = TILE_TYPE::NONE_OBSTACLE;
+				}
+			}
+		}
+		break;
+
 		}
 
 		InvalidateRect(hWnd, NULL, false);
@@ -341,9 +365,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_PAINT:
 	{
 		PatBlt(g_hMemDC, 0, 0, g_MemDCRect.right, g_MemDCRect.bottom, WHITENESS);
-
 		RenderObstacle(g_hMemDC);
 		RenderGrid(g_hMemDC);
+		RenderInfo(g_hMemDC);
 		RenderUI(g_hMemDC);
 		PAINTSTRUCT ps;
 		hdc = BeginPaint(hWnd, &ps);

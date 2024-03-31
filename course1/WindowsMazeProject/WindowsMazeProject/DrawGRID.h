@@ -14,8 +14,13 @@ extern int scrollUp;
 extern int renderStartY;
 extern int renderStartX;
 
+extern bool modeG;
+extern bool modeH;
+
 void RenderGrid(HDC hdc);
 
 void RenderObstacle(HDC hdc);
 
 void RenderUI(HDC hdc);
+
+void RenderInfo(HDC hdc);
