@@ -27,9 +27,6 @@
     <ClInclude Include="Resource.h">
       <Filter>Etc</Filter>
     </ClInclude>
-    <ClInclude Include="DrawGRID.h">
-      <Filter>Render</Filter>
-    </ClInclude>
     <ClInclude Include="Setting.h">
       <Filter>Define</Filter>
     </ClInclude>
@@ -47,6 +44,9 @@
     </ClInclude>
     <ClInclude Include="AllocManager.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawGRID.h">
+      <Filter>Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

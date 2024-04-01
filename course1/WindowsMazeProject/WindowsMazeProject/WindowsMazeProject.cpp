@@ -182,7 +182,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				break;
 
 
-			g_Tile[iTileY][iTileX] = (TILE_TYPE)!g_bErase;
+			if (g_bErase)
+			{
+				g_Tile[iTileY][iTileX] = TILE_TYPE::NONE_OBSTACLE;
+			}
+			else
+			{
+				g_Tile[iTileY][iTileX] = TILE_TYPE::OBSTACLE;
+			}
+
 			InvalidateRect(hWnd, NULL, false);
 		}
 	}
@@ -241,6 +249,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (startPosOn && iTileY == startY && iTileX == startX)
 			{
 				startPosOn = false;
+				startX = -1;
+				startY = -1;
 				g_Tile[iTileY][iTileX] = TILE_TYPE::NONE_OBSTACLE;
 			}
 			else if (!startPosOn)
@@ -258,6 +268,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (exitPosOn && iTileY == destY && iTileX == destX)
 			{
 				exitPosOn = false;
+				destX = -1;
+				destY = -1;
 				g_Tile[iTileY][iTileX] = TILE_TYPE::NONE_OBSTACLE;
 			}
 			else if (!exitPosOn)
@@ -330,9 +342,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 
+		case L'G':
+		{
+			modeG = !modeG;
+		}
+		break;
+
+		case L'H':
+		{
+			modeH = !modeH;
+		}
+		break;
+
 		// Reset Map
 		case L'R':
 		{
+			g_bErase = false;
+			g_bDrag = false;
+
 			startPosOn = false;
 			exitPosOn = false;
 
@@ -344,15 +371,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				for (int x = 0; x < GRID_WIDTH; x++)
 				{
-					if (g_arrNodes[y][x] != NULL)
-					{
-						delete g_arrNodes[y][x];
-						g_arrNodes[y][x] = NULL;
-					}
-
 					g_Tile[y][x] = TILE_TYPE::NONE_OBSTACLE;
+
+					if (g_arrNodes[y][x] == NULL)
+						continue;
+
+					delete g_arrNodes[y][x];
 				}
 			}
+
+			curNode = NULL;
+
+			ZeroMemory(g_arrNodes, sizeof(g_arrNodes));
 		}
 		break;
 

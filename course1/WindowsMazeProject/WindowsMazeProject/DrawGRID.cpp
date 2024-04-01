@@ -6,6 +6,7 @@ TILE_TYPE g_Tile[GRID_HEIGHT][GRID_WIDTH]; // 0 : 장애물 없음 / 1 : 장애물 있음
 
 bool g_bErase = false;
 bool g_bDrag = false;
+
 int scrollUp = 0;
 
 int renderStartY = 0;
@@ -80,7 +81,7 @@ bool modeH = true;
 
 void RenderUI(HDC hdc)
 {
-	// SetBkMode(hdc, TRANSPARENT);
+	SetBkMode(hdc, OPAQUE);
 	TextOut(hdc, 10, 10, L"출발지 설정 : 1, 도착지 설정 : 2, 경로 탐색 : 5", 33);
 	TextOut(hdc, 10, 30, L"장애물 설치 : 클릭 후 드래그", 17);
 	TextOut(hdc, 10, 50, L"확대 : 마우스 휠, 이동 : WASD, 리셋 : R", 29);
@@ -144,13 +145,13 @@ void RenderInfo(HDC hdc)
 			{
 				SetBkMode(hdc, TRANSPARENT);
 
-				swprintf_s(buffer, L"%.03lf", g_arrNodes[y][x]->G);
+				swprintf_s(buffer, L"%.02lf", g_arrNodes[y][x]->G);
 				TextOut(hdc, myLeftX, myUpY, buffer, wcslen(buffer));
 
-				swprintf_s(buffer, L"%.03lf", g_arrNodes[y][x]->H);
+				swprintf_s(buffer, L"%.02lf", g_arrNodes[y][x]->H);
 				TextOut(hdc, myLeftX, (myUpY + myDownY) / 2 - 7, buffer, wcslen(buffer));
 
-				swprintf_s(buffer, L"%.03lf", g_arrNodes[y][x]->F);
+				swprintf_s(buffer, L"%.02lf", g_arrNodes[y][x]->F);
 				TextOut(hdc, myLeftX, myDownY - 15, buffer, wcslen(buffer));
 			}
 
@@ -168,13 +169,13 @@ void RenderInfo(HDC hdc)
 
 	Node *nextNode = curNode;
 
-	while (nextNode != nullptr)
+	while (nextNode != NULL)
 	{
 
 		int myLeftX = Grid * (nextNode->x - renderStartX);
 		int myUpY = Grid * (nextNode->y - renderStartY);
 
-		if (nextNode->parent == nullptr)
+		if (nextNode->parent == NULL)
 			break;
 
 		int parentLeftX = Grid * (nextNode->parent->x - renderStartX);

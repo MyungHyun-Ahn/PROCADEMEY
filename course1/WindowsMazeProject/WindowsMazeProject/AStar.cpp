@@ -12,11 +12,11 @@ int g_Dir[8][2] = {
 	{1, 1}, // DOWN_RIGHT
 };
 
-int startX;
-int startY;
+int startX = -1;
+int startY = -1;
 
-int destX;
-int destY;
+int destX = -1;
+int destY = -1;
 
 Node *curNode = nullptr;
 Node *g_arrNodes[GRID_HEIGHT][GRID_WIDTH];
@@ -50,7 +50,7 @@ void AStar::Search(HWND hWnd, HDC hdc)
 			break;
 		}
 
-		// Sleep(500);
+		//Sleep(1000);
 		InvalidateRect(hWnd, NULL, false);
 		UpdateWindow(hWnd);
 
@@ -93,6 +93,12 @@ void AStar::Search(HWND hWnd, HDC hdc)
 			// 이미 방문했고
 			if (g_arrNodes[nextNode->y][nextNode->x] != NULL)
 			{
+				if (g_arrNodes[nextNode->y][nextNode->x]->pqPop)
+				{
+					delete nextNode;
+					continue;
+				}
+
 				// nextNode가 더 작다면
 				if (g_arrNodes[nextNode->y][nextNode->x]->F > nextNode->F)
 				{
@@ -109,8 +115,10 @@ void AStar::Search(HWND hWnd, HDC hdc)
 					InvalidateRect(hWnd, NULL, false);
 					UpdateWindow(hWnd);
 				}
+				continue;
 			}
-			else
+			
+
 			{
 				g_arrNodes[nextNode->y][nextNode->x] = nextNode;
 				nextNode->parent = node;
