@@ -2,6 +2,7 @@
 //
 #include "pch.h"
 #include "DrawGRID.h"
+#include "EllersMazeGenerator.h"
 #include "resource.h"
 
 #pragma warning(disable : 6385)
@@ -296,7 +297,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case L'5':
 		{
-			AStar astar(modeG, modeH);
+			JPS astar(modeG, modeH);
 			astar.Search(hWnd, g_hMemDC);
 			InvalidateRect(hWnd, NULL, false);
 		}
@@ -367,6 +368,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			renderStartX = 0;
 			renderStartY = 0;
 
+			startX = -1;
+			startY = -1;
+
+			destX = -1;
+			destY = -1;
+
 			for (int y = 0; y < GRID_HEIGHT; y++)
 			{
 				for (int x = 0; x < GRID_WIDTH; x++)
@@ -386,6 +393,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 
+		case L'Z':
+		{
+			EllersMazeGenerator::Generator();
+		}
+		break;
 		}
 
 		InvalidateRect(hWnd, NULL, false);

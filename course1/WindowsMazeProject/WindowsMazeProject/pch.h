@@ -18,12 +18,15 @@
 #include <queue>
 #include <cmath>
 #include <cstdlib>
+#include <vector>
 
 #include "Define.h"
 #include "Setting.h"
 #include "SelectGDI.h"
 #include "DrawGRID.h"
+#include "Node.h"
 #include "AStar.h"
+#include "JPS.h"
 
 #pragma warning(disable : 26495)
 #pragma warning(disable : 4267)

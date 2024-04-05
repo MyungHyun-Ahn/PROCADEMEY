@@ -42,11 +42,15 @@
     <ClInclude Include="AStar.h">
       <Filter>MazeLogic</Filter>
     </ClInclude>
-    <ClInclude Include="AllocManager.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
     <ClInclude Include="DrawGRID.h">
       <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="EllersMazeGenerator.h" />
+    <ClInclude Include="JPS.h">
+      <Filter>MazeLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>MazeLogic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,8 +69,12 @@
     <ClCompile Include="AStar.cpp">
       <Filter>MazeLogic</Filter>
     </ClCompile>
-    <ClCompile Include="AllocManager.cpp">
-      <Filter>Tools</Filter>
+    <ClCompile Include="EllersMazeGenerator.cpp" />
+    <ClCompile Include="JPS.cpp">
+      <Filter>MazeLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>MazeLogic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
