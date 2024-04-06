@@ -52,6 +52,9 @@
     <ClInclude Include="Node.h">
       <Filter>MazeLogic</Filter>
     </ClInclude>
+    <ClInclude Include="Bresenham.h">
+      <Filter>MazeLogic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DrawGRID.cpp">
@@ -74,6 +77,9 @@
       <Filter>MazeLogic</Filter>
     </ClCompile>
     <ClCompile Include="Node.cpp">
+      <Filter>MazeLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="Bresenham.cpp">
       <Filter>MazeLogic</Filter>
     </ClCompile>
   </ItemGroup>

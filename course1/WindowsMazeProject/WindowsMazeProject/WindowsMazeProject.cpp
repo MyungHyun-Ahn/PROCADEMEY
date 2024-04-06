@@ -56,7 +56,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// Define의 단점 - 오류났을 때 밑줄을 걸어주지 못한다.
 
-	HWND hWnd = CreateWindowW(L"ABCD", L"A* Maze Route Search", WS_OVERLAPPEDWINDOW,
+	HWND hWnd = CreateWindowW(L"ABCD", L"Maze Route Search", WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
 	if (!hWnd)
@@ -297,8 +297,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case L'5':
 		{
-			JPS astar(modeG, modeH);
-			astar.Search(hWnd, g_hMemDC);
+			if (mazeSearchMode)
+			{
+				AStar astar(modeG, modeH);
+				astar.Search(hWnd, g_hMemDC);
+			}
+			else
+			{
+				JPS jps(modeG, modeH);
+				jps.Search(hWnd, g_hMemDC);
+				Bresenham bsh;
+				bsh.Search(hWnd, g_hMemDC);
+			}
+
 			InvalidateRect(hWnd, NULL, false);
 		}
 		break;
@@ -398,8 +409,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			EllersMazeGenerator::Generator();
 		}
 		break;
+		case L'M':
+		{
+			mazeSearchMode = !mazeSearchMode;
 		}
+		break;
 
+		}
 		InvalidateRect(hWnd, NULL, false);
 	}
 	break;

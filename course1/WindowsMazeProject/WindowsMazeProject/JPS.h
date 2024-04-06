@@ -85,171 +85,139 @@ private:
 		return true;
 	}
 
-	inline bool CanGo(int nextY, int nextX)
+	inline bool CheckObstacle(int nextY, int nextX)
 	{
-		if (nextX < 0 || nextX >= GRID_WIDTH || nextY < 0 || nextY >= GRID_HEIGHT)
-			return false;
-
 		if (g_Tile[nextY][nextX] == TILE_TYPE::OBSTACLE)
 			return false;
 
 		return true;
 	}
 
-	inline Node *CheckCorner(DIR_MASK dirType, int y, int x)
+	inline uint8_t CheckCorner(DIR_MASK dirType, int y, int x)
 	{
 		uint8_t checkBit = 0;
-		Node *newNode = nullptr;
-
-
 
 		switch (dirType)
 		{
 		case DIR_MASK::U:
 		{
-			if (!CanGo(y, x - 1) && CanGo(y - 1, x - 1))
+			if (!CheckObstacle(y, x - 1) && CheckObstacle(y - 1, x - 1))
 				checkBit |= (uint8_t)DIR_MASK::UL;
 
-			if (!CanGo(y, x + 1) && CanGo(y - 1, x + 1))
+			if (!CheckObstacle(y, x + 1) && CheckObstacle(y - 1, x + 1))
 				checkBit |= (uint8_t)DIR_MASK::UR;
 
 			if (checkBit == 0)
-				return nullptr;
+				return 0;
 
 			checkBit |= (uint8_t)DIR_MASK::U;
-
-			newNode = new Node(y, x, checkBit);
-			return newNode;
 		}
 			break;
 		case DIR_MASK::D:
 		{
-			if (!CanGo(y, x - 1) && CanGo(y + 1, x - 1))
+			if (!CheckObstacle(y, x - 1) && CheckObstacle(y + 1, x - 1))
 				checkBit |= (uint8_t)DIR_MASK::DL;
 
-			if (!CanGo(y, x + 1) && CanGo(y + 1, x + 1))
+			if (!CheckObstacle(y, x + 1) && CheckObstacle(y + 1, x + 1))
 				checkBit |= (uint8_t)DIR_MASK::DR;
 
 			if (checkBit == 0)
-				return nullptr;
+				return 0;
 
 			checkBit |= (uint8_t)DIR_MASK::D;
-
-			newNode = new Node(y, x, checkBit);
-			return newNode;
 		}
 		break;
 		case DIR_MASK::L:
 		{
-			if (!CanGo(y - 1, x) && CanGo(y - 1, x - 1))
+			if (!CheckObstacle(y - 1, x) && CheckObstacle(y - 1, x - 1))
 				checkBit |= (uint8_t)DIR_MASK::UL;
 
-			if (!CanGo(y + 1, x) && CanGo(y + 1, x - 1))
+			if (!CheckObstacle(y + 1, x) && CheckObstacle(y + 1, x - 1))
 				checkBit |= (uint8_t)DIR_MASK::DL;
 
 			if (checkBit == 0)
-				return nullptr;
+				return 0;
 
 			checkBit |= (uint8_t)DIR_MASK::L;
-
-			newNode = new Node(y, x, checkBit);
-			return newNode;
 		}
 		break;
 		case DIR_MASK::R:
 		{
-			if (!CanGo(y - 1, x) && CanGo(y - 1, x + 1))
+			if (!CheckObstacle(y - 1, x) && CheckObstacle(y - 1, x + 1))
 				checkBit |= (uint8_t)DIR_MASK::UR;
 
-			if (!CanGo(y + 1, x) && CanGo(y + 1, x + 1))
+			if (!CheckObstacle(y + 1, x) && CheckObstacle(y + 1, x + 1))
 				checkBit |= (uint8_t)DIR_MASK::DR;
 
 			if (checkBit == 0)
-				return nullptr;
+				return 0;
 
 			checkBit |= (uint8_t)DIR_MASK::R;
-
-			newNode = new Node(y, x, checkBit);
-			return newNode;
 		}
 		break;
 		case DIR_MASK::UL:
 		{
-			if (!CanGo(y, x + 1) && CanGo(y - 1, x + 1))
+			if (!CheckObstacle(y, x + 1) && CheckObstacle(y - 1, x + 1))
 				checkBit |= (uint8_t)DIR_MASK::UR;
 
-			if (!CanGo(y + 1, x) && CanGo(y + 1, x - 1))
+			if (!CheckObstacle(y + 1, x) && CheckObstacle(y + 1, x - 1))
 				checkBit |= (uint8_t)DIR_MASK::DL;
 
 			if (checkBit == 0)
-				return nullptr;
+				return 0;
 
 			checkBit |= (uint8_t)DIR_MASK::UL;
-			checkBit |= (uint8_t)DIR_MASK::L;
-			checkBit |= (uint8_t)DIR_MASK::U;
-
-			newNode = new Node(y, x, checkBit);
-			return newNode;
 		}
 		break;
 		case DIR_MASK::UR:
 		{
-			if (!CanGo(y, x - 1) && CanGo(y - 1, x - 1))
+			if (!CheckObstacle(y, x - 1) && CheckObstacle(y - 1, x - 1))
 				checkBit |= (uint8_t)DIR_MASK::UL;
 
-			if (!CanGo(y + 1, x) && CanGo(y + 1, x + 1))
+			if (!CheckObstacle(y + 1, x) && CheckObstacle(y + 1, x + 1))
 				checkBit |= (uint8_t)DIR_MASK::DR;
 
 			if (checkBit == 0)
-				return nullptr;
+				return 0;
 
 			checkBit |= (uint8_t)DIR_MASK::UR;
-			checkBit |= (uint8_t)DIR_MASK::U;
-			checkBit |= (uint8_t)DIR_MASK::R;
-
-			newNode = new Node(y, x, checkBit);
-			return newNode;
 		}
 		break;
 		case DIR_MASK::DL:
 		{
-			if (!CanGo(y - 1, x) && CanGo(y - 1, x - 1))
+			if (!CheckObstacle(y - 1, x) && CheckObstacle(y - 1, x - 1))
 				checkBit |= (uint8_t)DIR_MASK::UL;
 
-			if (!CanGo(y, x + 1) && CanGo(y + 1, x + 1))
+			if (!CheckObstacle(y, x + 1) && CheckObstacle(y + 1, x + 1))
 				checkBit |= (uint8_t)DIR_MASK::DR;
 
 			if (checkBit == 0)
-				return nullptr;
+				return 0;
 
 			checkBit |= (uint8_t)DIR_MASK::DL;
-			checkBit |= (uint8_t)DIR_MASK::D;
-			checkBit |= (uint8_t)DIR_MASK::L;
-
-			newNode = new Node(y, x, checkBit);
-			return newNode;
 		}
 		break;
 		case DIR_MASK::DR:
 		{
-			if (!CanGo(y - 1, x) && CanGo(y - 1, x + 1))
+			if (!CheckObstacle(y - 1, x) && CheckObstacle(y - 1, x + 1))
 				checkBit |= (uint8_t)DIR_MASK::UR;
 
-			if (!CanGo(y, x - 1) && CanGo(y + 1, x - 1))
+			if (!CheckObstacle(y, x - 1) && CheckObstacle(y + 1, x - 1))
 				checkBit |= (uint8_t)DIR_MASK::DL;
 
 			if (checkBit == 0)
-				return nullptr;
+				return 0;
 
 			checkBit |= (uint8_t)DIR_MASK::DR;
-			checkBit |= (uint8_t)DIR_MASK::D;
-			checkBit |= (uint8_t)DIR_MASK::R;
+		}
+		}
 
-			newNode = new Node(y, x, checkBit);
-			return newNode;
-		}
-		}
+		return checkBit;
 	}
+
+	// 직진하며 벽이 있는지 체크
+	uint8_t CheckFront(DIR_MASK dirType, int y, int x);
+	bool FrontSearch(DIR_MASK dirType, int y, int x);
 
 private:
 	bool m_bModeG; // 가중치 true : 멘하튼, false : 유클리드

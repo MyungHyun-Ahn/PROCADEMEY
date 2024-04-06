@@ -28,6 +28,7 @@ struct Node
 	double F = -1;
 
 	Node *parent = NULL;
+	Node *bresenhamParent = NULL;
 
 	bool operator<(const Node &other)
 	{

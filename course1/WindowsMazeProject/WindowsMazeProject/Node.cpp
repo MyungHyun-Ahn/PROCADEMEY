@@ -3,7 +3,7 @@
 
 // true - AStar
 // false - JPS
-bool mazeSearchMode = true;
+bool mazeSearchMode = false;
 
 int g_Dir[8][2] = {
 	{-1, 0}, // UP

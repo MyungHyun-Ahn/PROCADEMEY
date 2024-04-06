@@ -17,6 +17,7 @@
 #include <tchar.h>
 #include <queue>
 #include <cmath>
+#include <deque>
 #include <cstdlib>
 #include <vector>
 
@@ -27,6 +28,7 @@
 #include "Node.h"
 #include "AStar.h"
 #include "JPS.h"
+#include "Bresenham.h"
 
 #pragma warning(disable : 26495)
 #pragma warning(disable : 4267)

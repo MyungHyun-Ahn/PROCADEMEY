@@ -75,6 +75,8 @@ void RenderObstacle(HDC hdc)
 
 const WCHAR *g_Option1 = L"멘하튼";
 const WCHAR *g_Option2 = L"유클리드";
+const WCHAR *g_MazeOption1 = L"A*";
+const WCHAR *g_MazeOption2 = L"JPS";
 
 bool modeG = false;
 bool modeH = true;
@@ -86,7 +88,21 @@ void RenderUI(HDC hdc)
 	TextOut(hdc, 10, 30, L"장애물 설치 : 클릭 후 드래그", 17);
 	TextOut(hdc, 10, 50, L"확대 : 마우스 휠, 이동 : WASD, 리셋 : R", 29);
 
-	WCHAR messge[100];
+	WCHAR messge1[100];
+	const WCHAR *mazeOp;
+	if (mazeSearchMode)
+	{
+		mazeOp = g_MazeOption1;
+	}
+	else
+	{
+		mazeOp = g_MazeOption2;
+	}
+
+	wsprintf(messge1, L"길찾기 알고리즘 변경: M(%s)", mazeOp);
+	TextOut(hdc, 10, 70, messge1, (int)wcslen(messge1));
+
+	WCHAR messge2[100];
 
 	const WCHAR *opG;
 	const WCHAR *opH;
@@ -109,8 +125,8 @@ void RenderUI(HDC hdc)
 		opH = g_Option2;
 	}
 
-	wsprintf(messge, L"가중치 옵션 변경: 3(G, %s), 4(H, %s)", opG, opH);
-	TextOut(hdc, 10, 70, messge, (int)wcslen(messge));
+	wsprintf(messge2, L"가중치 옵션 변경: 3(G, %s), 4(H, %s)", opG, opH);
+	TextOut(hdc, 10, 90, messge2, (int)wcslen(messge2));
 }
 
 void RenderInfo(HDC hdc)
@@ -168,57 +184,58 @@ void RenderInfo(HDC hdc)
 				LineTo(hdc, myLeftX + halfGrid, myUpY + halfGrid);
 			}
 		}
-
-		return;
 	}
-	//for (int y = renderStartY; y < GRID_HEIGHT; y++)
-	//{
-	//	for (int x = renderStartX; x < GRID_WIDTH; x++)
-	//	{
-	//		// 그리드 사이즈
-	//		// (GRID_SIZE + scrollUp) * g_arrNodes[y][x]->y;
+	else
+	{
+		for (int y = renderStartY; y < GRID_HEIGHT; y++)
+		{
+			for (int x = renderStartX; x < GRID_WIDTH; x++)
+			{
+				// 그리드 사이즈
+				// (GRID_SIZE + scrollUp) * g_arrNodes[y][x]->y;
 
-	//		// 왼쪽 위 시작 좌표
-	//		// 기본일 때
-	//		// (GRID_SIZE + scrollUp) * g_arrNodes[y][x]->x;
-	//		// 그럼 renderStartX가 들어가면
-	//		// (GRID_SIZE + scrollUp) * (g_arrNodes[y][x]->x - renderStartX)
-	//		// (GRID_SIZE + scrollUp) * (g_arrNodes[y][x]->y - renderStartY)
-	//		
-	//		if (g_arrNodes[y][x] == NULL)
-	//			continue;
+				// 왼쪽 위 시작 좌표
+				// 기본일 때
+				// (GRID_SIZE + scrollUp) * g_arrNodes[y][x]->x;
+				// 그럼 renderStartX가 들어가면
+				// (GRID_SIZE + scrollUp) * (g_arrNodes[y][x]->x - renderStartX)
+				// (GRID_SIZE + scrollUp) * (g_arrNodes[y][x]->y - renderStartY)
 
-	//		int myLeftX = Grid * (g_arrNodes[y][x]->x - renderStartX);
-	//		int myUpY = Grid * (g_arrNodes[y][x]->y - renderStartY);
-	//		int myDownY = Grid * (g_arrNodes[y][x]->y - renderStartY + 1);
+				if (g_arrNodes[y][x] == NULL)
+					continue;
 
-	//		if (scrollUp > 16)
-	//		{
-	//			SetBkMode(hdc, TRANSPARENT);
+				int myLeftX = Grid * (g_arrNodes[y][x]->x - renderStartX);
+				int myUpY = Grid * (g_arrNodes[y][x]->y - renderStartY);
+				int myDownY = Grid * (g_arrNodes[y][x]->y - renderStartY + 1);
 
-	//			swprintf_s(buffer, L"%.02lf", g_arrNodes[y][x]->G);
-	//			TextOut(hdc, myLeftX, myUpY, buffer, wcslen(buffer));
+				if (scrollUp > 16)
+				{
+					SetBkMode(hdc, TRANSPARENT);
 
-	//			swprintf_s(buffer, L"%.02lf", g_arrNodes[y][x]->H);
-	//			TextOut(hdc, myLeftX, (myUpY + myDownY) / 2 - 7, buffer, wcslen(buffer));
+					swprintf_s(buffer, L"%.02lf", g_arrNodes[y][x]->G);
+					TextOut(hdc, myLeftX, myUpY, buffer, wcslen(buffer));
 
-	//			swprintf_s(buffer, L"%.02lf", g_arrNodes[y][x]->F);
-	//			TextOut(hdc, myLeftX, myDownY - 15, buffer, wcslen(buffer));
-	//		}
+					swprintf_s(buffer, L"%.02lf", g_arrNodes[y][x]->H);
+					TextOut(hdc, myLeftX, (myUpY + myDownY) / 2 - 7, buffer, wcslen(buffer));
 
-	//		if (g_arrNodes[y][x]->parent == NULL)
-	//			continue;
+					swprintf_s(buffer, L"%.02lf", g_arrNodes[y][x]->F);
+					TextOut(hdc, myLeftX, myDownY - 15, buffer, wcslen(buffer));
+				}
 
-	//		int parentLeftX = Grid * (g_arrNodes[y][x]->parent->x - renderStartX);
-	//		int parentUpY = Grid * (g_arrNodes[y][x]->parent->y - renderStartY);
+				if (g_arrNodes[y][x]->parent == NULL)
+					continue;
 
-	//		// 부모의 중심
-	//		MoveToEx(hdc, parentLeftX + halfGrid, parentUpY + halfGrid, NULL);
-	//		LineTo(hdc, myLeftX + halfGrid, myUpY + halfGrid);
-	//	}
-	// }
+				// int parentLeftX = Grid * (g_arrNodes[y][x]->parent->x - renderStartX);
+				// int parentUpY = Grid * (g_arrNodes[y][x]->parent->y - renderStartY);
+				// 
+				// // 부모의 중심
+				// MoveToEx(hdc, parentLeftX + halfGrid, parentUpY + halfGrid, NULL);
+				// LineTo(hdc, myLeftX + halfGrid, myUpY + halfGrid);
+			}
+		}
+	}
 
-	Node *nextNode = curNode;
+	Node *nextNode = g_arrNodes[destY][destX];
 
 	while (nextNode != NULL)
 	{
@@ -238,25 +255,28 @@ void RenderInfo(HDC hdc)
 		nextNode = nextNode->parent;
 	}
 
-	//Node *curNode = g_arrNodes[destY][destX];
+	if (!mazeSearchMode)
+	{
+		SelectGDI pen = SelectGDI(hdc, PEN_TYPE::RED);
 
-	//while (curNode != NULL)
-	//{
+		Node *curNode = g_arrNodes[startY][startX];
 
-	//	int myLeftX = Grid * (curNode->x - renderStartX);
-	//	int myUpY = Grid * (curNode->y - renderStartY);
-	//	int myDownY = Grid * (curNode->y - renderStartY + 1);
+		while (curNode != NULL)
+		{
 
-	//	if (curNode->parent == NULL)
-	//		continue;
+			int myLeftX = Grid * (curNode->x - renderStartX);
+			int myUpY = Grid * (curNode->y - renderStartY);
 
-	//	int parentLeftX = Grid * (curNode->parent->x - renderStartX);
-	//	int parentUpY = Grid * (curNode->parent->y - renderStartY);
+			if (curNode->bresenhamParent == NULL)
+				break;
 
-	//	// 부모의 중심
-	//	MoveToEx(hdc, parentLeftX + halfGrid, parentUpY + halfGrid, NULL);
-	//	LineTo(hdc, myLeftX + halfGrid, myUpY + halfGrid);
+			int parentLeftX = Grid * (curNode->bresenhamParent->x - renderStartX);
+			int parentUpY = Grid * (curNode->bresenhamParent->y - renderStartY);
 
-	//	curNode = curNode->parent;
-	//}
+			MoveToEx(hdc, parentLeftX + halfGrid, parentUpY + halfGrid, NULL);
+			LineTo(hdc, myLeftX + halfGrid, myUpY + halfGrid);
+
+			curNode = curNode->bresenhamParent;
+		}
+	}
 }
