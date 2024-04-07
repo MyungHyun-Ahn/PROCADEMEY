@@ -407,7 +407,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case L'Z':
 		{
 			// EllersMazeGenerator::Generator();
-			CellularAutomata cellular(GRID_HEIGHT, GRID_WIDTH, 5, 50, time(nullptr), true);
+			CellularAutomata cellular(GRID_HEIGHT, GRID_WIDTH, 5, 48, time(nullptr), true);
 			cellular.Generate();
 		}
 		break;
