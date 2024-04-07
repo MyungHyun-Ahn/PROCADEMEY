@@ -306,8 +306,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				JPS jps(modeG, modeH);
 				jps.Search(hWnd, g_hMemDC);
-				Bresenham bsh;
-				bsh.Search(hWnd, g_hMemDC);
+				// Bresenham bsh;
+				// bsh.Search(hWnd, g_hMemDC);
 			}
 
 			InvalidateRect(hWnd, NULL, false);
@@ -406,7 +406,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case L'Z':
 		{
-			EllersMazeGenerator::Generator();
+			// EllersMazeGenerator::Generator();
+			CellularAutomata cellular(GRID_HEIGHT, GRID_WIDTH, 5, 50, time(nullptr), true);
+			cellular.Generate();
 		}
 		break;
 		case L'M':

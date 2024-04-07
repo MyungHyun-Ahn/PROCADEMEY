@@ -19,6 +19,9 @@
     <Filter Include="MazeLogic">
       <UniqueIdentifier>{662f8fee-40fb-4181-9b1e-eba7cbc3780f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapGenerator">
+      <UniqueIdentifier>{121e7dc8-b28a-4d42-a015-4690fa762d66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -45,7 +48,6 @@
     <ClInclude Include="DrawGRID.h">
       <Filter>Render</Filter>
     </ClInclude>
-    <ClInclude Include="EllersMazeGenerator.h" />
     <ClInclude Include="JPS.h">
       <Filter>MazeLogic</Filter>
     </ClInclude>
@@ -54,6 +56,12 @@
     </ClInclude>
     <ClInclude Include="Bresenham.h">
       <Filter>MazeLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="EllersMazeGenerator.h">
+      <Filter>MapGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="CellularAutomata.h">
+      <Filter>MapGenerator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,7 +80,6 @@
     <ClCompile Include="AStar.cpp">
       <Filter>MazeLogic</Filter>
     </ClCompile>
-    <ClCompile Include="EllersMazeGenerator.cpp" />
     <ClCompile Include="JPS.cpp">
       <Filter>MazeLogic</Filter>
     </ClCompile>
@@ -81,6 +88,12 @@
     </ClCompile>
     <ClCompile Include="Bresenham.cpp">
       <Filter>MazeLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="EllersMazeGenerator.cpp">
+      <Filter>MapGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="CellularAutomata.cpp">
+      <Filter>MapGenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="AStar.h" />
     <ClInclude Include="Bresenham.h" />
+    <ClInclude Include="CellularAutomata.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="DrawGRID.h" />
     <ClInclude Include="EllersMazeGenerator.h" />
@@ -149,6 +150,7 @@
   <ItemGroup>
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="Bresenham.cpp" />
+    <ClCompile Include="CellularAutomata.cpp" />
     <ClCompile Include="DrawGRID.cpp" />
     <ClCompile Include="EllersMazeGenerator.cpp" />
     <ClCompile Include="JPS.cpp" />

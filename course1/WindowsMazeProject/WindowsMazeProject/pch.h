@@ -29,6 +29,7 @@
 #include "AStar.h"
 #include "JPS.h"
 #include "Bresenham.h"
+#include "CellularAutomata.h"
 
 #pragma warning(disable : 26495)
 #pragma warning(disable : 4267)
