@@ -47,28 +47,37 @@ void RenderObstacle(HDC hdc)
 	{
 		for (int iCntH = 0; iCntH < GRID_HEIGHT; iCntH++)
 		{
-			if ((UINT)g_Tile[iCntH][iCntW] == 0)
-				continue;
-
 			iX = iCntW * (GRID_SIZE + scrollUp) - renderStartX * (GRID_SIZE + scrollUp);
 			iY = iCntH * (GRID_SIZE + scrollUp) - renderStartY * (GRID_SIZE + scrollUp);
+
+			if ((UINT)g_Tile[iCntH][iCntW] == 0)
+				goto DE; // continue;
 
 			if ((UINT)g_Tile[iCntH][iCntW] == 1)
 			{
 				SelectGDI brush = SelectGDI(hdc, BRUSH_TYPE::GRAY);
 				Rectangle(hdc, iX, iY, iX + (GRID_SIZE + scrollUp) + 2, iY + (GRID_SIZE + scrollUp) + 2);
-				continue;
+				goto DE; // continue;
 			}
 
-			UINT brushType = (UINT)g_Tile[iCntH][iCntW];
-
-			if (!(brushType == 0 || brushType == 1))
 			{
-				brushType -= (UINT)TILE_TYPE::GRAY;
+				UINT brushType = (UINT)g_Tile[iCntH][iCntW];
+
+				if (!(brushType == 0 || brushType == 1))
+				{
+					brushType -= (UINT)TILE_TYPE::GRAY;
+				}
+				SelectGDI brush = SelectGDI(hdc, (BRUSH_TYPE)brushType);
+				Rectangle(hdc, iX, iY, iX + (GRID_SIZE + scrollUp) + 2, iY + (GRID_SIZE + scrollUp) + 2);
 			}
 
-			SelectGDI brush = SelectGDI(hdc, (BRUSH_TYPE)brushType);
-			Rectangle(hdc, iX, iY, iX + (GRID_SIZE + scrollUp) + 2, iY + (GRID_SIZE + scrollUp) + 2);
+		DE:
+			WCHAR buffer[50];
+			if (scrollUp > 16)
+			{
+				swprintf_s(buffer, L"%d, %d", iCntH, iCntW);
+				TextOut(hdc, iX, iY, buffer, wcslen(buffer));
+			}
 		}
 	}
 }
@@ -211,7 +220,7 @@ void RenderInfo(HDC hdc)
 				if (scrollUp > 16)
 				{
 					SetBkMode(hdc, TRANSPARENT);
-
+#ifndef debug
 					swprintf_s(buffer, L"%.02lf", g_arrNodes[y][x]->G);
 					TextOut(hdc, myLeftX, myUpY, buffer, wcslen(buffer));
 
@@ -220,6 +229,7 @@ void RenderInfo(HDC hdc)
 
 					swprintf_s(buffer, L"%.02lf", g_arrNodes[y][x]->F);
 					TextOut(hdc, myLeftX, myDownY - 15, buffer, wcslen(buffer));
+#endif
 				}
 
 				if (g_arrNodes[y][x]->parent == NULL)

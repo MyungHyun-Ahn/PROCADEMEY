@@ -64,6 +64,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		return FALSE;
 	}
 
+	FILE *conin = nullptr;
+	FILE *conout = nullptr;
+	FILE *conerr = nullptr;
+
+	if (AllocConsole())
+	{
+		freopen_s(&conin, "CONIN$", "rb", stdin);
+		freopen_s(&conout, "CONOUT$", "wb", stdout);
+		freopen_s(&conerr, "CONOUT$", "wb", stderr);
+
+		// std::ios::sync_with_stdio();
+	}
+
+	std::cout << "Route search program start" << std::endl;
+
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
 
@@ -79,7 +94,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 
 	ReleaseGDIObject();
-
+	FreeConsole();
+	fclose(conin);
+	fclose(conout);
+	fclose(conerr);
 	return (int)msg.wParam;
 }
 
@@ -87,7 +105,7 @@ int xPos;
 int yPos;
 bool startPosOn = false;
 bool exitPosOn = false;
-
+bool uiOn = true;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -306,8 +324,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				JPS jps(modeG, modeH);
 				jps.Search(hWnd, g_hMemDC);
-				// Bresenham bsh;
-				// bsh.Search(hWnd, g_hMemDC);
+				Bresenham bsh;
+				bsh.Search(hWnd, g_hMemDC);
 			}
 
 			InvalidateRect(hWnd, NULL, false);
@@ -416,7 +434,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			mazeSearchMode = !mazeSearchMode;
 		}
 		break;
-
+		case L'O':
+		{
+			uiOn = uiOn ? false : true;
+		}
 		}
 		InvalidateRect(hWnd, NULL, false);
 	}
@@ -428,7 +449,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		RenderObstacle(g_hMemDC);
 		RenderGrid(g_hMemDC);
 		RenderInfo(g_hMemDC);
-		RenderUI(g_hMemDC);
+		if (uiOn)
+		{
+			RenderUI(g_hMemDC);
+		}
 		PAINTSTRUCT ps;
 		hdc = BeginPaint(hWnd, &ps);
 		BitBlt(hdc, 0, 0, g_MemDCRect.right, g_MemDCRect.bottom, g_hMemDC, 0, 0, SRCCOPY);

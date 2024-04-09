@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Bresenham.h"
 
+#define debug
+
 Bresenham::Bresenham()
 {
 	Node *curNode = g_arrNodes[destY][destX];
@@ -14,6 +16,17 @@ Bresenham::Bresenham()
 	}
 
 	std::reverse(m_vNodes.begin(), m_vNodes.end());
+
+#ifdef debug
+
+	std::cout << "route position" << std::endl;
+
+	for (auto node : m_vNodes)
+	{
+		std::cout << node->y << " " << node->x << std::endl;
+	}
+
+#endif
 }
 
 Bresenham::~Bresenham()
@@ -32,6 +45,8 @@ void Bresenham::Search(HWND hWnd, HDC hdc)
 	while (d < m_vNodes.size())
 	{
 		dNode = m_vNodes[d];
+		std::cout << "sNode : " << sNode->y << " " << sNode->x << std::endl;
+		std::cout << "dNode : " << dNode->y << " " << dNode->x << std::endl;
 
 		int startY = sNode->y;
 		int startX = sNode->x;
@@ -39,20 +54,24 @@ void Bresenham::Search(HWND hWnd, HDC hdc)
 		int destY = dNode->y;
 		int destX = dNode->x;
 
-		// false - 충돌이 발생
-		if (!CalBresenham(startY, startX, destY, destX))
-		{
-			// sNode->bresenhamParent = m_vNodes[s++];
-			// sNode = m_vNodes[s];
-			sNode->bresenhamParent = m_vNodes[d - 1];
-			sNode = m_vNodes[d - 1];
-			s = d - 1;
-			d = s + 2; // d를 s의 다음 다음 노드로
-		}
-		else
+		if (CalBresenham(startY, startX, destY, destX))
 		{
 			sNode->bresenhamParent = dNode;
 			d++; // d를 다음 노드로
+		}
+		else
+		{
+			sNode->bresenhamParent = m_vNodes[d - 1];
+			sNode = m_vNodes[d - 1];
+			s = d - 1;
+			d = s + 2;
+
+			// 충돌이 발생했는데 d가 vector의 사이즈를 초과한 경우
+			if (d >= m_vNodes.size())
+			{
+				sNode->bresenhamParent = m_vNodes.back();
+			}
+
 		}
 
 		InvalidateRect(m_hWnd, nullptr, false);
@@ -62,150 +81,53 @@ void Bresenham::Search(HWND hWnd, HDC hdc)
 
 bool Bresenham::CalBresenham(int startY, int startX, int destY, int destX)
 {
-	bool ret = true;
+	// start와 dest 반전 처리
+	bool reversed = false;
+	if (abs(destX - startX) < abs(destY - startY)) {
+		std::swap(startX, startY);
+		std::swap(destX, destY);
+		reversed = true;
+	}
 
-	// 증가율 판단
-	int H = destY - startY;
-	int W = destX - startX;
+	// 시작점이 목적지보다 오른쪽에 있는 경우 교환
+	if (startX > destX) {
+		std::swap(startX, destX);
+		std::swap(startY, destY);
+	}
 
-	// 직선의 기울기 구하기
-	float a = (float)H / W;
+	int dx = destX - startX;
+	int dy = abs(destY - startY);
+	int err = dx / 2;
+	int ystep = (startY < destY) ? 1 : -1;
 
-	if (0.0f < a && a <= 1.0f)
-	{
-		int sY = startY;
-		int sX = startX;
+	for (int x = startX, y = startY; x <= destX; x++) {
+		if (reversed) {
+			std::cout << "브레젠험 : " << x << " " << y << std::endl;
 
-		if (startX > destX)
-		{
-			sX = destX;
-			sY = destY;
-			destX = startX;
-		}
-
-		// 초기값
-		int F = 2 * H - W;
-
-		int dF1 = 2 * H;
-		int dF2 = 2 * (H - W);
-
-		for (sX; sX <= destX; sX++)
-		{
 			// 충돌 판단
-			if (g_Tile[sY][sX] == TILE_TYPE::OBSTACLE)
-				return false;
-
-			if (F < 0)
-				F += dF1;
-			else
+			if (g_Tile[x][y] == TILE_TYPE::OBSTACLE)
 			{
-				sY++;
-				F += dF2;
+				std::cout << "충돌 : " << x << " " << y << std::endl;
+				return false;
 			}
 		}
-	}
-	else if (a > 1.0f)
-	{
-		int sY = startY;
-		int sX = startX;
+		else {
+			std::cout << "브레젠험 : " << y << " " << x << std::endl;
 
-		if (startY > destY)
-		{
-			sX = destX;
-			sY = destY;
-			destY = startY;
-		}
-
-		// 초기값
-		int F = 2 * W - H;
-
-		int dF1 = 2 * W;
-		int dF2 = 2 * (W - H);
-
-		for (sY; sY <= destY; sY++)
-		{
 			// 충돌 판단
-			if (g_Tile[sY][sX] == TILE_TYPE::OBSTACLE)
+			if (g_Tile[y][x] == TILE_TYPE::OBSTACLE)
+			{
+				std::cout << "충돌 : " << y << " " << x << std::endl;
 				return false;
-
-			if (F < 0)
-				F += dF1;
-			else
-			{
-				sX++;
-				F += dF2;
 			}
 		}
-	}
-	else // 기울기가 음수인 경우
-	{
-		if (a >= -1.0f)
-		{
-			int sY = startY;
-			int sX = startX;
 
-			if (startX > destX)
-			{
-				sX = destX;
-				sY = destY;
-				destX = startX;
-			}
-
-			// 초기값
-			int F = 2 * H + W;
-
-			int dF1 = 2 * H;
-			int dF2 = 2 * (H + W);
-
-			for (sX; sX <= destX; sX++)
-			{
-				// 충돌 판단
-				if (g_Tile[sY][sX] == TILE_TYPE::OBSTACLE)
-					return false;
-
-				if (F < 0)
-				{
-					sY--;
-					F += dF2;
-				}
-				else
-					F += dF1;
-			}
-		}
-		else // a < -1.0f 인 경우
-		{
-			int sY = startY;
-			int sX = startX;
-
-			if (startY > destY)
-			{
-				sX = destX;
-				sY = destY;
-				destY = startY;
-			}
-
-			// 초기값
-			int F = 2 * W + H;
-
-			int dF1 = 2 * W;
-			int dF2 = 2 * (W + H);
-
-			for (sY; sY <= destY; sY++)
-			{
-				// 충돌 판단
-				if (g_Tile[sY][sX] == TILE_TYPE::OBSTACLE)
-					return false;
-
-				if (F < 0)
-				{
-					sX--;
-					F += dF2;
-				}
-				else
-					F += dF1;
-			}
+		err -= dy;
+		if (err < 0) {
+			y += ystep;
+			err += dx;
 		}
 	}
 
-	return ret;
+	return true;
 }

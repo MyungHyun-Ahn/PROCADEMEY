@@ -3,6 +3,8 @@
 // 또는 프로젝트 특정 포함 파일이 들어 있는 포함 파일입니다.
 //
 
+#define debug
+
 #include "targetver.h"
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 // Windows 헤더 파일
@@ -20,6 +22,8 @@
 #include <deque>
 #include <cstdlib>
 #include <vector>
+#include <tuple>
+#include <iostream>
 
 #include "Define.h"
 #include "Setting.h"

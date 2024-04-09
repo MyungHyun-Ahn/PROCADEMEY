@@ -36,7 +36,9 @@ void InitGDIObject()
 	g_arrBrush[(UINT)BRUSH_TYPE::BLUE] = (HBRUSH)CreateSolidBrush(RGB(0, 0, 255));
 	g_arrBrush[(UINT)BRUSH_TYPE::BLACK] = (HBRUSH)CreateSolidBrush(RGB(0, 0, 0));
 	g_arrBrush[(UINT)BRUSH_TYPE::YELLOW] = (HBRUSH)CreateSolidBrush(RGB(255, 255, 0));
-	g_arrBrush[(UINT)BRUSH_TYPE::PINK] = (HBRUSH)CreateSolidBrush(RGB(255, 0, 255));
+	g_arrBrush[(UINT)BRUSH_TYPE::PINK] = (HBRUSH)CreateSolidBrush(RGB(255, 192, 203));
+	g_arrBrush[(UINT)BRUSH_TYPE::MAGENTA] = (HBRUSH)CreateSolidBrush(RGB(255, 0, 255));
+	g_arrBrush[(UINT)BRUSH_TYPE::TEAL] = (HBRUSH)CreateSolidBrush(RGB(0, 128, 128));
 
 	// hollow brush - 직접 삭제 X
 	g_arrBrush[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);

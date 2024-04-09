@@ -31,6 +31,24 @@ void CellularAutomata::Generate()
 		SmoothMap();
 	}
 
+	// 연결 구성요소 찾기
+	int counter = 3; // 3부터 구성요소 번호
+	for (int y = 0; y < m_iHeigth; y++)
+	{
+		for (int x = 0; x < m_iWidth; x++)
+		{
+			// 미방문 공간 발견
+			if (m_arrMap[x + m_iWidth * y] == 0)
+			{
+				Room room;
+				room.counter;
+				m_arrRooms.push_back(room);
+				FindBoundarys(y, x, m_arrRooms.back().boundarys, counter);
+				counter++;
+			}
+		}
+	}
+
 	SaveMap();
 }
 
@@ -40,6 +58,11 @@ void CellularAutomata::SaveMap()
 	{
 		for (int x = 0; x < m_iWidth; x++)
 		{
+			if (m_arrMap[x + m_iWidth * y] == -1)
+			{
+				m_arrMap[x + m_iWidth * y] = 0;
+			}
+
 			g_Tile[y][x] = (TILE_TYPE)m_arrMap[x + m_iWidth * y];
 		}
 	}
@@ -91,7 +114,8 @@ int CellularAutomata::GetSurrouningWallCount(int gridY, int gridX)
 			{
 				if (neighbourY != gridY || neighbourX != gridX)
 				{
-					wallCount += m_arrMap[neighbourX + m_iWidth * neighbourY];
+					if (m_arrMap[neighbourX + m_iWidth * neighbourY] == 1)
+						wallCount += 1;
 				}
 			}
 			else
@@ -102,4 +126,86 @@ int CellularAutomata::GetSurrouningWallCount(int gridY, int gridX)
 	}
 
 	return wallCount;
+}
+
+// BFS로 연결 구성요소 찾기 - 플러드 필 알고리즘
+void CellularAutomata::FindBoundarys(int y, int x, std::vector<std::pair<int, int>> &component, int &counter)
+{
+	// 맵을 벗어나거나 y, x가 벽이면 리턴
+	if (y < 0 || y >= m_iHeigth || x < 0 || x >= m_iWidth || m_arrMap[x + m_iWidth * y] == 1)
+		return;
+
+	std::vector<std::pair<int, int>> vec;
+	vec.emplace_back(y, x);
+	m_arrMap[x + m_iWidth * y] = counter; // 방문 표시
+
+	while (!vec.empty())
+	{
+		int currentY = vec.back().first;
+		int currentX = vec.back().second;
+		vec.pop_back();
+
+		if (GetSurrouningWallCount(currentY, currentX) != 0)
+			component.emplace_back(currentY, currentX);
+
+		// 상
+		if (currentY > 0 && m_arrMap[(currentX)+m_iWidth * (currentY - 1)] == 0)
+		{
+			if (GetSurrouningWallCount(currentY - 1, currentX) == 0)
+			{
+				m_arrMap[currentX + m_iWidth * (currentY - 1)] = -1;
+			}
+			else
+			{
+				m_arrMap[currentX + m_iWidth * (currentY - 1)] = counter;
+			}
+
+			vec.emplace_back(currentY - 1, currentX);
+		}
+
+		// 하
+		if (currentY < m_iHeigth - 1 && m_arrMap[(currentX)+m_iWidth * (currentY + 1)] == 0)
+		{
+			if (GetSurrouningWallCount(currentY + 1, currentX) == 0)
+			{
+				m_arrMap[currentX + m_iWidth * (currentY + 1)] = -1;
+			}
+			else
+			{
+				m_arrMap[currentX + m_iWidth * (currentY + 1)] = counter;
+			}
+
+			vec.emplace_back(currentY + 1, currentX);
+		}
+
+		// 좌
+		if (currentX > 0 && m_arrMap[(currentX - 1) + m_iWidth * (currentY)] == 0)
+		{
+			if (GetSurrouningWallCount(currentY, currentX - 1) == 0)
+			{
+				m_arrMap[(currentX - 1) + m_iWidth * (currentY)] = -1;
+			}
+			else
+			{
+				m_arrMap[(currentX - 1) + m_iWidth * currentY] = counter;
+			}
+
+			vec.emplace_back(currentY, currentX - 1);
+		}
+
+		// 우
+		if (currentX < m_iWidth - 1 && m_arrMap[(currentX + 1) + m_iWidth * (currentY)] == 0)
+		{
+			if (GetSurrouningWallCount(currentY, currentX + 1) == 0)
+			{
+				m_arrMap[(currentX + 1) + m_iWidth * (currentY)] = -1;
+			}
+			else
+			{
+				m_arrMap[(currentX + 1) + m_iWidth * currentY] = counter;
+			}
+
+			vec.emplace_back(currentY, currentX + 1);
+		}
+	}
 }
