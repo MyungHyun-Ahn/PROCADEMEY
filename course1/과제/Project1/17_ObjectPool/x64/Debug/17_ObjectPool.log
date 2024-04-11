@@ -1,0 +1,4 @@
+﻿  main.cpp
+  ObjectPool.cpp
+  코드를 생성하고 있습니다...
+E:\apps\VisualStudio\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(755,5): error MSB6006: "CL.exe"이(가) 종료되었습니다(코드: 2).

@@ -23,6 +23,8 @@
 #include <cstdlib>
 #include <vector>
 #include <tuple>
+#include <map>
+#include <limits>
 #include <iostream>
 
 #include "Define.h"
