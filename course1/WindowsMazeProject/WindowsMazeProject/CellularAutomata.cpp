@@ -61,10 +61,8 @@ void CellularAutomata::SaveMap()
 	{
 		for (int x = 0; x < m_iWidth; x++)
 		{
-			if (m_arrMap[x + m_iWidth * y] == -1)
-			{
+			if (m_arrMap[x + m_iWidth * y] != 1)
 				m_arrMap[x + m_iWidth * y] = 0;
-			}
 
 			g_Tile[y][x] = (TILE_TYPE)m_arrMap[x + m_iWidth * y];
 		}

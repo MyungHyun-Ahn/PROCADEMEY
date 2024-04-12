@@ -26,14 +26,14 @@ void AStar::Search(HWND hWnd, HDC hdc)
 		if (node->x == m_destNode->x && node->y == m_destNode->y)
 		{
 			g_Tile[node->y][node->x] = TILE_TYPE::RED;
-			InvalidateRect(hWnd, NULL, false);
-			UpdateWindow(hWnd);
+			// InvalidateRect(hWnd, NULL, false);
+			// UpdateWindow(hWnd);
 			break;
 		}
 
 		//Sleep(1000);
-		InvalidateRect(hWnd, NULL, false);
-		UpdateWindow(hWnd);
+		// InvalidateRect(hWnd, NULL, false);
+		// UpdateWindow(hWnd);
 
 		for (int i = 0; i < 8; i++)
 		{
@@ -93,8 +93,8 @@ void AStar::Search(HWND hWnd, HDC hdc)
 					g_arrNodes[nextNode->y][nextNode->x] = nextNode;
 					nextNode->parent = node;
 					m_Pq.push(*nextNode);
-					InvalidateRect(hWnd, NULL, false);
-					UpdateWindow(hWnd);
+					// InvalidateRect(hWnd, NULL, false);
+					// UpdateWindow(hWnd);
 				}
 				continue;
 			}
@@ -105,8 +105,8 @@ void AStar::Search(HWND hWnd, HDC hdc)
 				nextNode->parent = node;
 				m_Pq.push(*nextNode);
 				g_Tile[nextNode->y][nextNode->x] = TILE_TYPE::BLUE;
-				InvalidateRect(hWnd, NULL, false);
-				UpdateWindow(hWnd);
+				// InvalidateRect(hWnd, NULL, false);
+				// UpdateWindow(hWnd);
 			}
 		}
 	}
@@ -125,7 +125,7 @@ void AStar::PrintRoute(HWND hWnd)
 	{
 		g_Tile[nextNode->y][nextNode->x] = TILE_TYPE::PINK;
 		nextNode = nextNode->parent;
-		InvalidateRect(hWnd, NULL, false);
-		UpdateWindow(hWnd);
+		// InvalidateRect(hWnd, NULL, false);
+		// UpdateWindow(hWnd);
 	}
 }

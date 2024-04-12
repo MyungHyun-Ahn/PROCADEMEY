@@ -19,7 +19,7 @@ public:
 	}
 };
 
-ObjectPool<Test> objPool(0, true);
+ObjectPool<Test> objPool(1, true);
 
 int main()
 {

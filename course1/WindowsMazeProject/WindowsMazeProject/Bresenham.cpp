@@ -6,7 +6,7 @@
 Bresenham::Bresenham()
 {
 	Node *curNode = g_arrNodes[destY][destX];
-	while (true)
+	while (curNode != NULL)
 	{
 		m_vNodes.push_back(curNode);
 		if (curNode->parent == NULL)
@@ -74,8 +74,8 @@ void Bresenham::Search(HWND hWnd, HDC hdc)
 
 		}
 
-		InvalidateRect(m_hWnd, nullptr, false);
-		UpdateWindow(m_hWnd);
+		// InvalidateRect(m_hWnd, nullptr, false);
+		// UpdateWindow(m_hWnd);
 	}
 }
 

@@ -37,13 +37,13 @@ void JPS::Search(HWND hWnd, HDC hdc)
 		if (node->x == m_destNode->x && node->y == m_destNode->y)
 		{
 			g_Tile[node->y][node->x] = TILE_TYPE::RED;
-			InvalidateRect(hWnd, NULL, false);
-			UpdateWindow(hWnd);
+			// InvalidateRect(hWnd, NULL, false);
+			// UpdateWindow(hWnd);
 			break;
 		}
 
-		InvalidateRect(hWnd, NULL, false);
-		UpdateWindow(hWnd);
+		// InvalidateRect(hWnd, NULL, false);
+		// UpdateWindow(hWnd);
 
 		// 경로 탐색하고 노드 만들기
 		// 4방향 직진하는 경우
@@ -95,10 +95,10 @@ void JPS::Search(HWND hWnd, HDC hdc)
 					newNode->F = newNode->G + newNode->H;
 
 
-					// 가중치가 새로운 것이 더 작다면
-					if (g_arrNodes[newNode->y][newNode->x] != NULL)
+					// pqPop이 아니고 가중치가 새로운 것이 더 작다면
+					if (g_arrNodes[newNode->y][newNode->x] != NULL && !g_arrNodes[newNode->y][newNode->x]->pqPop)
 					{
-						if (newNode->F < g_arrNodes[newNode->y][newNode->x]->F)
+						if (newNode->G < g_arrNodes[newNode->y][newNode->x]->G)
 						{
 							delete g_arrNodes[newNode->y][newNode->x];
 							g_arrNodes[newNode->y][newNode->x] = newNode;
@@ -114,8 +114,8 @@ void JPS::Search(HWND hWnd, HDC hdc)
 						g_arrNodes[newNode->y][newNode->x] = newNode;
 						m_Pq.push(*newNode);
 						g_Tile[newNode->y][newNode->x] = TILE_TYPE::BLUE;
-						InvalidateRect(hWnd, NULL, false);
-						UpdateWindow(hWnd);
+						// InvalidateRect(hWnd, NULL, false);
+						// UpdateWindow(hWnd);
 					}
 					break;
 				}
@@ -179,9 +179,9 @@ void JPS::Search(HWND hWnd, HDC hdc)
 
 
 					// 가중치가 새로운 것이 더 작다면
-					if (g_arrNodes[newNode->y][newNode->x] != NULL)
+					if (g_arrNodes[newNode->y][newNode->x] != NULL && !g_arrNodes[newNode->y][newNode->x]->pqPop)
 					{
-						if (newNode->F < g_arrNodes[newNode->y][newNode->x]->F)
+						if (g_arrNodes[newNode->y][newNode->x]->G > newNode->G)
 						{
 							delete g_arrNodes[newNode->y][newNode->x];
 							g_arrNodes[newNode->y][newNode->x] = newNode;
@@ -197,8 +197,8 @@ void JPS::Search(HWND hWnd, HDC hdc)
 						g_arrNodes[newNode->y][newNode->x] = newNode;
 						m_Pq.push(*newNode);
 						g_Tile[newNode->y][newNode->x] = TILE_TYPE::BLUE;
-						InvalidateRect(hWnd, NULL, false);
-						UpdateWindow(hWnd);
+						// InvalidateRect(hWnd, NULL, false);
+						// UpdateWindow(hWnd);
 					}
 					break;
 				}
@@ -236,7 +236,7 @@ uint8_t JPS::CheckFront(DIR_MASK dirType, int y, int x)
 			dir |= (uint8_t)DIR_MASK::U;
 
 		if (FrontSearch(DIR_MASK::L, y, x))
-			dir = (uint8_t)DIR_MASK::L;
+			dir |= (uint8_t)DIR_MASK::L;
 	}
 		break;
 	case DIR_MASK::DR:
@@ -254,7 +254,7 @@ uint8_t JPS::CheckFront(DIR_MASK dirType, int y, int x)
 			dir |= (uint8_t)DIR_MASK::D;
 
 		if (FrontSearch(DIR_MASK::L, y, x))
-			dir = (uint8_t)DIR_MASK::L;
+			dir |= (uint8_t)DIR_MASK::L;
 	}
 		break;
 	}
@@ -268,8 +268,8 @@ bool JPS::FrontSearch(DIR_MASK dirType, int y, int x)
 	{
 	case DIR_MASK::U:
 	{
-		int curY = y;
-		int curX = x;
+		int curY = y + g_Dir[0][0];
+		int curX = x + g_Dir[0][1];
 		while (true)
 		{
 			if (!OutMap(curY + g_Dir[0][0], curX + g_Dir[0][1]))
@@ -291,8 +291,8 @@ bool JPS::FrontSearch(DIR_MASK dirType, int y, int x)
 		break;
 	case DIR_MASK::D:
 	{
-		int curY = y;
-		int curX = x;
+		int curY = y + g_Dir[1][0];
+		int curX = x + g_Dir[1][1];
 		while (true)
 		{
 			if (!OutMap(curY + g_Dir[1][0], curX + g_Dir[1][1]))
@@ -314,8 +314,8 @@ bool JPS::FrontSearch(DIR_MASK dirType, int y, int x)
 		break;
 	case DIR_MASK::L:
 	{
-		int curY = y;
-		int curX = x;
+		int curY = y + g_Dir[2][0];
+		int curX = x + g_Dir[2][1];
 		while (true)
 		{
 			if (!OutMap(curY + g_Dir[2][0], curX + g_Dir[2][1]))
@@ -337,8 +337,8 @@ bool JPS::FrontSearch(DIR_MASK dirType, int y, int x)
 		break;
 	case DIR_MASK::R:
 	{
-		int curY = y;
-		int curX = x;
+		int curY = y + g_Dir[3][0];
+		int curX = x + g_Dir[3][1];
 		while (true)
 		{
 			if (!OutMap(curY + g_Dir[3][0], curX + g_Dir[3][1]))
@@ -359,5 +359,6 @@ bool JPS::FrontSearch(DIR_MASK dirType, int y, int x)
 	}
 		break;
 	}
+
 	return false;
 }

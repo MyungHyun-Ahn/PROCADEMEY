@@ -1,42 +1,46 @@
 #pragma once
-
 template<typename DATA>
 struct Node
 {
+#ifdef SAFE_MODE
 	void *poolPtr;
+#endif
 	DATA data;
 	Node *link;
+
+#ifdef SAFE_MODE
+	int safeWord = 0xFFFF;
+#endif
 };
 
 template<typename DATA>
 class ObjectPool
 {
 	using Node = Node<DATA>;
-
+	typedef Node *(ObjectPool<DATA>::*AllocFunc)(void);
 public:
-	inline ObjectPool(int initCount, bool placementNewFlag) 
+	__forceinline ObjectPool(int initCount, bool placementNewFlag) 
 		: m_iSize(0), m_bPlacementNewFlag(placementNewFlag)
 	{
 		// initCount 만큼 FreeList 할당
 		for (int i = 0; i < initCount; i++)
 		{
 			Node *node;
-			if (placementNewFlag)
+			if (m_bPlacementNewFlag)
 			{
-				// malloc 후 Placement New
 				node = PlacementNewAlloc();
-				node->link = top;
-				top = node;
 			}
 			else
 			{
-				node = MallocAlloc();
-				node->link = top;
-				top = node;
+				node = NewAlloc();
 			}
+			
+			node->link = top;
+			top = node;
 		}
 	}
-	inline ~ObjectPool()
+
+	__forceinline ~ObjectPool()
 	{
 		// FreeList에 있는 것 삭제
 		while (top != nullptr)
@@ -52,7 +56,7 @@ public:
 
 	}
 
-	inline DATA *Alloc()
+	__forceinline DATA *Alloc()
 	{
 		Node *node;
 
@@ -64,7 +68,7 @@ public:
 			}
 			else
 			{
-				node = MallocAlloc();
+				node = NewAlloc();
 			}
 		}
 		else
@@ -81,8 +85,9 @@ public:
 		// data의 주소를 반환
 		return &node->data;
 	}
-	inline void Free(DATA *ptr)
+	__forceinline void Free(DATA *ptr)
 	{
+#ifdef SAFE_MODE
 		unsigned __int64 intPtr = (__int64)ptr;
 		intPtr -= sizeof(void*);
 		Node *nodePtr = (Node *)intPtr;
@@ -90,34 +95,39 @@ public:
 		if (nodePtr->poolPtr != this)
 			throw;
 
+		if (nodePtr->safeWord != 0xFFFF)
+			throw;
+#else
+		Node *nodePtr = (Node *)ptr;
+#endif
+
 		if (m_bPlacementNewFlag)
 		{
 			nodePtr->data.~DATA();
-			nodePtr->link = top;
-			top = nodePtr;
 		}
-		else
-		{
-			// 그냥 FreeList에 등록
-			nodePtr->link = top;
-			top = nodePtr;
-		}
+
+		nodePtr->link = top;
+		top = nodePtr;
 	}
 
 private:
-	inline Node *PlacementNewAlloc()
+	__forceinline Node *PlacementNewAlloc()
 	{
 		Node *mallocNode = (Node *)malloc(sizeof(Node));
 		Node *newNode = new (mallocNode) Node;
+#ifdef SAFE_MODE
 		newNode->poolPtr = this;
+#endif
 		m_iSize++;
 		return newNode;
 	}
 
-	inline Node *MallocAlloc()
+	__forceinline Node *NewAlloc()
 	{
-		Node *newNode = (Node *)malloc(sizeof(Node));
+		Node *newNode = new Node;
+#ifdef SAFE_MODE
 		newNode->poolPtr = this;
+#endif
 		newNode->link = top;
 		top = newNode;
 		m_iSize++;
@@ -126,6 +136,7 @@ private:
 
 private:
 	// FreeList
+	// AllocFunc allocFunc;
 	bool m_bPlacementNewFlag;
 	int m_iSize = 0;
 	Node *top = nullptr;
