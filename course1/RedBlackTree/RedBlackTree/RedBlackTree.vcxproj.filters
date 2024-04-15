@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Main">
+      <UniqueIdentifier>{89219a97-8eba-45eb-b633-a1574df846cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tree">
+      <UniqueIdentifier>{1200dc84-0638-4736-b068-38e8a991238d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{244f1366-e804-4e18-8fab-70d5018c8fd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{9080c0f2-065b-4cf1-a2ad-cbac840ef904}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="BinarySearchTree.h">
+      <Filter>Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="RBTree.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="RedBlackTree.ico">
+      <Filter>Resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="RedBlackTree.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="RedBlackTree.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="BinarySearchTree.cpp">
+      <Filter>Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="RBTree.cpp" />
+  </ItemGroup>
+</Project>
