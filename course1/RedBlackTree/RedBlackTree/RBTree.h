@@ -30,6 +30,8 @@ public:
 		m_pNil->color = COLOR::BLACK;
 		m_pNil->pLeft = m_pNil;
 		m_pNil->pRight = m_pNil;
+		m_pNil->pParent = m_pNil;
+		m_pRoot = m_pNil;
 	}
 
 	~RBTree()
@@ -42,11 +44,12 @@ public:
 		Node *newNode = new Node(key);
 
 		// 트리가 비어있는 상황
-		if (m_pRoot == nullptr)
+		if (m_pRoot == m_pNil)
 		{
 			newNode->color = COLOR::BLACK;
 			newNode->pLeft = m_pNil;
 			newNode->pRight = m_pNil;
+			newNode->pParent = m_pNil;
 			m_pRoot = newNode;
 			return true;
 		}
@@ -102,24 +105,93 @@ public:
 
 		// 삽입한 노드의 부모가 RED인 경우
 
-		while (newNode->pParent->color == COLOR::RED)
-		{
-			newNode = InsertBalancing(newNode);
-
-			if (newNode->pParent == nullptr)
-			{
-				m_pRoot = newNode;
-				m_pRoot->color = COLOR::BLACK;
-				break;
-			}
-		}
+		InsertBalancing(newNode);
 
 		return true;
 	}
 
+	bool Delete(Key key)
+	{
+		if (m_pRoot == m_pNil)
+		{
+			std::cout << "트리가 비었음" << std::endl;
+			return false;
+		}
+
+		Node *target = Search(key);
+
+		if (target == m_pNil || target == nullptr)
+		{
+			std::cout << "삭제 대상 노드 없음" << '\n';
+			return false;
+		}
+
+		Node *y = target;
+		COLOR originColor = y->color;
+
+		Node *x = nullptr;
+
+		if (target->pLeft == m_pNil)
+		{
+			x = target->pRight;
+			Transplant(target, target->pRight);
+		}
+		else if (target->pRight == m_pNil)
+		{
+			x = target->pLeft;
+			Transplant(target, target->pLeft);
+		}
+		else
+		{
+			y = Minimum(target->pRight);
+
+			originColor = y->color;
+			x = y->pRight;
+
+			if (y != target->pRight)
+			{
+				Transplant(y, y->pRight);
+				y->pRight = target->pRight;
+				y->pRight->pParent = y;
+			}
+			else
+				x->pParent = y;
+
+			Transplant(target, y);
+			y->pLeft = target->pLeft;
+			y->pLeft->pParent = y;
+			y->color = target->color;
+		}
+
+		if (originColor == COLOR::BLACK)
+			deleteBalancing(x);
+
+		delete target;
+		return true;
+	}
+
+	Node *Search(Key key)
+	{
+		Node *targetNode = m_pRoot;
+
+		while (targetNode != m_pNil && key != targetNode->key)
+		{
+			// 작으면 왼쪽으로
+			if (key < targetNode->key)
+				targetNode = targetNode->pLeft;
+			else
+				targetNode = targetNode->pRight;
+		}
+
+		if (targetNode == m_pNil || targetNode == nullptr)
+			return nullptr;
+
+		return targetNode;
+	}
+
 	bool Print()
 	{
-		if (m_pRoot == nullptr)
+		if (m_pRoot == m_pNil)
 		{
 			std::cout << "트리가 비었음" << '\n';
 			return false;
@@ -129,135 +201,327 @@ public:
 		return true;
 	}
 
-private:
-	Node *InsertBalancing(Node *newNode)
+	bool Print(std::map<int, int>::iterator it)
 	{
-		// 여기까지 들어왔으면 부모가 RED 나도 RED인 경우
+		m_it = it;
+		m_useIt = true;
 
-		// case 1 : 부모 레드, 삼촌 레드
-		// 부모와 삼촌을 블랙으로 바꾸고 할아버지는 레드로 바꾼다.
-		// 자신이 부모의 왼쪽인 경우
-		Node *parent = newNode->pParent;
-
-		if (parent->pLeft == newNode)
+		if (m_pRoot == m_pNil)
 		{
-			// 삼촌 체크
-			// 할아버지의 왼쪽이 부모면 삼촌은 할아버지의 오른쪽
-			if (parent->pParent->pLeft == parent)
-			{
-				if (parent->pParent->pRight->color == COLOR::RED)
-				{
-					parent->color = COLOR::BLACK;
-					parent->pParent->pRight->color = COLOR::BLACK;
-					// 할아버지 노드 반환
-					return parent->pParent;
-				}
-
-				RotateRight(parent->pParent);
-				return newNode->pParent;
-			}
-
-			if (parent->pParent->pLeft->color == COLOR::RED)
-			{
-				parent->color = COLOR::BLACK;
-				parent->pParent->pLeft->color = COLOR::BLACK;
-				// 할아버지 노드 반환
-				return parent->pParent;
-			}
-
-			// 왼쪽 레드, 부모 레드, 삼촌 블랙
-			parent->color = COLOR::BLACK;
-			parent->pParent->color = COLOR::RED;
-
-			RotateRight(parent->pParent);
-			return newNode->pParent;
+			std::cout << "트리가 비었음" << '\n';
+			return false;
 		}
 
-		// 자신이 부모의 오른쪽인 경우
-		if (parent->pRight == newNode)
-		{
-			// 부모가 할아버지의 왼쪽 자식
-			if (parent->pParent->pLeft == parent)
-			{
-				if (parent->pParent->pRight->color == COLOR::RED)
-				{
-					parent->color = COLOR::BLACK;
-					parent->pParent->pRight->color = COLOR::BLACK;
-					// 할아버지 노드 반환
-					return parent->pParent;
-				}
-
-				// case 2 부모의 오른쪽, 삼촌은 블랙
-				// 부모 기준으로 좌회전
-				RotateLeft(parent);
-				// parent가 끝단 노드가 된 상황
-				return parent;
-			}
-
-			if (parent->pParent->pLeft->color == COLOR::RED)
-			{
-				parent->color = COLOR::BLACK;
-				parent->pParent->pLeft->color = COLOR::BLACK;
-
-				// 할아버지 노드 반환
-				return parent->pParent;
-			}
-
-
-			parent->color = COLOR::BLACK;
-			parent->pParent->color = COLOR::RED;
-			RotateLeft(parent->pParent);
-			// parent가 끝단 노드가 된 상황
-			return newNode->pParent;
-		}
+		Print(m_pRoot);
+		m_useIt = false;
+		return true;
 	}
 
-	// 우회전
-	void RotateRight(Node *node)
+private:
+	void InsertBalancing(Node *newNode)
 	{
-		Node *grandPa = node->pParent;
-		Node *a = node;
-		Node *b = node->pLeft;
+		Node *uncle = nullptr;
+		while (newNode->pParent->color == COLOR::RED)
+		{
+			Node *grandPa = newNode->pParent->pParent;
+			if (newNode->pParent == grandPa->pLeft)
+			{
+				uncle = grandPa->pRight;
 
-		Node *br = b->pRight;
-		b->pRight = a;
-		b->pParent = grandPa;
+				if (uncle->color == COLOR::RED)
+				{
+					newNode->pParent->color = COLOR::BLACK;
+					uncle->color = COLOR::BLACK;
+					grandPa->color = COLOR::RED;
+					newNode = grandPa;
+				}
+				else
+				{
+					if (newNode == newNode->pParent->pRight)
+					{
+						newNode = newNode->pParent;
+						RotateLeft(newNode);
+					}
 
-		a->pParent = b;
-		a->pLeft = br;
+					newNode->pParent->color = COLOR::BLACK;
+					grandPa->color = COLOR::RED;
+					RotateRight(grandPa);
+				}
+			}
+			else
+			{
+				uncle = grandPa->pLeft;
+				if (uncle->color == COLOR::RED)
+				{
+					newNode->pParent->color = COLOR::BLACK;
+					uncle->color = COLOR::BLACK;
+					grandPa->color = COLOR::RED;
+					newNode = grandPa;
+				}
+				else
+				{
+					if (newNode == newNode->pParent->pLeft)
+					{
+						newNode = newNode->pParent;
+						RotateRight(newNode);
+					}
 
-		br->pParent = a;
+					newNode->pParent->color = COLOR::BLACK;
+					grandPa->color = COLOR::RED;
+					RotateLeft(grandPa);
+				}
+			}
+		}
+		m_pRoot->color = COLOR::BLACK;
+	}
+	// Node *InsertBalancing(Node *newNode)
+	// {
+	// 	// 여기까지 들어왔으면 부모가 RED 나도 RED인 경우
+	// 
+	// 	// case 1 : 부모 레드, 삼촌 레드
+	// 	// 부모와 삼촌을 블랙으로 바꾸고 할아버지는 레드로 바꾼다.
+	// 	// 자신이 부모의 왼쪽인 경우
+	// 	Node *parent = newNode->pParent;
+	// 
+	// 	Node *uncle;
+	// 	if (parent->pParent->pLeft == parent)
+	// 		uncle = parent->pParent->pRight;
+	// 	else
+	// 		uncle = parent->pParent->pLeft;
+	// 
+	// 	if (uncle->color == COLOR::RED)
+	// 	{
+	// 		parent->color = COLOR::BLACK;
+	// 		uncle->color = COLOR::BLACK;
+	// 		parent->pParent->color = COLOR::RED;
+	// 		// 할아버지 노드 반환
+	// 		return parent->pParent;
+	// 	}
+	// 
+	// 	if (parent->pLeft == newNode)
+	// 	{
+	// 		if (parent->pParent->pLeft == parent)
+	// 		{
+	// 			parent->color = COLOR::BLACK;
+	// 			parent->pParent->color = COLOR::RED;
+	// 
+	// 			RotateRight(parent->pParent);
+	// 			return newNode->pParent;
+	// 		}
+	// 
+	// 		RotateRight(parent);
+	// 		return parent;
+	// 	}
+	// 
+	// 	// 자신이 부모의 오른쪽인 경우
+	// 	if (parent->pRight == newNode)
+	// 	{
+	// 		// 부모가 할아버지의 왼쪽 자식
+	// 		if (parent->pParent->pRight == parent)
+	// 		{
+	// 			parent->color = COLOR::BLACK;
+	// 			parent->pParent->color = COLOR::RED;
+	// 
+	// 			RotateLeft(parent->pParent);
+	// 
+	// 			return parent;
+	// 		}
+	// 
+	// 		RotateLeft(parent);
+	// 		return parent;
+	// 	}
+	// }
+
+	void deleteBalancing(Node *deleteNode)
+	{
+		Node *sibling = nullptr;
+
+		while (deleteNode != m_pRoot && deleteNode->color == COLOR::BLACK)
+		{
+			if (deleteNode == deleteNode->pParent->pLeft)
+			{
+				sibling = deleteNode->pParent->pRight;
+				// 형제 레드
+				if (sibling->color == COLOR::RED)
+				{
+					sibling->color = COLOR::BLACK;
+					deleteNode->pParent->color = COLOR::RED;
+					RotateLeft(deleteNode->pParent);
+					sibling = deleteNode->pParent->pRight;
+				}
+
+				// 형제 자식 모두 블랙
+				if (sibling->pLeft->color == COLOR::BLACK && sibling->pRight->color == COLOR::BLACK)
+				{
+					sibling->color = COLOR::RED;
+					deleteNode = deleteNode->pParent;
+				}
+				else
+				{
+					// 형제 오른쪽 블랙
+					if (sibling->pRight->color == COLOR::BLACK)
+					{
+						sibling->pLeft->color = COLOR::BLACK;
+						sibling->color = COLOR::RED;
+						RotateRight(sibling);
+						sibling = deleteNode->pParent->pRight;
+					}
+					
+					// 형제 오른쪽 레드
+					sibling->color = deleteNode->pParent->color;
+					deleteNode->pParent->color = COLOR::BLACK;
+					sibling->pRight->color = COLOR::BLACK;
+
+					RotateLeft(deleteNode->pParent);
+
+					deleteNode = m_pRoot;
+				}
+			}
+			else
+			{
+				sibling = deleteNode->pParent->pLeft;
+				// 형제 레드
+				if (sibling->color == COLOR::RED)
+				{
+					sibling->color = COLOR::BLACK;
+					deleteNode->pParent->color = COLOR::RED;
+					RotateRight(deleteNode->pParent);
+					sibling = deleteNode->pParent->pLeft;
+				}
+
+				// 형제 자식 모두 블랙
+				if (sibling->pRight->color == COLOR::BLACK && sibling->pLeft->color == COLOR::BLACK)
+				{
+					sibling->color = COLOR::RED;
+					deleteNode = deleteNode->pParent;
+				}
+				else
+				{
+					// 형제 왼쪽 블랙
+					if (sibling->pLeft->color == COLOR::BLACK)
+					{
+						sibling->pRight->color = COLOR::BLACK;
+						sibling->color = COLOR::RED;
+						RotateLeft(sibling);
+						sibling = deleteNode->pParent->pLeft;
+					}
+
+					// 형제 왼쪽 레드
+					sibling->color = deleteNode->pParent->color;
+					deleteNode->pParent->color = COLOR::BLACK;
+					sibling->pLeft->color = COLOR::BLACK;
+
+					RotateRight(deleteNode->pParent);
+
+					deleteNode = m_pRoot;
+				}
+			}
+		}
+
+		deleteNode->color = COLOR::BLACK;
+	}
+
+	void Transplant(Node *u, Node *v)
+	{
+		if (u->pParent == m_pNil)
+			m_pRoot = v;
+		else if (u == u->pParent->pLeft)
+			u->pParent->pLeft = v;
+		else
+			u->pParent->pRight = v;
+
+		v->pParent = u->pParent;
+	}
+
+	Node *Minimum(Node *node)
+	{
+		if (node == m_pNil)
+			return m_pNil;
+
+		Node *minNode = node;
+		while (minNode->pLeft != m_pNil)
+			minNode = minNode->pLeft;
+
+		return minNode;
 	}
 
 	// 좌회전
 	void RotateLeft(Node *node)
 	{
-		Node *grandPa = node->pParent;
-		Node *a = node;
-		Node *c = node->pRight;
+		Node *rightChild = node->pRight;
+		node->pRight = rightChild->pLeft;
+		rightChild->pParent = node->pParent;
+	
+		if (rightChild->pLeft != m_pNil)
+		{
+			rightChild->pLeft->pParent = node;
+		}
+	
+		if (node->pParent == m_pNil)
+			m_pRoot = rightChild;
+		else if (node == node->pParent->pLeft)
+			node->pParent->pLeft = rightChild;
+		else
+			node->pParent->pRight = rightChild;
+	
+		rightChild->pLeft = node;
+		node->pParent = rightChild;
+	}
 
-		Node *cl = c->pLeft;
-		c->pLeft = a;
-		c->pParent = grandPa;
+	// 우회전
+	void RotateRight(Node *node)
+	{
+		Node *leftChild = node->pLeft;
+		node->pLeft = leftChild->pRight;
+		leftChild->pParent = node->pParent;
 
-		a->pParent = c;
-		a->pRight = cl;
+		if (leftChild->pRight != m_pNil)
+		{
+			leftChild->pRight->pParent = node;
+		}
 
-		cl->pParent = a;
+		if (node->pParent == m_pNil)
+			m_pRoot = leftChild;
+		else if (node == node->pParent->pLeft)
+			node->pParent->pLeft = leftChild;
+		else
+			node->pParent->pRight = leftChild;
+
+		leftChild->pRight = node;
+		node->pParent = leftChild;
 	}
 
 	void Print(Node *node)
 	{
-		if (node == m_pNil)
+		if (node == m_pNil || node == nullptr)
 			return;
 
 		Print(node->pLeft);
-		std::cout << node->key << '\n';
-		Print(node->pRight);
+		std::string color = (node->color == COLOR::BLACK) ? "BLACK" : "RED";
+
+		if (m_useIt)
+		{
+			if (node->key != m_it->first)
+			{
+				std::cout << "잘못됨" << std::endl;
+			}
+		}
+
+
+		std::cout << "My RB Tree : " << node->key << " " << color << '\n';
+
+		if (m_useIt)
+		{
+			std::cout << "std::map : " << m_it->first << " " << '\n';
+			++m_it;
+		}
+		Print(node->pRight); 
 	}
 
 private:
-	Node *m_pRoot = nullptr;
+	Node *m_pRoot;
 	Node *m_pNil = nullptr;
+	std::map<int, int>::iterator m_it;
+	bool m_useIt = false;
 };
 

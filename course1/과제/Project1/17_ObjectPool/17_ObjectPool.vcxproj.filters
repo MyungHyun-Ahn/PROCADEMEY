@@ -3,8 +3,10 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="CProfiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="CProfiler.h" />
   </ItemGroup>
 </Project>

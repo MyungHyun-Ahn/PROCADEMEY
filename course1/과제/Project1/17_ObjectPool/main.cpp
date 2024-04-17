@@ -1,6 +1,14 @@
 
+#pragma comment(lib, "winmm.lib")
+
+#include <windows.h>
+#include <map>
+#include <string>
+#include <ctime>
 #include <iostream>
 #include <stdlib.h>
+#include <tchar.h>
+#include "CProfiler.h"
 #include "ObjectPool.h"
 
 using namespace std;
@@ -10,29 +18,61 @@ class Test
 public:
 	Test()
 	{
-		cout << "Constructor Test" << endl;
+		// cout << "Constructor Test" << endl;
 	}
 
 	~Test()
 	{
-		cout << "Destructor Test" << endl;
+		// cout << "Destructor Test" << endl;
 	}
+
+	char byte[1024] = {0, };
 };
 
-ObjectPool<Test> objPool(1, true);
+void Test1()
+{
+	PROFILE_BEGIN(__WFUNC__, 1);
+
+	Test *test[100000];
+
+	for (int i = 0; i < 100000; i++)
+	{
+		test[i] = new Test;
+	}
+
+	for (int i = 0; i < 100000; i++)
+	{
+		delete test[i];
+	}
+}
+
+ObjectPool<Test> objPool(0, true);
+
+void Test2()
+{
+	PROFILE_BEGIN(__WFUNC__, 2);
+
+
+	Test *test[100000];
+
+	for (int i = 0; i < 100000; i++)
+	{
+		test[i] = objPool.Alloc();
+	}
+
+	for (int i = 0; i < 100000; i++)
+	{
+		objPool.Free(test[i]);
+	}
+}
 
 int main()
 {
-
-	Test *test1 = objPool.Alloc();
-	Test *test2 = objPool.Alloc();
-	Test *test3 = objPool.Alloc();
-	Test *test4 = objPool.Alloc();
-
-
-
-	objPool.Free(test1);
-	Test *test5 = objPool.Alloc();
+	for (int i = 0; i < 10; i++)
+	{
+		Test1();
+		Test2();
+	}
 
 	return 0;
 }

@@ -15,6 +15,8 @@
 #include <cmath>
 #include <map>
 #include <vector>
+#include <deque>
+#include <algorithm>
 
 #include "BinarySearchTree.h"
 #include "RBTree.h"

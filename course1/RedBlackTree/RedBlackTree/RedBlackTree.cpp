@@ -56,6 +56,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	FILE *conout = nullptr;
 	FILE *conerr = nullptr;
 
+	srand(time(nullptr));
+
 	if (AllocConsole())
 	{
 		freopen_s(&conin, "CONIN$", "rb", stdin);
@@ -96,6 +98,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 BinarySearchTree<int> g_Bst;
 RBTree<int> g_rbtree;
+std::map<int, int> g_m;
+std::deque<int> g_v;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -161,19 +165,98 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		// 삭제
 		case L'2':
-			// std::cout << "삭제 >> ";
-			// std::cin >> num;
+			std::cout << "삭제 >> ";
+			std::cin >> num;
 			// 
 			// g_Bst.Delete(num);
+			g_rbtree.Delete(num);
 			break;
 		// 조회
 		case L'3':
-			g_rbtree.Print();
+			// g_rbtree.Print();
 			break;
 		// 전체 삭제
 		case L'4':
 			// g_Bst.Clear();
 			break;
+		// 콘솔 동작
+		case L'5':
+		{
+			bool running = true;
+
+			while (running)
+			{
+				std::cout << "1. 삽입 2. 삭제 3. 출력 4. 종료 >> ";
+				std::cin >> num;
+
+				switch (num)
+				{
+				case 1:
+					std::cout << "삽입 >> ";
+					std::cin >> num;
+					g_rbtree.Insert(num);
+					g_rbtree.Print();
+					break;
+				case 2:
+					std::cout << "삭제 >> ";
+					std::cin >> num;
+					g_rbtree.Delete(num);
+					g_rbtree.Print();
+					break;
+				case 3:
+					g_rbtree.Print();
+					break;
+				case 4:
+					running = false;
+					break;
+				}
+			}
+		}
+			break;
+
+			// 검증 삽입
+		case L'6':
+		{
+
+			std::cout << "\n\n\n\n\n---- 삽입 ----" << std::endl;
+			int randNum = rand() % 300;
+			if (g_rbtree.Insert(randNum))
+			{
+				std::cout << "\n\n\n 삽입 : " << randNum << std::endl;
+				g_v.push_back(randNum);
+				g_m[randNum] = randNum;
+			}
+			
+			g_rbtree.Print(g_m.begin());
+		}
+		break;
+
+			// 검증 삭제
+		case L'7':
+		{
+			if (g_v.size() == 0)
+				break;
+
+			int randNum = rand() % g_v.size();
+			int num = g_v[randNum];
+			std::cout << "\n\n\n삭제 대상 노드 : " << num << std::endl;
+			g_rbtree.Delete(num);
+			
+			g_m.erase(num);
+			for (auto it = g_v.begin(); it != g_v.end(); )
+			{
+				if (*it == num)
+					it = g_v.erase(it);
+				else
+					++it;
+			}
+
+			std::cout << "\n\n\n\n\n---- 삭제 ----" << std::endl;
+			
+			g_rbtree.Print(g_m.begin());
+		}
+		break;
+			
 
         }
 

@@ -27,7 +27,9 @@
     <ClInclude Include="BinarySearchTree.h">
       <Filter>Tree</Filter>
     </ClInclude>
-    <ClInclude Include="RBTree.h" />
+    <ClInclude Include="RBTree.h">
+      <Filter>Tree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -52,6 +54,8 @@
     <ClCompile Include="BinarySearchTree.cpp">
       <Filter>Tree</Filter>
     </ClCompile>
-    <ClCompile Include="RBTree.cpp" />
+    <ClCompile Include="RBTree.cpp">
+      <Filter>Tree</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
