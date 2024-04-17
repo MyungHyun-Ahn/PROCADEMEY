@@ -31,16 +31,16 @@ public:
 
 void Test1()
 {
-	PROFILE_BEGIN(__WFUNC__, 1);
-
 	Test *test[100000];
 
-	for (int i = 0; i < 100000; i++)
+	PROFILE_BEGIN(__WFUNC__, 1);
+
+	for (int i = 0; i < 1024; i++)
 	{
 		test[i] = new Test;
 	}
 
-	for (int i = 0; i < 100000; i++)
+	for (int i = 0; i < 1024; i++)
 	{
 		delete test[i];
 	}
@@ -50,17 +50,15 @@ ObjectPool<Test> objPool(0, true);
 
 void Test2()
 {
+	Test *test[100000];
 	PROFILE_BEGIN(__WFUNC__, 2);
 
-
-	Test *test[100000];
-
-	for (int i = 0; i < 100000; i++)
+	for (int i = 0; i < 1024; i++)
 	{
 		test[i] = objPool.Alloc();
 	}
 
-	for (int i = 0; i < 100000; i++)
+	for (int i = 0; i < 1024; i++)
 	{
 		objPool.Free(test[i]);
 	}
@@ -68,7 +66,7 @@ void Test2()
 
 int main()
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 200; i++)
 	{
 		Test1();
 		Test2();

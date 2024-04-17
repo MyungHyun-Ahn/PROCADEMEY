@@ -1,4 +1,7 @@
 #pragma once
+
+#define SAFE_MODE
+
 template<typename DATA>
 struct Node
 {
