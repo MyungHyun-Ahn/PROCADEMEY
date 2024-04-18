@@ -1,0 +1,9 @@
+﻿cl : 명령줄  warning D9025: '/sdl'을(를) '/GS-'(으)로 재정의합니다.
+  lec01.cpp
+C:\Procademy\PROCADEMEY\course2\Lecture\Lecture\Lecture\lec01.cpp(22,6): warning C4101: 'arr' :참조되지 않은 지역 변수입니다.
+  코드를 생성하고 있습니다.
+  2 of 2 functions (100.0%) were compiled.
+    1 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  Lecture.vcxproj -> C:\Procademy\PROCADEMEY\course2\Lecture\Lecture\Release\Lecture.exe
