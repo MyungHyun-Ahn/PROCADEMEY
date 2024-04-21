@@ -1,0 +1,40 @@
+특정 패스워드 숫자 값을 입력받아 지정된 값과 비교합니다.
+
+1. 패스워드 값 (숫자) 를 찾아내세요.
+
+2. 0 을 패스워드로 크래킹 하세요.
+
+00571090  push        ebp  
+00571091  mov         ebp,esp  
+00571093  sub         esp,8  
+00571096  mov         eax,dword ptr ds:[00573004h]  
+0057109B  xor         eax,ebp  
+0057109D  mov         dword ptr [ebp-4],eax  
+005710A0  push        572108h  
+005710A5  call        00571020  ; printf - 패스워드를 입력하세요 :
+005710AA  lea         eax,[ebp-8]  
+005710AD  push        eax  
+005710AE  push        572120h  
+005710B3  call        00571050  ; scanf
+005710B8  add         esp,0Ch  
+005710BB  cmp         dword ptr [ebp-8],3564h  ; 비밀번호 검사
+005710C2  jne         005710E9  ; jne -> 005710E9 jmp
+005710C4  push        572124h  ; 성공 시
+005710C9  call        00571020  ; printf - 성공하였습니다
+005710CE  push        572134h ; 축하합니다 
+005710D3  call        00571020  ; printf - 축하합니다
+005710D8  add         esp,8  
+005710DB  call        dword ptr ds:[572048h]  ; _getch()
+005710E1  push        0  
+005710E3  call        dword ptr ds:[572094h]  
+005710E9  push        572144h  ; 여기부터 실패 시
+005710EE  call        00571020  
+005710F3  add         esp,4  
+005710F6  call        dword ptr ds:[572048h]  ; _getch()
+005710FC  mov         ecx,dword ptr [ebp-4]  ; ebp - 4 위치에 있는 xor ebp 가져옴
+005710FF  xor         eax,eax  
+00571101  xor         ecx,ebp  ; ebp 복구
+00571103  call        0057110C  ; ebp 손상 체크
+00571108  mov         esp,ebp  
+0057110A  pop         ebp  
+0057110B  ret  

@@ -1,0 +1,25 @@
+﻿  pch.cpp
+  BaseObject.cpp
+  ConsoleManager.cpp
+  Core.cpp
+  Enemy.cpp
+  FileManager.cpp
+  GameScene.cpp
+  KeyManager.cpp
+  Main.cpp
+  Missile.cpp
+  ObjectManager.cpp
+  Player.cpp
+  PrintScene.cpp
+  Profiler.cpp
+  Scene.cpp
+  SceneManager.cpp
+  TimeManager.cpp
+  UiManager.cpp
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  All 385 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  MyShootingGame.vcxproj -> E:\Procademy\PROCADEMEY\course1\과제\OOP_TextShootingGame\x64\Release\MyShootingGame.exe
+  'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+  배치 파일이 아닙니다.

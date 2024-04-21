@@ -1,0 +1,125 @@
+정수 숫자값 3개를 입력 받습니다.
+
+받은 숫자에 대하여 어떤 연산을 거치고 있습니다.
+
+(덛셈,뺄셈,쉬프트 등..)
+
+
+입력받은 값을 어떤 공식으로 계산하는지 찾아내셔요
+
+
+
+00331090  push        ebp  
+00331091  mov         ebp,esp  
+00331093  mov         eax,dword ptr [ebp+14h]  
+00331096  push        eax  
+00331097  mov         ecx,dword ptr [ebp+10h]  
+0033109A  push        ecx  
+0033109B  mov         edx,dword ptr [ebp+0Ch]  
+0033109E  push        edx  
+0033109F  mov         eax,dword ptr [ebp+8]  
+003310A2  push        eax  
+003310A3  call        00331010  
+003310A8  mov         ecx,dword ptr [eax]  
+003310AA  or          ecx,1  
+003310AD  mov         edx,dword ptr [eax+4]  
+003310B0  push        edx  
+003310B1  push        ecx  
+003310B2  call        dword ptr ds:[3320CCh]  
+003310B8  add         esp,18h  
+003310BB  pop         ebp  
+003310BC  ret  
+003310BD  int         3  
+003310BE  int         3  
+003310BF  int         3  
+003310C0  push        ebp  
+003310C1  mov         ebp,esp  
+003310C3  sub         esp,8  
+003310C6  lea         eax,[ebp+0Ch]  
+003310C9  mov         dword ptr [ebp-4],eax  
+003310CC  mov         ecx,dword ptr [ebp-4]  
+003310CF  push        ecx  
+003310D0  push        0  
+003310D2  mov         edx,dword ptr [ebp+8]  
+003310D5  push        edx  
+003310D6  push        0  
+003310D8  call        dword ptr ds:[3320C4h]  
+003310DE  add         esp,4  
+003310E1  push        eax  
+003310E2  call        00331090  
+003310E7  add         esp,10h  
+003310EA  mov         dword ptr [ebp-8],eax  
+003310ED  mov         dword ptr [ebp-4],0  
+003310F4  mov         eax,dword ptr [ebp-8]  
+003310F7  mov         esp,ebp  
+003310F9  pop         ebp  
+003310FA  ret  
+003310FB  int         3  
+003310FC  int         3  
+003310FD  int         3  
+003310FE  int         3  
+003310FF  int         3  
+00331100  push        ebp  
+00331101  mov         ebp,esp  
+00331103  sub         esp,14h  
+00331106  mov         eax,dword ptr ds:[00333004h]  
+0033110B  xor         eax,ebp  
+0033110D  mov         dword ptr [ebp-4],eax  
+00331110  push        332110h  
+00331115  call        00331050  ; printf - 첫번째값
+0033111A  add         esp,4  
+0033111D  lea         eax,[ebp-0Ch]  
+00331120  push        eax  
+00331121  push        33211Ch
+00331126  call        003310C0 ; scanf 
+0033112B  add         esp,8  
+0033112E  push        332120h  
+00331133  call        00331050  ; printf - 두번째값
+00331138  add         esp,4  
+0033113B  lea         ecx,[ebp-8]  
+0033113E  push        ecx  
+0033113F  push        33212Ch  
+00331144  call        003310C0  ; scanf
+00331149  add         esp,8  
+0033114C  push        332130h  
+00331151  call        00331050  ; printf - 세번째값
+00331156  add         esp,4  
+00331159  lea         edx,[ebp-10h]  
+0033115C  push        edx  
+0033115D  push        33213Ch  
+00331162  call        003310C0  ; scanf
+00331167  add         esp,8  
+0033116A  push        0  
+0033116C  call        dword ptr ds:[3320C4h]  ; ___acrt_iob_func()
+00331172  add         esp,4  
+00331175  push        eax  
+00331176  call        dword ptr ds:[3320B8h]  ; _rewind()
+0033117C  add         esp,4  
+0033117F  push        332140h  
+00331184  call        00331050  ; printf - 아무키나 누르면 연산을 시작합니다
+00331189  add         esp,4  
+0033118C  call        dword ptr ds:[332048h]  ; _getch()
+00331192  mov         eax,dword ptr [ebp-0Ch]  ; ebp-0Ch = 첫번째 값 ebp-10h : 세번째값
+00331195  add         eax,dword ptr [ebp-8]  ; ebp-8 = 두번째 값
+00331198  shl         eax,3  
+0033119B  sub         eax,dword ptr [ebp-8]  
+0033119E  mov         dword ptr [ebp-14h],eax  ; ebp-14h 에 결과값 저장
+003311A1  mov         ecx,dword ptr [ebp-14h]  ; ecx로 printf 인자 전달
+003311A4  push        ecx  
+003311A5  push        332164h  
+003311AA  call        00331050  ; printf
+003311AF  add         esp,8  
+003311B2  push        0  
+003311B4  call        dword ptr ds:[3320C4h]  
+003311BA  add         esp,4  
+003311BD  push        eax  
+003311BE  call        dword ptr ds:[3320B8h]  
+003311C4  add         esp,4  
+003311C7  call        dword ptr ds:[332048h]  
+003311CD  xor         eax,eax  
+003311CF  mov         ecx,dword ptr [ebp-4]  
+003311D2  xor         ecx,ebp  
+003311D4  call        003311DD  
+003311D9  mov         esp,ebp  
+003311DB  pop         ebp  
+003311DC  ret 

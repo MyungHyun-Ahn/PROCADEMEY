@@ -1,0 +1,9 @@
+﻿  pch.cpp
+E:\Procademy\PROCADEMEY\course1\과제\OOP_TextShootingGame\MyShootingGame\Profiler.h(33,2): error C7525: 인라인 변수에는 '/std:c++17' 이상이 필요합니다.
+  (소스 파일 'pch.cpp'을(를) 컴파일하는 중)
+  
+E:\Procademy\PROCADEMEY\course1\과제\OOP_TextShootingGame\MyShootingGame\Profiler.h(33,2): error C2864: 'CProfileManager::m_instPtr': in-class initializer가 있는 정적 데이터 멤버은(는) volatile이 아닌 const 정수 형식을 포함하거나 'inline'으로 지정되어야 합니다.
+  (소스 파일 'pch.cpp'을(를) 컴파일하는 중)
+  E:\Procademy\PROCADEMEY\course1\과제\OOP_TextShootingGame\MyShootingGame\Profiler.h(33,2):
+  'CProfileManager *' 형식입니다.
+  
