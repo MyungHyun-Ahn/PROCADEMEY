@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lecture", "Lecture\Lecture.vcxproj", "{63515920-6CED-44A1-AC56-F6A339BCDAE5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualAlloc", "VirtualAlloc\VirtualAlloc.vcxproj", "{0137ECA0-C63A-43D7-8D6A-184AB890BCDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{63515920-6CED-44A1-AC56-F6A339BCDAE5}.Release|x64.Build.0 = Release|x64
 		{63515920-6CED-44A1-AC56-F6A339BCDAE5}.Release|x86.ActiveCfg = Release|Win32
 		{63515920-6CED-44A1-AC56-F6A339BCDAE5}.Release|x86.Build.0 = Release|Win32
+		{0137ECA0-C63A-43D7-8D6A-184AB890BCDE}.Debug|x64.ActiveCfg = Debug|x64
+		{0137ECA0-C63A-43D7-8D6A-184AB890BCDE}.Debug|x64.Build.0 = Debug|x64
+		{0137ECA0-C63A-43D7-8D6A-184AB890BCDE}.Debug|x86.ActiveCfg = Debug|Win32
+		{0137ECA0-C63A-43D7-8D6A-184AB890BCDE}.Debug|x86.Build.0 = Debug|Win32
+		{0137ECA0-C63A-43D7-8D6A-184AB890BCDE}.Release|x64.ActiveCfg = Release|x64
+		{0137ECA0-C63A-43D7-8D6A-184AB890BCDE}.Release|x64.Build.0 = Release|x64
+		{0137ECA0-C63A-43D7-8D6A-184AB890BCDE}.Release|x86.ActiveCfg = Release|Win32
+		{0137ECA0-C63A-43D7-8D6A-184AB890BCDE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
