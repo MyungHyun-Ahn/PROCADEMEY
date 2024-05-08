@@ -19,6 +19,8 @@ public:
 	Test()
 	{
 		// cout << "Constructor Test" << endl;
+		int a = 0;
+		a++;
 	}
 
 	~Test()
@@ -26,39 +28,39 @@ public:
 		// cout << "Destructor Test" << endl;
 	}
 
-	char byte[1024] = {0, };
+	char byte[40];
 };
 
 void Test1()
 {
-	Test *test[100000];
+	Test *test[10000];
 
 	PROFILE_BEGIN(__WFUNC__, 1);
 
-	for (int i = 0; i < 1024; i++)
+	for (int i = 0; i < 10000; i++)
 	{
 		test[i] = new Test;
 	}
 
-	for (int i = 0; i < 1024; i++)
+	for (int i = 0; i < 10000; i++)
 	{
 		delete test[i];
 	}
 }
 
-ObjectPool<Test> objPool(0, true);
+ObjectPool<Test> objPool(0, false);
 
 void Test2()
 {
-	Test *test[100000];
+	Test *test[10000];
 	PROFILE_BEGIN(__WFUNC__, 2);
 
-	for (int i = 0; i < 1024; i++)
+	for (int i = 0; i < 10000; i++)
 	{
 		test[i] = objPool.Alloc();
 	}
 
-	for (int i = 0; i < 1024; i++)
+	for (int i = 0; i < 10000; i++)
 	{
 		objPool.Free(test[i]);
 	}

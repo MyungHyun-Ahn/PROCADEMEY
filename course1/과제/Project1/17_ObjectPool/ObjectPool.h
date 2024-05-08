@@ -1,6 +1,6 @@
 #pragma once
 
-#define SAFE_MODE
+// #define SAFE_MODE
 
 template<typename DATA>
 struct Node
@@ -131,8 +131,6 @@ private:
 #ifdef SAFE_MODE
 		newNode->poolPtr = this;
 #endif
-		newNode->link = top;
-		top = newNode;
 		m_iSize++;
 		return newNode;
 	}
