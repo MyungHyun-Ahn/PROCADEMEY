@@ -27,9 +27,6 @@ int wmain()
 		return 1;
 	}
 
-	char optval = 1;
-	setsockopt(listenSock, SOL_SOCKET, SO_REUSEADDR | SO_LINGER, &optval, sizeof(optval));
-
 	// bind()
 	SOCKADDR_IN serverAddr;
 	ZeroMemory(&serverAddr, sizeof(serverAddr));
@@ -47,7 +44,7 @@ int wmain()
 	}
 
 	// listen()
-	retVal = listen(listenSock, SOMAXCONN_HINT(60000));
+	retVal = listen(listenSock, SOMAXCONN_HINT(65535));
 	if (retVal == SOCKET_ERROR)
 	{
 		int errCode = WSAGetLastError();
