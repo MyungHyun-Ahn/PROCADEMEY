@@ -8,7 +8,7 @@
 #pragma comment (lib, "Ws2_32.lib")
 
 #define SERVER_IP L"127.0.0.1"
-constexpr int SERVER_PORT = 12345;
+constexpr int SERVER_PORT = 8005;
 
 int counter = 0;
 
@@ -34,10 +34,10 @@ int wmain()
 			return 1;
 		}
 
-		// LINGER ling;
-		// ling.l_linger = 0;
-		// ling.l_onoff = 1;
-		// setsockopt(sock, SOL_SOCKET, SO_LINGER, (char *)&ling, sizeof(ling));
+		LINGER ling;
+		ling.l_linger = 0;
+		ling.l_onoff = 1;
+		setsockopt(sock, SOL_SOCKET, SO_LINGER, (char *)&ling, sizeof(ling));
 
 		SOCKADDR_IN serverAddr;
 		ZeroMemory(&serverAddr, sizeof(serverAddr));
@@ -76,7 +76,7 @@ int wmain()
 
 		wprintf(L"connect success num : %d\n", counter);
 
-		// closesocket(sock);
+		closesocket(sock);
 	}
 
 
