@@ -1,0 +1,5 @@
+4
+STAGE01.txt, 15, 1, E
+STAGE02.txt, 20, 2, EW
+STAGE03.txt, 50, 4, QWER
+STAGE04.txt, 58, 5, TYQWR

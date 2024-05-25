@@ -1,0 +1,28 @@
+SHAPE
+T
+
+STATS
+1, 0
+
+MISSILE_TYPE
+16
+DOWN.txt, 1, 0, 0, 1600, 1, 40
+DOWN.txt, 1, 0, 100, 1600, 1, 40
+DOWN_LEFT.txt, 1, -1, 200, 1600, 1, 40
+DOWN_LEFT.txt, 1, -1, 300, 1600, 1, 40
+LEFT.txt, 0, -1, 400, 1600, 1, 40
+LEFT.txt, 0, -1, 500, 1600, 1, 40
+UP_LEFT.txt, -1, -1, 600, 1600, 1, 40
+UP_LEFT.txt, -1, -1, 700, 1600, 1, 40
+UP.txt, -1, 0, 800, 1600, 1, 40
+UP.txt, -1, 0, 900, 1600, 1, 40
+UP_RIGHT.txt, -1, 1, 1000, 1600, 1, 40
+UP_RIGHT.txt, -1, 1, 1100, 1600, 1, 40
+RIGHT.txt, 0, 1, 1200, 1600, 1, 40
+RIGHT.txt, 0, 1, 1300, 1600, 1, 40
+DOWN_RIGHT.txt, 1, 1, 1400, 1600, 1, 40
+DOWN_RIGHT.txt, 1, 1, 1500, 1600, 1, 40
+
+MOVE_PATTERN
+1
+0, 0
