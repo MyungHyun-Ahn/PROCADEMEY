@@ -96,7 +96,8 @@ bool NetworkManager::Select()
 	}
 	
 	// 받을 데이터가 있는 것
-	Recv();
+	if (!Recv())
+		return false;
 
 	return true;
 }

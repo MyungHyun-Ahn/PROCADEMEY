@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OnlineStar_Client", "OnlineStar_Client\OnlineStar_Client.vcxproj", "{09D81F9B-A2A3-47B2-AEA9-C6AB3FA7410C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OnlineStar_Server", "OnlineStar_Server\OnlineStar_Server.vcxproj", "{B4EC521A-8EE2-40A9-B3A8-E16905F3EC77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{09D81F9B-A2A3-47B2-AEA9-C6AB3FA7410C}.Release|x64.Build.0 = Release|x64
 		{09D81F9B-A2A3-47B2-AEA9-C6AB3FA7410C}.Release|x86.ActiveCfg = Release|Win32
 		{09D81F9B-A2A3-47B2-AEA9-C6AB3FA7410C}.Release|x86.Build.0 = Release|Win32
+		{B4EC521A-8EE2-40A9-B3A8-E16905F3EC77}.Debug|x64.ActiveCfg = Debug|x64
+		{B4EC521A-8EE2-40A9-B3A8-E16905F3EC77}.Debug|x64.Build.0 = Debug|x64
+		{B4EC521A-8EE2-40A9-B3A8-E16905F3EC77}.Debug|x86.ActiveCfg = Debug|Win32
+		{B4EC521A-8EE2-40A9-B3A8-E16905F3EC77}.Debug|x86.Build.0 = Debug|Win32
+		{B4EC521A-8EE2-40A9-B3A8-E16905F3EC77}.Release|x64.ActiveCfg = Release|x64
+		{B4EC521A-8EE2-40A9-B3A8-E16905F3EC77}.Release|x64.Build.0 = Release|x64
+		{B4EC521A-8EE2-40A9-B3A8-E16905F3EC77}.Release|x86.ActiveCfg = Release|Win32
+		{B4EC521A-8EE2-40A9-B3A8-E16905F3EC77}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
