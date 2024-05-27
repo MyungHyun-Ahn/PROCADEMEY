@@ -44,7 +44,7 @@ void ConsoleManager::BufferFlip()
 	for (int iCnt = 0; iCnt < dfSCREEN_HEIGHT; iCnt++)
 	{
 		MoveCursor(iCnt, 0);
-		printf(m_szScreenBuffer[iCnt]);
+		printf_s(m_szScreenBuffer[iCnt]);
 	}
 }
 
