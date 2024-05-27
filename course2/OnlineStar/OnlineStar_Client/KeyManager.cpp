@@ -11,12 +11,12 @@ int g_arrVKKey[(int)KEY::END] =
 	VK_UP,
 	VK_DOWN,
 
-	'Q', 'W', 'E', 'R',
-	'D', 'F',
-
-	VK_CONTROL,
-	VK_SPACE,
-	VK_ESCAPE
+	// 'Q', 'W', 'E', 'R',
+	// 'D', 'F',
+	// 
+	// VK_CONTROL,
+	// VK_SPACE,
+	// VK_ESCAPE
 };
 
 KeyManager::KeyManager()

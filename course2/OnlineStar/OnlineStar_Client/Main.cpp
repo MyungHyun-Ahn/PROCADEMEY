@@ -20,17 +20,17 @@ bool Move()
 	{
 		pos.m_iY -= 1;
 	}
-
+	
 	if (KEY_TAP(KEY::DOWN) || KEY_HOLD(KEY::DOWN))
 	{
 		pos.m_iY += 1;
 	}
-
+	
 	if (KEY_TAP(KEY::LEFT) || KEY_HOLD(KEY::LEFT))
 	{
 		pos.m_iX -= 1;
 	}
-
+	
 	if (KEY_TAP(KEY::RIGHT) || KEY_HOLD(KEY::RIGHT))
 	{
 		pos.m_iX += 1;
@@ -127,8 +127,6 @@ unsigned __stdcall RenderThreadFunc(void *pArg)
 		g_ConsoleMgr->WriteText(textPos, text);
 
 		g_ConsoleMgr->BufferFlip();
-
-		Sleep(10);
 	}
 	
 	return 0;
@@ -156,7 +154,7 @@ int main()
 	if (!g_NetworkMgr->SetNonBlockingOpt())
 		return 1;
 
-	HANDLE hThread = (HANDLE)_beginthreadex(NULL, 0, RenderThreadFunc, NULL, 0, NULL);
+	// HANDLE hThread = (HANDLE)_beginthreadex(NULL, 0, RenderThreadFunc, NULL, 0, NULL);
 
 	while (true)
 	{
@@ -189,10 +187,27 @@ int main()
 		// 패킷 수신한 것 처리
 		ProcessPacket();
 
-		Sleep(10);
+		// 렌더
+		g_ConsoleMgr->BufferClear();
+		
+		for (auto &star : stars)
+		{
+			g_ConsoleMgr->SpriteDraw(star.second.m_Pos, '*');
+		}
+		
+		stPos textPos = { 0, 0 };
+		CHAR text[50];
+		sprintf_s(text, "Connect Client:%d Packet:%d", (int)stars.size(), processPackets);
+		processPackets = 0;
+		
+		g_ConsoleMgr->WriteText(textPos, text);
+		
+		g_ConsoleMgr->BufferFlip();
+
+		// Sleep(10);
 	}
 
-	CloseHandle(hThread);
+	// CloseHandle(hThread);
 
 	return 0;
 }

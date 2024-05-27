@@ -105,7 +105,7 @@ bool NetworkManager::Select()
 bool NetworkManager::Send(PacketBase *packet)
 {
 	int retVal = send(serverSocket, (char *)packet, sizeof(PacketBase), 0);
-	if (retVal != WSAEWOULDBLOCK && retVal == SOCKET_ERROR)
+	if (retVal == SOCKET_ERROR)
 	{
 		int errVal = WSAGetLastError();
 		printf("send() Error : %d\n", errVal);
@@ -119,7 +119,7 @@ bool NetworkManager::Recv()
 {
 	// 크게 읽음
 	int retVal = recv(serverSocket, g_Buffer, RECV_BUFFER_SIZE, 0);
-	if (retVal != WSAEWOULDBLOCK && retVal == SOCKET_ERROR)
+	if (retVal == SOCKET_ERROR)
 	{
 		int errVal = WSAGetLastError();
 		printf("recv() Error : %d\n", errVal);

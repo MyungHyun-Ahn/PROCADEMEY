@@ -51,11 +51,11 @@ enum class KEY
 	UP,
 	DOWN,
 
-	Q, W, E, R,
-	D, F,
-	CTRL,
-	SPACE,
-	ESC,
+	// Q, W, E, R,
+	// D, F,
+	// CTRL,
+	// SPACE,
+	// ESC,
 
 	END
 };
