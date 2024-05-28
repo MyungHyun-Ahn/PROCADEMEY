@@ -11,6 +11,9 @@
     <ClCompile Include="NetworkManager.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="Star.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
@@ -21,6 +24,9 @@
     </Filter>
     <Filter Include="Etc">
       <UniqueIdentifier>{e59e47ec-0004-4e4f-9791-32f70dc9d684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{865d624b-da1b-4935-b4a5-735a658b822e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +40,12 @@
       <Filter>Etc</Filter>
     </ClInclude>
     <ClInclude Include="NetworkManager.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Star.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
       <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>

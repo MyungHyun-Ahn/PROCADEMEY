@@ -1,3 +1,4 @@
+#include "NetworkManager.h"
 #include "pch.h"
 #include "Define.h"
 #include "Packet.h"
@@ -74,6 +75,8 @@ bool NetworkManager::SetNonBlockingOpt()
 
 bool NetworkManager::Select()
 {
+	int retVal;
+
 	FD_ZERO(&rset);
 	FD_SET(serverSocket, &rset);
 
@@ -82,7 +85,7 @@ bool NetworkManager::Select()
 	t.tv_usec = 0;
 
 	// select()
-	int retVal = select(0, &rset, NULL, NULL, &t);
+	retVal = select(0, &rset, NULL, NULL, &t);
 	if (retVal == SOCKET_ERROR)
 	{
 		int errVal = WSAGetLastError();

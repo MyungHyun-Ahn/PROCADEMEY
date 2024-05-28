@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <windows.h>
+#include <deque>
 #include <vector>
 #include <map>
 #include <locale>
