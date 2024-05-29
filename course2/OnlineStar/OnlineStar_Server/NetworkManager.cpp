@@ -190,11 +190,13 @@ bool NetworkManager::SendBroadcast(SOCKET sock, PacketBase *packet)
 			errVal = WSAGetLastError();
 			if (errVal != WSAEWOULDBLOCK)
 			{
-				printf("send() Error : %d\n", errVal);
-
-				// 연결 끊기 큐에 넣기 - 당장 끊지 않음
-				deleteQueue.push_back(star.first);
-				allSucc = false;
+				// printf("send() Error : %d\n", errVal);
+				if (errVal == WSAECONNRESET)
+				{
+					// 연결 끊기 큐에 넣기 - 당장 끊지 않음
+					deleteQueue.push_back(star.first);
+					allSucc = false;
+				}
 			}
 		}
 	}
@@ -250,6 +252,12 @@ bool NetworkManager::Accept()
 		return false;
 	}
 
+	if (g_Stars.size() > 64)
+	{
+		// 최대 접속 수용 인원 초과 
+		return false;
+	}
+
 	// 별 정보 세팅
 	Star star;
 	star.m_ClientSocket = clientSock;
@@ -265,7 +273,8 @@ bool NetworkManager::Accept()
 		packet.ID = star.m_Id;
 
 		if (!SendUnicast(clientSock, (PacketBase *)&packet))
-		{	// 실패한 경우
+		{	
+			// 실패한 경우
 			// 연결을 끊는다.
 			closesocket(clientSock);
 			return false;

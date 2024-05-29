@@ -2,8 +2,8 @@
 
 #define SERVER_PORT 3000
 
-#define dfSCREEN_WIDTH 80 + 2
-#define dfSCREEN_HEIGHT 23 + 1
+#define dfSCREEN_WIDTH (80 + 2)
+#define dfSCREEN_HEIGHT (23 + 1)
 
 #define RECV_BUFFER_SIZE 1024
 
