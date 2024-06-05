@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <Windowsx.h>
 #include <iostream>
+#include <locale>
 #include "RingBuffer.h"
 
 #define UM_NETWORK (WM_USER + 1)
@@ -25,9 +26,13 @@
 
 // 헤더
 #pragma pack(push, 1)
-struct st_DRAW_PACKET
+struct st_HEADER
 {
     unsigned short Len;
+};
+
+struct st_DRAW_PACKET : public st_HEADER
+{
     int		iStartX;
     int		iStartY;
     int		iEndX;
@@ -64,6 +69,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+    std::locale::global(std::locale("Korean"));
+
     // TODO: 여기에 코드를 입력합니다.
 
     int retVal;
@@ -78,6 +85,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return FALSE;
     }
+
+
 
     MSG msg;
     WSADATA wsa;
@@ -96,10 +105,27 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return 0;
     }
 
+	FILE *conin = nullptr;
+	FILE *conout = nullptr;
+	FILE *conerr = nullptr;
+	
+	if (AllocConsole())
+	{
+		freopen_s(&conin, "CONIN$", "rb", stdin);
+		freopen_s(&conout, "CONOUT$", "wb", stdout);
+		freopen_s(&conerr, "CONOUT$", "wb", stderr);
+	
+		std::ios::sync_with_stdio();
+	}
+	
+    CHAR ip[17];
+    std::cout << "IP 주소를 입력하세요 : ";
+    std::cin >> ip;
+
 	SOCKADDR_IN serverAddr;
 	ZeroMemory(&serverAddr, sizeof(serverAddr));
 	serverAddr.sin_family = AF_INET;
-	InetPtonW(AF_INET, IP, &serverAddr.sin_addr);
+	InetPtonA(AF_INET, ip, &serverAddr.sin_addr);
 	serverAddr.sin_port = htons(PORT);
 
     retVal = connect(serverSock, (sockaddr *)&serverAddr, sizeof(serverAddr));
@@ -116,20 +142,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	HWND hWnd = CreateWindowW(L"ABCD", L"Debug Console", WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
-	// FILE *conin = nullptr;
-	// FILE *conout = nullptr;
-	// FILE *conerr = nullptr;
-    // 
-	// if (AllocConsole())
-	// {
-	// 	freopen_s(&conin, "CONIN$", "rb", stdin);
-	// 	freopen_s(&conout, "CONOUT$", "wb", stdout);
-	// 	freopen_s(&conerr, "CONOUT$", "wb", stderr);
-    // 
-	// 	std::ios::sync_with_stdio();
-	// }
-    // 
     
 
     // 기본 메시지 루프입니다:
@@ -139,9 +151,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         DispatchMessage(&msg);
     }
     
-	// fclose(conin);
-	// fclose(conout);
-	// fclose(conerr);
+	fclose(conin);
+	fclose(conout);
+	fclose(conerr);
 
     WSACleanup();
 
@@ -268,7 +280,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         curY = GET_Y_LPARAM(lParam);
 
 		st_DRAW_PACKET drawPacket;
-		drawPacket.Len = sizeof(drawPacket) - 2;
+		drawPacket.Len = sizeof(st_DRAW_PACKET) - sizeof(st_HEADER);
 		drawPacket.iStartX = oldX;
 		drawPacket.iStartY = oldY;
 		drawPacket.iEndX = curX;
@@ -302,7 +314,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
 			// CONNECT가 온 이후부터
 			isConnected = true;
-			// std::cout << "Connect Success" << std::endl;
+			std::cout << "Connect Success" << std::endl;
 			// std::cout << sizeof(st_DRAW_PACKET) << std::endl;
         }
             break;
@@ -368,6 +380,7 @@ void WriteEvent()
 void ReadEvent()
 {
     int directSize = g_recvBuffer.DirectEnqueueSize();
+    // Rear가 0일 때
     int retVal = recv(serverSock, g_recvBuffer.GetRearPtr(), directSize, 0);
     if (retVal == SOCKET_ERROR)
     {
@@ -385,22 +398,101 @@ void ReadEvent()
 
 void ProcessPacket(HDC hdc)
 {
-    int size = g_recvBuffer.GetUseSize();
-    std::cout << "Size : " << size << std::endl;
+    // std::cout << "Size : " << size << std::endl;
 
-    while (size >= sizeof(st_DRAW_PACKET))
+    while (true)
     {
-        st_DRAW_PACKET *packet = (st_DRAW_PACKET *)g_recvBuffer.GetFrontPtr();
+        int size = g_recvBuffer.GetUseSize();
+        if (size < 2)
+        {
+            break;
+        }
+        st_HEADER *header;
+        st_HEADER localHeader;
 
-        // g_recvBuffer.Dequeue((char *)&packet, sizeof(st_DRAW_PACKET));
-		// std::cout << "StartX : " << packet->iStartX << " StartY : " << packet->iStartY << std::endl;
-		// std::cout << "EndX : " << packet->iEndX << " EndY : " << packet->iEndY << std::endl;
+        if (g_recvBuffer.DirectDequeueSize() < sizeof(st_HEADER))
+        {
+			
+            g_recvBuffer.Peek((char *)&localHeader, sizeof(st_HEADER));
 
-        MoveToEx(hdc, packet->iStartX, packet->iStartY, NULL);
-        LineTo(hdc, packet->iEndX, packet->iEndY);
+            header = &localHeader;
 
-        g_recvBuffer.MoveFront(sizeof(st_DRAW_PACKET));
+			// 헤더 + Len이 size 보다 작은 경우
+			size = g_recvBuffer.GetUseSize();
+			if (size < header->Len + sizeof(st_HEADER))
+				break;
 
-        size = g_recvBuffer.GetUseSize();
+			// 이상한 패킷이 온 경우
+			if (header->Len + sizeof(st_HEADER) != sizeof(st_DRAW_PACKET))
+			{
+				// 패킷 버리기
+				g_recvBuffer.MoveFront(header->Len + sizeof(st_HEADER));
+				continue;
+			}
+        }
+        else
+        {
+			st_HEADER *header = (st_HEADER *)g_recvBuffer.GetFrontPtr();
+
+			// 헤더 + Len이 size 보다 작은 경우
+			size = g_recvBuffer.GetUseSize();
+			if (size < header->Len + sizeof(st_HEADER))
+				break;
+
+			// 이상한 패킷이 온 경우
+			if (header->Len + sizeof(st_HEADER) != sizeof(st_DRAW_PACKET))
+			{
+				// 패킷 버리기
+				g_recvBuffer.MoveFront(header->Len + sizeof(st_HEADER));
+				continue;
+			}
+        }
+
+        // 진짜 Draw 패킷
+        st_DRAW_PACKET *packet;
+        st_DRAW_PACKET localPacket;
+        if (g_recvBuffer.DirectDequeueSize() < sizeof(st_DRAW_PACKET))
+        {
+            std::cout << g_recvBuffer.DirectDequeueSize() << std::endl;
+            std::cout << g_recvBuffer.GetUseSize() << std::endl;
+
+            g_recvBuffer.Peek((char *)&localPacket, sizeof(st_DRAW_PACKET));
+            packet = &localPacket;
+
+
+			std::cout << "StartX : " << packet->iStartX << " StartY : " << packet->iStartY << std::endl;
+			std::cout << "EndX : " << packet->iEndX << " EndY : " << packet->iEndY << std::endl;
+
+			MoveToEx(hdc, packet->iStartX, packet->iStartY, NULL);
+			LineTo(hdc, packet->iEndX, packet->iEndY);
+            g_recvBuffer.MoveFront(sizeof(st_DRAW_PACKET));
+        }
+        else
+        {
+			packet = (st_DRAW_PACKET *)g_recvBuffer.GetFrontPtr();
+
+			std::cout << "StartX : " << packet->iStartX << " StartY : " << packet->iStartY << std::endl;
+			std::cout << "EndX : " << packet->iEndX << " EndY : " << packet->iEndY << std::endl;
+
+			MoveToEx(hdc, packet->iStartX, packet->iStartY, NULL);
+			LineTo(hdc, packet->iEndX, packet->iEndY);
+			g_recvBuffer.MoveFront(sizeof(st_DRAW_PACKET));
+        }
     }
+
+    // while (size >= sizeof(st_DRAW_PACKET))
+    // {
+    //     st_DRAW_PACKET *packet = (st_DRAW_PACKET *)g_recvBuffer.GetFrontPtr();
+    // 
+    //     // g_recvBuffer.Dequeue((char *)&packet, sizeof(st_DRAW_PACKET));
+	// 	// std::cout << "StartX : " << packet->iStartX << " StartY : " << packet->iStartY << std::endl;
+	// 	// std::cout << "EndX : " << packet->iEndX << " EndY : " << packet->iEndY << std::endl;
+    // 
+    //     MoveToEx(hdc, packet->iStartX, packet->iStartY, NULL);
+    //     LineTo(hdc, packet->iEndX, packet->iEndY);
+    // 
+    //     g_recvBuffer.MoveFront(sizeof(st_DRAW_PACKET));
+    // 
+    //     size = g_recvBuffer.GetUseSize();
+    // }
 }

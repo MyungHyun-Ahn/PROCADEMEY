@@ -57,6 +57,8 @@ public:
 	inline int MoveRear(int size) { m_iRear = (m_iRear + size) % m_iCapacity; return m_iRear; }
 	inline int MoveFront(int size) { m_iFront = (m_iFront + size) % m_iCapacity; return m_iFront; }
 
+	inline char *GetPQueuePtr() { return m_PQueue; }
+
 	// Front 포인터 얻기
 	inline char *GetFrontPtr() { return m_PQueue + m_iFront; }
 

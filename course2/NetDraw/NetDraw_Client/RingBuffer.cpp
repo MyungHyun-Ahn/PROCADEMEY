@@ -25,7 +25,7 @@ int RingBuffer::Enqueue(char *data, int size)
 	if (freeSize < size)
 		return -1;
 
-	int firstPartSize = min(size, m_iCapacity - m_iRear);
+	int firstPartSize = min(size, DirectEnqueueSize());
 	int secondPartSize = size - firstPartSize;
 
 	memcpy_s(m_PQueue + m_iRear, freeSize, data, firstPartSize);
@@ -51,7 +51,7 @@ int RingBuffer::Peek(char *buffer, int size)
 		return -1;
 	}
 
-	int firstPartSize = min(size, m_iCapacity - m_iFront);
+	int firstPartSize = min(size, DirectDequeueSize());
 	int secondPartSize = size - firstPartSize;
 
 	memcpy_s(buffer, size, m_PQueue + m_iFront, firstPartSize);
