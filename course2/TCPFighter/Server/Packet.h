@@ -23,18 +23,6 @@ enum class PACKET_CODE
 	PACKET_SC_SYNC = 251
 };
 
-enum class MOVE_DIR
-{
-	PACKET_MOVE_DIR_LL = 0,
-	PACKET_MOVE_DIR_LU = 1,
-	PACKET_MOVE_DIR_UU = 2,
-	PACKET_MOVE_DIR_RU = 3,
-	PACKET_MOVE_DIR_RR = 4,
-	PACKET_MOVE_DIR_RD = 5,
-	PACKET_MOVE_DIR_DD = 6,
-	PACKET_MOVE_DIR_LD = 7
-};
-
 #pragma pack(push, 1)
 struct PacketHeader
 {

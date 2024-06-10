@@ -53,11 +53,11 @@
     <ClInclude Include="RingBuffer.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="Packet.h">
-      <Filter>Etc</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

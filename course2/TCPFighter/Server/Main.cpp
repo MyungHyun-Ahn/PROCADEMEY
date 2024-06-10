@@ -14,12 +14,18 @@ int main()
 	while (true)
 	{
 		// 네트워크
-
+		// Read
+		// 바로바로 보낼것은 여기서 보내도 된다.
+		g_NetworkMgr->ReadSelect();
 
 		if (int time = timeGetTime(); time - prevTick >= dfTICK_PER_FRAME)
 		{
 			// 로직
 
+
+
+			// Write
+			g_NetworkMgr->WriteSelect();
 			prevTick += dfTICK_PER_FRAME;
 		}
 	}

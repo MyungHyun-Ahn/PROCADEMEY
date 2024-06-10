@@ -197,6 +197,7 @@ bool NetworkManager::WriteSelect()
 	return true;
 }
 
+
 // sock에게만 전송
 bool NetworkManager::SendUnicast(SOCKET sock, char *packet, int size)
 {
@@ -250,7 +251,11 @@ bool NetworkManager::Accept()
 	Session newSession(id, clientSock);
 	g_Sesstions.insert(std::make_pair(id, newSession));
 
-	Player newPlayer(id, rand() % df);
+	int ranX = rand() / (dfRANGE_MOVE_RIGHT - dfRANGE_MOVE_LEFT - 2) + dfRANGE_MOVE_LEFT;
+	int ranY = rand() / (dfRANGE_MOVE_TOP - dfRANGE_MOVE_BOTTOM - 2) + dfRANGE_MOVE_BOTTOM;
+	Player newPlayer(id, ranX, ranY);
+
+
 }
 
 bool NetworkManager::DisconnectClient()

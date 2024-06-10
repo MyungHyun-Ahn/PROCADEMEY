@@ -11,6 +11,7 @@ public:
 	bool ReadSelect();
 	bool WriteSelect();
 
+	// 이걸 사용해서 Send를 바로 진행
 	bool SendUnicast(SOCKET sock, char *packet, int size);
 
 private:
