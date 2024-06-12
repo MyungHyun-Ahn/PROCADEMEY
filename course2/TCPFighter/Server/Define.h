@@ -3,7 +3,10 @@
 #define SERVER_IP "0.0.0.0"
 #define SERVER_PORT 5000
 
-#define dfTICK_PER_FRAME 50
+#define dfTICK_PER_FRAME (1000 / 50)
+
+// 패킷 코드
+#define dfPACKET_CODE 0x89;
 
 // MAX hp
 #define dfMAX_PLAYER_HP 100
@@ -23,11 +26,17 @@
 
 // 공격 범위
 #define dfATTACK1_RANGE_X		80
-#define dfATTACK2_RANGE_X		90
-#define dfATTACK3_RANGE_X		100
 #define dfATTACK1_RANGE_Y		10
+
+#define dfATTACK2_RANGE_X		90
 #define dfATTACK2_RANGE_Y		10
+
+#define dfATTACK3_RANGE_X		100
 #define dfATTACK3_RANGE_Y		20
+
+#define dfDAMAGE1 5
+#define dfDAMAGE2 7
+#define dfDAMAGE3 10
 
 // 이동 방향
 enum class MOVE_DIR
@@ -39,15 +48,8 @@ enum class MOVE_DIR
 	MOVE_DIR_RR = 4,
 	MOVE_DIR_RD = 5,
 	MOVE_DIR_DD = 6,
-	MOVE_DIR_LD = 7
-};
-
-enum class ACTIONS
-{
-	NONE = 0,
-	ACTION_1 = 1,
-	ACTION_2 = 2,
-	ACTION_3 = 3
+	MOVE_DIR_LD = 7,
+	MOVE_DIR_STOP = 8
 };
 
 // 싱글톤

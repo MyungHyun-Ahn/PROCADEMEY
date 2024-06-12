@@ -1,9 +1,11 @@
 #pragma once
-#pragma once
+
 class NetworkManager
 {
 	SINGLE(NetworkManager)
 public:
+	friend class ProcessPacket;
+
 	// 서버 시작 세팅
 	bool Start();
 
@@ -12,17 +14,19 @@ public:
 	bool WriteSelect();
 
 	// 이걸 사용해서 Send를 바로 진행
-	bool SendUnicast(SOCKET sock, char *packet, int size);
+	bool SendUnicast(SOCKET sock, char* packet, int size);
+	bool RegisterBroadcast(Session *pSession, char *packet, int size);
+
+	// Client disconnect
+	bool DisconnectClients();
 
 private:
 	// 패킷 처리용
-	bool ProcessPacket(SOCKET sock, int sessionId);
+	bool ProcessPacket(int sessionId);
+	bool ConsumePacket(Session *session, PACKET_CODE code);
 
 	// Accept
 	bool Accept();
-
-	// Client disconnect
-	bool DisconnectClient();
 
 	// Disconnect
 	bool Disconnect();
@@ -32,7 +36,7 @@ private:
 	fd_set rset;
 	fd_set wset;
 
-	std::deque<SOCKET> deleteQueue;
+	std::deque<Session *> deleteQueue;
 };
 
 

@@ -36,6 +36,15 @@
     <ClCompile Include="pch.cpp">
       <Filter>Etc</Filter>
     </ClCompile>
+    <ClCompile Include="ProcessPacket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="GenPacket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLogic.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NetworkManager.h">
@@ -58,6 +67,15 @@
     </ClInclude>
     <ClInclude Include="Packet.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessPacket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="GenPacket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogic.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

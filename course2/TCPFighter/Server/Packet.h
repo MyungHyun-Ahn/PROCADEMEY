@@ -43,7 +43,7 @@ struct PacketSCCreateMyCharacter : public PacketHeader
 struct PacketSCCreateOtherCharacter : public PacketHeader
 {
 	INT			id;
-	CHAR		director;
+	CHAR		direction;
 	USHORT		x;
 	USHORT		y;
 	CHAR		hp;
@@ -54,7 +54,7 @@ struct PacketSCDeleteCharacter : public PacketHeader
 	INT			id;
 };
 
-struct PakcetCSMoveStart : public PacketHeader
+struct PacketCSMoveStart : public PacketHeader
 {
 	CHAR		moveDir;
 	USHORT		x;
@@ -91,7 +91,7 @@ struct PacketCSAttack1 : public PacketHeader
 	USHORT		y;
 };
 
-struct PakcetSCAttack1 : public PacketHeader
+struct PacketSCAttack1 : public PacketHeader
 {
 	INT			id;
 	CHAR		viewDir;
@@ -129,7 +129,7 @@ struct PacketSCAttack3 : public PacketHeader
 	USHORT		y;
 };
 
-struct PacketSCDamage
+struct PacketSCDamage : public PacketHeader
 {
 	INT			attackerId;
 	INT			attackedId;
