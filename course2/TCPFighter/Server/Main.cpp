@@ -27,11 +27,12 @@ int main()
 		{
 			GameLogic::Update();
 
+			// 로직
+			g_NetworkMgr->WriteSelect();
+
 			prevTick += dfTICK_PER_FRAME;
 		}
 
-		// 로직
-		g_NetworkMgr->WriteSelect();
 		g_NetworkMgr->DisconnectClients();
 	}
 
