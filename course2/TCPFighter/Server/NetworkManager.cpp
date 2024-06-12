@@ -142,6 +142,17 @@ bool NetworkManager::ReadSelect()
 					continue;
 				}
 			}
+			if (retVal == 0)
+			{
+				// 중복 삽입 방지
+				if (s->m_isVaild)
+				{
+					wprintf(L"Player %d disconnected!\n", s->m_Id);
+					deleteQueue.push_back(s);
+					s->m_isVaild = FALSE;
+				}
+				continue;
+			}
 
 			s->recvBuffer.MoveRear(retVal);
 
@@ -400,6 +411,10 @@ bool NetworkManager::Accept()
 		PacketSCCreateOtherCharacter packet;
 		makePacketSCCreateOtherCharacter(&packet, remainPlayer.m_Id, (CHAR)remainPlayer.m_Direction, remainPlayer.m_X, remainPlayer.m_Y, (CHAR)remainPlayer.m_Hp);
 		newSession->sendBuffer.Enqueue((char *)&packet, sizeof(PacketSCCreateMyCharacter));
+
+		PacketSCMoveStart movePacket;
+		makePacketSCMoveStart(&movePacket, remainPlayer.m_Id, (CHAR)remainPlayer.m_Action, remainPlayer.m_X, remainPlayer.m_Y);
+		newSession->sendBuffer.Enqueue((char *)&movePacket, sizeof(PacketSCMoveStart));
 	}
 
 	// 들어와 있는 모든 유저에게 정보 전달
@@ -437,7 +452,6 @@ bool NetworkManager::DisconnectClients()
 		{
 			s.second->sendBuffer.Enqueue((char *)&packet, sizeof(PacketSCDeleteCharacter));
 		}
-
 
 		closesocket(ses->clientSocket);
 		g_Sessions.erase(ses->m_Id);
