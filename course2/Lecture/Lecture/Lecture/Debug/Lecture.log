@@ -1,0 +1,5 @@
+﻿  lec01.cpp
+E:\Procademy\PROCADEMEY\course2\Lecture\Lecture\Lecture\lec01.cpp(22,6): warning C4101: 'arr' :참조되지 않은 지역 변수입니다.
+  Lecture.vcxproj -> E:\Procademy\PROCADEMEY\course2\Lecture\Lecture\Debug\Lecture.exe
+  'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+  배치 파일이 아닙니다.

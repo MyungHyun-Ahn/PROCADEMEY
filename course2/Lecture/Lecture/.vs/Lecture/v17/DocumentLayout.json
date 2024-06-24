@@ -1,0 +1,99 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Procademy\\PROCADEMEY\\course2\\Lecture\\Lecture\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{63515920-6CED-44A1-AC56-F6A339BCDAE5}|Lecture\\Lecture.vcxproj|E:\\Procademy\\PROCADEMEY\\course2\\Lecture\\Lecture\\Lecture\\lec01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{63515920-6CED-44A1-AC56-F6A339BCDAE5}|Lecture\\Lecture.vcxproj|solutionrelative:Lecture\\lec01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Procademy\\PROCADEMEY\\course2\\Lecture\\Lecture\\hack\\hack.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:hack\\hack.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0137ECA0-C63A-43D7-8D6A-184AB890BCDE}|VirtualAlloc\\VirtualAlloc.vcxproj|E:\\Procademy\\PROCADEMEY\\course2\\Lecture\\Lecture\\VirtualAlloc\\valloc.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0137ECA0-C63A-43D7-8D6A-184AB890BCDE}|VirtualAlloc\\VirtualAlloc.vcxproj|solutionrelative:VirtualAlloc\\valloc.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt\\stddef.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 246,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d3750d8a-574b-4fb3-b7e2-aa8af40e8231}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:46:0:{dcc4ea97-1c0c-482b-b205-e541c0df9728}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:43:0:{dcc4ea97-1c0c-482b-b205-e541c0df9728}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "lec01.cpp",
+              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course2\\Lecture\\Lecture\\Lecture\\lec01.cpp",
+              "RelativeDocumentMoniker": "Lecture\\lec01.cpp",
+              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course2\\Lecture\\Lecture\\Lecture\\lec01.cpp",
+              "RelativeToolTip": "Lecture\\lec01.cpp",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAwA8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-24T18:56:09.243Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "hack.cpp",
+              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course2\\Lecture\\Lecture\\hack\\hack.cpp",
+              "RelativeDocumentMoniker": "hack\\hack.cpp",
+              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course2\\Lecture\\Lecture\\hack\\hack.cpp",
+              "RelativeToolTip": "hack\\hack.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-24T18:56:08.969Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "valloc.cpp",
+              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course2\\Lecture\\Lecture\\VirtualAlloc\\valloc.cpp",
+              "RelativeDocumentMoniker": "VirtualAlloc\\valloc.cpp",
+              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course2\\Lecture\\Lecture\\VirtualAlloc\\valloc.cpp",
+              "RelativeToolTip": "VirtualAlloc\\valloc.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-24T18:56:09.21Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "stddef.h",
+              "DocumentMoniker": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt\\stddef.h",
+              "ToolTip": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\ucrt\\stddef.h",
+              "ViewState": "AQIAAB8AAAAAAAAAAAAawDAAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-29T08:36:17.903Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
