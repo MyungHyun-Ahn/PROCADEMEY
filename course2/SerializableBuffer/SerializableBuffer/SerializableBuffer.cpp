@@ -51,7 +51,9 @@ SerializableBuffer &SerializableBuffer::operator<<(char chData)
 		// TODO: resize
 	}
 
-	memcpy_s(m_Buffer + m_Rear, m_MaxSize - m_Rear, &chData, sizeof(char));
+	char *ptr = (char *)(m_Buffer + m_Rear);
+	*ptr = chData;
+
 	MoveWritePos(sizeof(char));
 
 	return *this;
@@ -64,7 +66,9 @@ SerializableBuffer &SerializableBuffer::operator<<(unsigned char byData)
 		// TODO: resize
 	}
 
-	memcpy_s(m_Buffer + m_Rear, m_MaxSize - m_Rear, &byData, sizeof(unsigned char));
+	unsigned char *ptr = (unsigned char *)(m_Buffer + m_Rear);
+	*ptr = byData;
+
 	MoveWritePos(sizeof(unsigned char));
 
 	return *this;
@@ -77,7 +81,9 @@ SerializableBuffer &SerializableBuffer::operator<<(short shData)
 		// TODO: resize
 	}
 
-	memcpy_s(m_Buffer + m_Rear, m_MaxSize - m_Rear, &shData, sizeof(short));
+	short *ptr = (short *)(m_Buffer + m_Rear);
+	*ptr = shData;
+
 	MoveWritePos(sizeof(short));
 
 	return *this;
@@ -90,7 +96,9 @@ SerializableBuffer &SerializableBuffer::operator<<(unsigned short wData)
 		// TODO: resize
 	}
 
-	memcpy_s(m_Buffer + m_Rear, m_MaxSize - m_Rear, &wData, sizeof(unsigned short));
+	unsigned short *ptr = (unsigned short *)(m_Buffer + m_Rear);
+	*ptr = wData;
+
 	MoveWritePos(sizeof(unsigned short));
 
 	return *this;
@@ -103,7 +111,9 @@ SerializableBuffer &SerializableBuffer::operator<<(int iData)
 		// TODO: resize
 	}
 
-	memcpy_s(m_Buffer + m_Rear, m_MaxSize - m_Rear, &iData, sizeof(int));
+	int *ptr = (int *)(m_Buffer + m_Rear);
+	*ptr = iData;
+
 	MoveWritePos(sizeof(int));
 
 	return *this;
@@ -116,7 +126,9 @@ SerializableBuffer &SerializableBuffer::operator<<(long lData)
 		// TODO: resize
 	}
 
-	memcpy_s(m_Buffer + m_Rear, m_MaxSize - m_Rear, &lData, sizeof(long));
+	long *ptr = (long *)(m_Buffer + m_Rear);
+	*ptr = lData;
+
 	MoveWritePos(sizeof(long));
 
 	return *this;
@@ -129,7 +141,9 @@ SerializableBuffer &SerializableBuffer::operator<<(float fData)
 		// TODO: resize
 	}
 
-	memcpy_s(m_Buffer + m_Rear, m_MaxSize - m_Rear, &fData, sizeof(float));
+	float *ptr = (float *)(m_Buffer + m_Rear);
+	*ptr = fData;
+
 	MoveWritePos(sizeof(float));
 
 	return *this;
@@ -142,7 +156,9 @@ SerializableBuffer &SerializableBuffer::operator<<(__int64 iData)
 		// TODO: resize
 	}
 
-	memcpy_s(m_Buffer + m_Rear, m_MaxSize - m_Rear, &iData, sizeof(__int64));
+	__int64 *ptr = (__int64 *)(m_Buffer + m_Rear);
+	*ptr = iData;
+
 	MoveWritePos(sizeof(__int64));
 
 	return *this;
@@ -155,7 +171,8 @@ SerializableBuffer &SerializableBuffer::operator<<(double dData)
 		// TODO: resize
 	}
 
-	memcpy_s(m_Buffer + m_Rear, m_MaxSize - m_Rear, &dData, sizeof(double));
+	*(double *)(m_Buffer + m_Rear) = dData;
+
 	MoveWritePos(sizeof(double));
 
 	return *this;
@@ -168,7 +185,7 @@ SerializableBuffer &SerializableBuffer::operator>>(char &chData)
 		throw;
 	}
 
-	memcpy_s(&chData, sizeof(char), m_Buffer + m_Front, sizeof(char));
+	chData = *(char *)(m_Buffer + m_Front);
 	MoveReadPos(sizeof(char));
 
 	return *this;
@@ -181,7 +198,7 @@ SerializableBuffer &SerializableBuffer::operator>>(unsigned char &byData)
 		throw;
 	}
 
-	memcpy_s(&byData, sizeof(unsigned char), m_Buffer + m_Front, sizeof(unsigned char));
+	byData = *(unsigned char *)(m_Buffer + m_Front);
 	MoveReadPos(sizeof(unsigned char));
 
 	return *this;
@@ -194,7 +211,7 @@ SerializableBuffer &SerializableBuffer::operator>>(short &shData)
 		throw;
 	}
 
-	memcpy_s(&shData, sizeof(short), m_Buffer + m_Front, sizeof(short));
+	shData = *(short *)(m_Buffer + m_Front);
 	MoveReadPos(sizeof(short));
 
 	return *this;
@@ -207,7 +224,7 @@ SerializableBuffer &SerializableBuffer::operator>>(unsigned short &wData)
 		throw;
 	}
 
-	memcpy_s(&wData, sizeof(unsigned short), m_Buffer + m_Front, sizeof(unsigned short));
+	wData = *(unsigned short *)(m_Buffer + m_Front);
 	MoveReadPos(sizeof(unsigned short));
 
 	return *this;
@@ -220,7 +237,7 @@ SerializableBuffer &SerializableBuffer::operator>>(int &iData)
 		throw;
 	}
 
-	memcpy_s(&iData, sizeof(int), m_Buffer + m_Front, sizeof(int));
+	iData = *(int *)(m_Buffer + m_Front);
 	MoveReadPos(sizeof(int));
 
 	return *this;
@@ -233,7 +250,7 @@ SerializableBuffer &SerializableBuffer::operator>>(long &lData)
 		throw;
 	}
 
-	memcpy_s(&lData, sizeof(long), m_Buffer + m_Front, sizeof(long));
+	lData = *(long *)(m_Buffer + m_Front);
 	MoveReadPos(sizeof(long));
 
 	return *this;
@@ -246,7 +263,7 @@ SerializableBuffer &SerializableBuffer::operator>>(float &fData)
 		throw;
 	}
 
-	memcpy_s(&fData, sizeof(float), m_Buffer + m_Front, sizeof(float));
+	fData = *(float *)(m_Buffer + m_Front);
 	MoveReadPos(sizeof(float));
 
 	return *this;
@@ -259,7 +276,7 @@ SerializableBuffer &SerializableBuffer::operator>>(__int64 &iData)
 		throw;
 	}
 
-	memcpy_s(&iData, sizeof(__int64), m_Buffer + m_Front, sizeof(__int64));
+	iData = *(__int64 *)(m_Buffer + m_Front);
 	MoveReadPos(sizeof(__int64));
 
 	return *this;
@@ -272,7 +289,7 @@ SerializableBuffer &SerializableBuffer::operator>>(double &dData)
 		throw;
 	}
 
-	memcpy_s(&dData, sizeof(double), m_Buffer + m_Front, sizeof(double));
+	dData = *(double *)(m_Buffer + m_Front);
 	MoveReadPos(sizeof(double));
 
 	return *this;

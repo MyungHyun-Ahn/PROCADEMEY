@@ -1,0 +1,91 @@
+# Server to Client
+
+CreateMyCharacter 0
+- id : 4
+- direction : 1
+- x : 2
+- y : 2
+- hp : 1
+
+CreateOtherCharacter 1
+- id : 4
+- direction : 1
+- x : 2
+- y : 2
+- hp : 1
+
+DeleteCharacter 2
+- id : 4
+
+MoveStart 11
+- id : 4
+- direction : 1
+- x : 2
+- y : 2
+
+MoveStop 13
+- id : 4
+- direction : 1
+- x : 2
+- y : 2
+
+Attack1 21
+- id : 4
+- direction : 1
+- x : 2
+- y : 2
+
+Attack2 23
+- id : 4
+- direction : 1
+- x : 2
+- y : 2
+
+Attack3 25
+- id : 4
+- direction : 1
+- x : 2
+- y : 2
+
+Damage 30
+- attackId : 4
+- damageId : 4
+- damageHp : 1
+
+Sync 251
+- id : 4
+- x : 2
+- y : 2
+
+Echo 252
+- time : 4
+
+# Client to Server
+
+MoveStart 10
+- direction : 1
+- x : 2
+- y : 2
+
+MoveStop 12
+- direction : 1
+- x : 2
+- y : 2
+
+Attack1 20
+- direction : 1
+- x : 2
+- y : 2
+
+Attack2 22
+- direction : 1
+- x : 2
+- y : 2
+
+Attack3 24
+- direction : 1
+- x : 2
+- y : 2
+
+Echo 253
+- time : 4

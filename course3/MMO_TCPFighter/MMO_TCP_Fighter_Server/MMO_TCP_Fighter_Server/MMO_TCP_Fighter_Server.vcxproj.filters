@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="GenPacket.h" />
+    <ClInclude Include="Session.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="DefinePacket.h" />
+    <ClInclude Include="ProcessPacket.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GenPacket.cpp" />
+    <ClCompile Include="Session.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="ProcessPacket.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Network">
+      <UniqueIdentifier>{a3b9f79b-1901-48c2-80c8-ec5c3bc9ac0e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

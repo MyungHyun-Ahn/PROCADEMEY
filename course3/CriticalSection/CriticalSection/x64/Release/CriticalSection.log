@@ -2,13 +2,9 @@
 C:\Procademy\PROCADEMEY\course3\CriticalSection\CriticalSection\Mutex.h(29,16): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   (소스 파일 'Main.cpp'을(를) 컴파일하는 중)
   
-  Mutex.cpp
-C:\Procademy\PROCADEMEY\course3\CriticalSection\CriticalSection\Mutex.h(29,16): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 'Mutex.cpp'을(를) 컴파일하는 중)
-  
   코드를 생성하고 있습니다.
-  6 of 239 functions ( 2.5%) were compiled, the rest were copied from previous compilation.
+  1 of 241 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   CriticalSection.vcxproj -> C:\Procademy\PROCADEMEY\course3\CriticalSection\x64\Release\CriticalSection.exe

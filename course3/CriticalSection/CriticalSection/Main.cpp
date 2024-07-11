@@ -12,11 +12,11 @@
 
 #pragma comment(lib, "Synchronization.lib")
 
-#define ADD_COUNT 50000
+#define ADD_COUNT 10000
 
 CRITICAL_SECTION cs;
 int g_Val01 = 0;
-void ThreadFunc01()
+unsigned ThreadFunc01(void *pParam)
 {
 	for (int i = 0; i < ADD_COUNT; i++)
 	{
@@ -26,6 +26,8 @@ void ThreadFunc01()
 		g_Val01++;
 		LeaveCriticalSection(&cs);
 	}
+
+	return 0;
 }
 
 int g_Val02 = 0;
@@ -72,12 +74,12 @@ void ThreadFunc04()
 	}
 }
 
-#define THREAD_COUNT 4
+#define THREAD_COUNT 2
 
 int main()
 {
 	InitializeCriticalSection(&cs);
-	for (int n = 0; n < 100; ++n)
+	for (int n = 0; n < 1; ++n)
 	{
 		PROFILE_BEGIN(__WFUNC__, 1);
 
@@ -95,8 +97,10 @@ int main()
 
 		WaitForMultipleObjects(THREAD_COUNT, thread01, TRUE, INFINITE);
 
-		// printf("%d\n", g_Val01);
+		printf("%d\n", g_Val01);
 	}
+
+	return 0;
 	DeleteCriticalSection(&cs);
 	for (int n = 0; n < 100; ++n)
 	{
