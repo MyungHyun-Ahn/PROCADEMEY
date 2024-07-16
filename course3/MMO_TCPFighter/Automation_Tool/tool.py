@@ -1,16 +1,31 @@
 import os
-import jinja2
+from jinja2 import Environment, FileSystemLoader
 
-PacketList = dict()
-PacketArgList = dict()
+CSList = list()
+SCList = list()
 
+class Function:
+    def __init__(self, Name, Code):
+        self.name = Name
+        self.code = Code
+        self.argList = list()
+
+    def pushArg(self, Name, Type):
+        self.argList.append(Arg(Name, Type))
+
+class Arg:
+    def __init__(self, Name, Type):
+        self.name = Name
+        self.type = Type
+
+path = str()
 
 def PacketListFileParse():
     path = os.path.dirname(os.path.realpath(__file__))
-    f = open(path + "/Template/PacketList.txt", 'r')
+    f = open(path + "/PacketList.txt", 'r')
 
     PacketDir = str()
-    PacketName = str()
+    index = 0
 
     lines = f.readlines()
     for line in lines:
@@ -18,29 +33,74 @@ def PacketListFileParse():
         if not line:
             continue
 
-        # Stub
+        # Proxy
         if line == "# Server to Client":
             PacketDir = "SC"
             continue
         
-        # Proxy
+        # Stub
         if line == "# Client to Server":
             PacketDir = "CS"
             continue
 
         if line[0] != '-':
             p = line.split(' ')
-            PacketName = PacketDir + p[0]
-            PacketList[PacketName] = int(p[1])
-            PacketArgList[PacketName] = dict()
+            packetName = PacketDir + p[0]
+            packetCode = int(p[1])
+            Function(packetName, packetCode)
+            if PacketDir == "SC":
+                SCList.append(Function(packetName, packetCode))
+                index = len(SCList) - 1
+            elif PacketDir == "CS":
+                CSList.append(Function(packetName, packetCode))
+                index = len(CSList) - 1
+
         else: # argList
-            key, value = [l.strip() for l in line[1:].split(':')]
-            PacketArgList[PacketName][key] = int(value)
+            name, type = [l.strip() for l in line[1:].split(':')]
+
+            if PacketDir == "SC":
+                SCList[index].pushArg(name, type)
+            elif PacketDir == "CS":
+                CSList[index].pushArg(name, type)
 
     f.close()
 
+def JinJaTemplate():
+    file_loader = FileSystemLoader("templates")
+    env = Environment(loader=file_loader)
+    # 파일명
+    template1 = env.get_template("DefinePacket.h")
+    template2 = env.get_template("GenPacket.h")
+    template3 = env.get_template("GenPacket.cpp")
+    template4 = env.get_template("ProcessPacket.h")
+
+    result1 = template1.render(scList=SCList, csList=CSList)
+    f1 = open('result/DefinePacket.h', 'w+')
+    f1.write(result1)
+    f1.close()
+    print(result1)
+
+    result2 = template2.render(scList=SCList, csList=CSList)
+    f2 = open('result/GenPacket.h', 'w+')
+    f2.write(result2)
+    f2.close()
+    print(result1)
+    
+    result3 = template2.render(scList=SCList, csList=CSList)
+    f3 = open('result/GenPacket.cpp', 'w+')
+    f3.write(result3)
+    f3.close()
+    print(result3)
+
+    result4 = template4.render(scList=SCList, csList=CSList)
+    f4 = open('result/ProcessPacket.h', 'w+')
+    f4.write(result2)
+    f4.close()
+    print(result4)
+
 def Main():
     PacketListFileParse()
+    JinJaTemplate()
     
 
 

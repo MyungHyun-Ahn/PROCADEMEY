@@ -31,19 +31,24 @@ public:
 	{
 		switch (code)
 		{
-		case PACKET_CODE::CSCreateMyCharacter:
-			return PacketProcCSCreateMyCharacter(session, code);
-
+		{%- for pkt in csList %}
+		case PACKET_CODE::{{pkt.name}}:
+			return PacketProc{{pkt.name}}(session, code);
+		{%- endfor %}
 		default:
 			break;
 		}
 	}
 
-	virtual bool PacketProcCSCreateMyCharacter(Session *session, PACKET_CODE code) = 0;
+	{%- for pkt in csList %}
+	virtual bool PacketProc{{pkt.name}}r(Session *session, PACKET_CODE code) = 0;
+	{%- endfor %}
 };
 
 class ProcessPacket : public ProcessPacketInterface
 {
 public:
-	bool PacketProcCSCreateMyCharacter(Session *session, PACKET_CODE code);
+	{%- for pkt in csList %}
+	bool PacketProc{{pkt.name}}(Session *session, PACKET_CODE code);
+	{%- endfor %}
 };
