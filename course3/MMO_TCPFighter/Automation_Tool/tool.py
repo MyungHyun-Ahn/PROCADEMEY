@@ -86,7 +86,7 @@ def JinJaTemplate():
     f2.close()
     print(result1)
     
-    result3 = template2.render(scList=SCList, csList=CSList)
+    result3 = template3.render(scList=SCList, csList=CSList)
     f3 = open('result/GenPacket.cpp', 'w+')
     f3.write(result3)
     f3.close()

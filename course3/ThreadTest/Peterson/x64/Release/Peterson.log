@@ -1,9 +1,7 @@
 ﻿  Main.cpp
   코드를 생성하고 있습니다.
-  3 of 6 functions (50.0%) were compiled, the rest were copied from previous compilation.
+  2 of 6 functions (33.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
-  Peterson.vcxproj -> E:\Procademy\PROCADEMEY\course3\ThreadTest\x64\Release\Peterson.exe
-  'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
-  배치 파일이 아닙니다.
+  Peterson.vcxproj -> C:\Procademy\PROCADEMEY\course3\ThreadTest\x64\Release\Peterson.exe

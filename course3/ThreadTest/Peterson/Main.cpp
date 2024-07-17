@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <process.h>
 
-#define LOOP_COUNT 1000000
+#define LOOP_COUNT 100000000
 
 int g_Num = 0;
 
@@ -23,6 +23,9 @@ unsigned ThreadFunc1(LPVOID lpParam)
 {
 	for (int i = 0; i < LOOP_COUNT; ++i)
 	{
+		LONG flag;
+		int turn;
+
 		// Lock
 		{
 			g_Flags[0] = TRUE;
@@ -30,30 +33,34 @@ unsigned ThreadFunc1(LPVOID lpParam)
 
 			while (1)
 			{
+				flag = g_Flags[1];
+				turn = g_Turn;
 
-				g_oldFlags[1] = g_Flags[1];
-				if (g_Flags[1] == FALSE)
+				if (turn != 0)
 					break;
 
-				g_oldTurn[1] = g_Turn;
-				if (g_Turn != 0)
+				if (flag == FALSE)
 					break;
 			}
 		}
 
-		InterlockedIncrement(&aThreadCnt);
+		// if (InterlockedIncrement(&aThreadCnt) == 2)
+		// {
+		// 	printf("ThreadFunc1 : Flag[1] : %d, oldFlag[1] : %d, Turn : %d : oldTurn[1] : %d\n", g_Flags[1], flag, g_Turn, turn);
+		// 
+		// 	// __debugbreak();
+		// }
+
 		g_Num++;
-
-		if (aThreadCnt == 2)
-		{
-			printf("ThreadFunc1 : Flag[1] : %d, oldFlag[1] : %d, Turn : %d : oldTurn[1] : %d\n", g_Flags[1], g_oldFlags[1], g_Turn, g_oldTurn[1]);
-
-			__debugbreak();
-		}
 
 		// UnLock
 		{
-			InterlockedDecrement(&aThreadCnt);
+			// if (InterlockedDecrement(&aThreadCnt) == 1)
+			// {
+			// 	printf("ThreadFunc1 : Flag[1] : %d, oldFlag[1] : %d, Turn : %d : oldTurn[1] : %d\n", g_Flags[1], g_oldFlags[1], g_Turn, g_oldTurn[1]);
+			// 
+			// 	// __debugbreak();
+			// }
 			g_Flags[0] = FALSE;
 		}
 
@@ -73,29 +80,34 @@ unsigned ThreadFunc2(LPVOID lpParam)
 
 			while (1)
 			{
-				g_oldFlags[0] = g_Flags[0];
-				if (g_Flags[0] == FALSE)
+				// g_oldFlags[0] = g_Flags[0];
+				// g_oldTurn[0] = g_Turn;
+
+				if (g_oldTurn[0] != 1)
 					break;
 
-				g_oldTurn[0] = g_Turn;
-				if (g_Turn != 1)
+				if (g_oldFlags[0] == FALSE)
 					break;
 			}
 		}
 
-		InterlockedIncrement(&aThreadCnt);
+		// if (InterlockedIncrement(&aThreadCnt) == 2)
+		// {
+		// 	printf("ThreadFunc2 : Flag[0] : %d, oldFlag[0] : %d, Turn : %d : oldTurn[0] : %d\n", g_Flags[0], g_oldFlags[0], g_Turn, g_oldTurn[0]);
+		// 
+		// 	// __debugbreak();
+		// }
+
 		g_Num++;
-
-		if (aThreadCnt == 2)
-		{
-			printf("ThreadFunc2 : Flag[0] : %d, oldFlag[0] : %d, Turn : %d : oldTurn[0] : %d\n", g_Flags[0], g_oldFlags[0], g_Turn, g_oldTurn[0]);
-
-			__debugbreak();
-		}
 
 		// UnLock
 		{
-			InterlockedDecrement(&aThreadCnt);
+			// if (InterlockedDecrement(&aThreadCnt) == 1)
+			// {
+			// 	printf("ThreadFunc2 : Flag[0] : %d, oldFlag[0] : %d, Turn : %d : oldTurn[0] : %d\n", g_Flags[0], g_oldFlags[0], g_Turn, g_oldTurn[0]);
+			// 
+			// 	// __debugbreak();
+			// }
 			g_Flags[1] = FALSE;
 		}
 
