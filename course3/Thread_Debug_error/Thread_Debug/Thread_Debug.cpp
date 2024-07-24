@@ -517,7 +517,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//------------------------------------------------
 
 	HANDLE hThread[3] = {hAcceptThread, hIOThread, hUpdateThread};
-	// ABCD BUG 9 : COUNT 오류
+	// ABCD BUG 9 : COUNT 오류 - 리턴값 확인
 	WaitForMultipleObjects(3, hThread, TRUE, INFINITE);
 
 
