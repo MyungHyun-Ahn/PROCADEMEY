@@ -1,4 +1,5 @@
 #pragma once
+
 #pragma comment(lib, "ws2_32")
 #pragma comment(lib, "winmm")
 
@@ -12,4 +13,7 @@
 #include <map>
 #include <locale>
 #include <process.h>
+#include <memory>
 
+#include "RingBuffer.h"
+#include "SerializableBuffer.h"

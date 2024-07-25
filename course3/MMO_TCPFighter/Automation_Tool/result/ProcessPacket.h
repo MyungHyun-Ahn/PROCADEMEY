@@ -1,26 +1,71 @@
 #pragma once
-class GenPacket
+class ProcessPacketInterface
 {
 public:
-	void makePacketSCCreateMyCharacter(Session *session, INT id, CHAR direction, USHORT x, USHORT y, BYTE hp);
+	virtual bool Process(int sessionId) = 0;
+	virtual bool ConsumePacket(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSMoveStartr(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSMoveStopr(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSAttack1r(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSAttack2r(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSAttack3r(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSEchor(Session *pSession, PACKET_CODE code) = 0;
+};
 
-	void makePacketSCCreateOtherCharacter(Session *session, INT id, CHAR direction, USHORT x, USHORT y, BYTE hp);
+class ProcessPacket : public ProcessPacketInterface
+{
+public:
+	bool Process(int sessionId)
+	{
+		Session *curSession = g_Sessions[sessionId];
 
-	void makePacketSCDeleteCharacter(Session *session, INT id);
+		while (true)
+		{
+			int size = curSession->recvBuffer.GetUseSize();
+			if (size < sizeof(PacketHeader))
+				break;
 
-	void makePacketSCMoveStart(Session *session, INT id, CHAR direction, USHORT x, USHORT y);
+			PacketHeader header;
+			int ret = curSession->recvBuffer.Peek((char *)&header, sizeof(PacketHeader));
+			if (size < header.bySize + sizeof(PacketHeader))
+				break;
+			
+			curSession->recvBuffer.MoveFront(ret);
+			
+			if (!ConsumePacket(curSession, (PACKET_CODE)header.byType))
+			{
+				return false;
+			}
 
-	void makePacketSCMoveStop(Session *session, INT id, CHAR direction, USHORT x, USHORT y);
+		}
 
-	void makePacketSCAttack1(Session *session, INT id, CHAR direction, USHORT x, USHORT y);
+		return true;
+	}
 
-	void makePacketSCAttack2(Session *session, INT id, CHAR direction, USHORT x, USHORT y);
-
-	void makePacketSCAttack3(Session *session, INT id, CHAR direction, USHORT x, USHORT y);
-
-	void makePacketSCDamage(Session *session, INT attackId, INT damageId, 1 damageHp);
-
-	void makePacketSCSync(Session *session, INT id, USHORT x, USHORT y);
-
-	void makePacketSCEcho(Session *session, DWORD time);
+	bool ConsumePacket(Session *pSession, PACKET_CODE code)
+	{
+		switch (code)
+		{
+		case PACKET_CODE::CSMoveStart:
+			return PacketProcCSMoveStart(pSession, code);
+		case PACKET_CODE::CSMoveStop:
+			return PacketProcCSMoveStop(pSession, code);
+		case PACKET_CODE::CSAttack1:
+			return PacketProcCSAttack1(pSession, code);
+		case PACKET_CODE::CSAttack2:
+			return PacketProcCSAttack2(pSession, code);
+		case PACKET_CODE::CSAttack3:
+			return PacketProcCSAttack3(pSession, code);
+		case PACKET_CODE::CSEcho:
+			return PacketProcCSEcho(pSession, code);
+		default:
+			break;
+		}
+	}
+	bool PacketProcCSMoveStart(Session *pSession, PACKET_CODE code);
+	bool PacketProcCSMoveStop(Session *pSession, PACKET_CODE code);
+	bool PacketProcCSAttack1(Session *pSession, PACKET_CODE code);
+	bool PacketProcCSAttack2(Session *pSession, PACKET_CODE code);
+	bool PacketProcCSAttack3(Session *pSession, PACKET_CODE code);
+	bool PacketProcCSEcho(Session *pSession, PACKET_CODE code);
 };

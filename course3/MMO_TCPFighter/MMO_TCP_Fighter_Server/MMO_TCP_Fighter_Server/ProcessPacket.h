@@ -2,6 +2,19 @@
 class ProcessPacketInterface
 {
 public:
+	virtual bool Process(int sessionId) = 0;
+	virtual bool ConsumePacket(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSMoveStartr(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSMoveStopr(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSAttack1r(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSAttack2r(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSAttack3r(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSEchor(Session *pSession, PACKET_CODE code) = 0;
+};
+
+class ProcessPacket : public ProcessPacketInterface
+{
+public:
 	bool Process(int sessionId)
 	{
 		Session *curSession = g_Sessions[sessionId];
@@ -13,13 +26,14 @@ public:
 				break;
 
 			PacketHeader header;
-			curSession->recvBuffer.Peek((char *)&header, sizeof(PacketHeader));
+			int ret = curSession->recvBuffer.Peek((char *)&header, sizeof(PacketHeader));
 			if (size < header.bySize + sizeof(PacketHeader))
 				break;
-
+			
+			curSession->recvBuffer.MoveFront(ret);
+			
 			if (!ConsumePacket(curSession, (PACKET_CODE)header.byType))
 			{
-				// false가 반환 되는 건 잘못된 상황
 				return false;
 			}
 
@@ -28,23 +42,30 @@ public:
 		return true;
 	}
 
-	bool ConsumePacket(Session *session, PACKET_CODE code)
+	bool ConsumePacket(Session *pSession, PACKET_CODE code)
 	{
 		switch (code)
 		{
-		case PACKET_CODE::CSCreateMyCharacter:
-			return PacketProcCSCreateMyCharacter(session, code);
-
+		case PACKET_CODE::CSMoveStart:
+			return PacketProcCSMoveStart(pSession, code);
+		case PACKET_CODE::CSMoveStop:
+			return PacketProcCSMoveStop(pSession, code);
+		case PACKET_CODE::CSAttack1:
+			return PacketProcCSAttack1(pSession, code);
+		case PACKET_CODE::CSAttack2:
+			return PacketProcCSAttack2(pSession, code);
+		case PACKET_CODE::CSAttack3:
+			return PacketProcCSAttack3(pSession, code);
+		case PACKET_CODE::CSEcho:
+			return PacketProcCSEcho(pSession, code);
 		default:
 			break;
 		}
 	}
-
-	virtual bool PacketProcCSCreateMyCharacter(Session *session, PACKET_CODE code) = 0;
-};
-
-class ProcessPacket : public ProcessPacketInterface
-{
-public:
-	bool PacketProcCSCreateMyCharacter(Session *session, PACKET_CODE code);
+	bool PacketProcCSMoveStart(Session *pSession, PACKET_CODE code);
+	bool PacketProcCSMoveStop(Session *pSession, PACKET_CODE code);
+	bool PacketProcCSAttack1(Session *pSession, PACKET_CODE code);
+	bool PacketProcCSAttack2(Session *pSession, PACKET_CODE code);
+	bool PacketProcCSAttack3(Session *pSession, PACKET_CODE code);
+	bool PacketProcCSEcho(Session *pSession, PACKET_CODE code);
 };

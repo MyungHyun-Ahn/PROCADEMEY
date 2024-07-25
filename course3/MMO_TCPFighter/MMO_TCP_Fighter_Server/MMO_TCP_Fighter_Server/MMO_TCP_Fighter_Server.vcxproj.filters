@@ -1,21 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="GenPacket.h" />
-    <ClInclude Include="Session.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="DefinePacket.h" />
-    <ClInclude Include="ProcessPacket.h" />
+    <ClInclude Include="Session.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessPacket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="RingBuffer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="GenPacket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogic.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkManager.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="SerializableBuffer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="DefinePacket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GenPacket.cpp" />
-    <ClCompile Include="Session.cpp" />
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="ProcessPacket.cpp" />
+    <ClCompile Include="ProcessPacket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="RingBuffer.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="GenPacket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLogic.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkManager.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="SerializableBuffer.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
       <UniqueIdentifier>{a3b9f79b-1901-48c2-80c8-ec5c3bc9ac0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{dc3950cd-eea1-4b19-ad65-fbe087204938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{5ff1374d-6342-4306-8203-b8dce9c96e0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{a7059cd4-c8f5-4df6-a575-9e4ef21f0a5a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

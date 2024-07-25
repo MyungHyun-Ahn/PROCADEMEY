@@ -2,25 +2,25 @@
 class GenPacket
 {
 public:
-	void makePacketSCCreateMyCharacter(Session *session, INT id, CHAR direction, USHORT x, USHORT y, BYTE hp);
+	static void makePacketSCCreateMyCharacter(Session *pSession, INT id, CHAR direction, USHORT x, USHORT y, BYTE hp);
 
-	void makePacketSCCreateOtherCharacter(Session *session, INT id, CHAR direction, USHORT x, USHORT y, BYTE hp);
+	static void makePacketSCCreateOtherCharacter(Session *pSession, INT id, CHAR direction, USHORT x, USHORT y, BYTE hp);
 
-	void makePacketSCDeleteCharacter(Session *session, INT id);
+	static void makePacketSCDeleteCharacter(Session *pSession, INT id);
 
-	void makePacketSCMoveStart(Session *session, INT id, CHAR direction, USHORT x, USHORT y);
+	static void makePacketSCMoveStart(Session *pSession, INT id, CHAR direction, USHORT x, USHORT y);
 
-	void makePacketSCMoveStop(Session *session, INT id, CHAR direction, USHORT x, USHORT y);
+	static void makePacketSCMoveStop(Session *pSession, INT id, CHAR direction, USHORT x, USHORT y);
 
-	void makePacketSCAttack1(Session *session, INT id, CHAR direction, USHORT x, USHORT y);
+	static void makePacketSCAttack1(Session *pSession, INT id, CHAR direction, USHORT x, USHORT y);
 
-	void makePacketSCAttack2(Session *session, INT id, CHAR direction, USHORT x, USHORT y);
+	static void makePacketSCAttack2(Session *pSession, INT id, CHAR direction, USHORT x, USHORT y);
 
-	void makePacketSCAttack3(Session *session, INT id, CHAR direction, USHORT x, USHORT y);
+	static void makePacketSCAttack3(Session *pSession, INT id, CHAR direction, USHORT x, USHORT y);
 
-	void makePacketSCDamage(Session *session, INT attackId, INT damageId, 1 damageHp);
+	static void makePacketSCDamage(Session *pSession, INT attackId, INT damageId, CHAR damageHp);
 
-	void makePacketSCSync(Session *session, INT id, USHORT x, USHORT y);
+	static void makePacketSCSync(Session *pSession, INT id, USHORT x, USHORT y);
 
-	void makePacketSCEcho(Session *session, DWORD time);
+	static void makePacketSCEcho(Session *pSession, DWORD time);
 };

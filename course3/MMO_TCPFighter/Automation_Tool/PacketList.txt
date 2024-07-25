@@ -50,7 +50,7 @@ Attack3 25
 Damage 30
 - attackId : INT
 - damageId : INT
-- damageHp : 1
+- damageHp : CHAR
 
 Sync 251
 - id : INT
