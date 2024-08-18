@@ -2,12 +2,12 @@
 
 // 서버 정보
 constexpr const char *SERVER_IP = "0.0.0.0";
-constexpr short SERVER_PORT = 20000;
+constexpr short SERVER_PORT = 10611;
 
 constexpr int TICK_PER_FRAME = (1000 / 25);
 
 
-constexpr int PACKET_IDENTIFIER = 0x89;
+constexpr BYTE PACKET_IDENTIFIER = 0x89;
 
 
 // 30초 이상이 되도록 아무런 메시지 수신도 없는경우 접속 끊음
@@ -19,6 +19,16 @@ constexpr int RANGE_MOVE_TOP = 0;
 constexpr int RANGE_MOVE_LEFT = 0;
 constexpr int RANGE_MOVE_RIGHT = 6400;
 constexpr int RANGE_MOVE_BOTTOM = 6400;
+
+// 섹터 크기
+constexpr int SECTOR_SIZE = 160;
+
+// 주변 몇칸까지 보이게할 것인지
+constexpr int SECTOR_VIEW_START = 1; // 대각선 1칸 위에서 부터
+constexpr int SECTOR_VIEW_COUNT = 3; // 3 x 3
+
+constexpr int SECTOR_MAX_X = (RANGE_MOVE_RIGHT - RANGE_MOVE_LEFT) / SECTOR_SIZE;
+constexpr int SECTOR_MAX_Y = (RANGE_MOVE_BOTTOM - RANGE_MOVE_TOP) / SECTOR_SIZE;
 
 // 최대 체력
 constexpr int MAX_PLAYER_HP = 100;

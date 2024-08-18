@@ -3,9 +3,10 @@
 #include "Player.h"
 #include "Session.h"
 #include "DefinePacket.h"
-#include "ProcessPacket.h"
 #include "GenPacket.h"
 #include "NetworkManager.h"
+#include "Sector.h"
+#include "ProcessPacket.h"
 
 bool g_bShutdown = false;
 int g_CurUserIDValue = 0;
@@ -80,162 +81,182 @@ bool NetworkManager::Start()
 	return true;
 }
 
-bool NetworkManager::ReadSelect()
+bool NetworkManager::Select()
 {
 	int errVal;
 	int retVal;
 
-	FD_ZERO(&rset);
-	// listenSocket 등록 - accept 처리를 위해
-	FD_SET(listenSocket, &rset);
+	int loopCount = 0;
 
-	// 돌면서 등록
-	for (auto &session : g_Sessions)
+	auto startIt = g_Sessions.begin();
+	auto prevStartIt = startIt;
+	auto endIt = startIt;
+	std::advance(endIt, 63);
+
+	INT time = timeGetTime();
+
+	while (true)
 	{
-		FD_SET(session.second->clientSocket, &rset);
-	}
+		FD_ZERO(&rset);
+		FD_ZERO(&wset);
 
-	timeval t;
-	t.tv_sec = 0;
-	t.tv_usec = 0;
+		// listenSocket 등록 - accept 처리를 위해
+		FD_SET(listenSocket, &rset);
 
-	// select()
-	retVal = select(0, &rset, NULL, NULL, &t);
-	if (retVal == SOCKET_ERROR)
-	{
-		errVal = WSAGetLastError();
-		wprintf(L"read select() Error : %d\n", errVal);
-		return false;
-	}
+		startIt = prevStartIt;
 
-	// 현재 구조에서는 한 프레임에 1명씩만 받을 수 있음
-	if (FD_ISSET(listenSocket, &rset))
-	{
-		Accept();
-	}
+		int sesCount = 0;
 
-	for (auto &session : g_Sessions)
-	{
-		// 읽을게 있는지 체크
-		if (FD_ISSET(session.second->clientSocket, &rset))
+		// 돌면서 등록
+		for (; startIt != g_Sessions.end(); ++startIt)
 		{
-			Session *s = session.second;
+			++sesCount;
 
-			// recv
-			int directSize = s->recvBuffer.DirectEnqueueSize();
-			// Rear가 0일 때
-			int retVal = recv(s->clientSocket, s->recvBuffer.GetRearPtr(), directSize, 0);
-			if (retVal == SOCKET_ERROR)
+			Session *ses = startIt->second;
+
+			if (time - ses->m_PrevRecvTime > NETWORK_PACKET_RECV_TIMEOUT && ses->m_isVaild)
 			{
-				int errVal = WSAGetLastError();
-				if (errVal != WSAEWOULDBLOCK)
-				{
-					wprintf(L"recv error : %d\n", errVal);
+				deleteQueue.push_back(ses);
+				ses->m_isVaild = FALSE;
+				continue;
+			}
 
+			FD_SET(ses->m_ClientSocket, &rset);
+
+			if (ses->sendBuffer.GetUseSize() > 0)
+				FD_SET(ses->m_ClientSocket, &wset);
+
+
+			if (sesCount == 63)
+				break;
+		}
+
+		timeval t{ 0,0 };
+
+		// select()
+		retVal = select(0, &rset, &wset, NULL, &t);
+		if (retVal == SOCKET_ERROR)
+		{
+			errVal = WSAGetLastError();
+			wprintf(L"read select() Error : %d\n", errVal);
+			__debugbreak();
+			return false;
+		}
+
+		// 신규 유저
+		if (FD_ISSET(listenSocket, &rset))
+		{
+			Accept();
+		}
+
+		startIt = prevStartIt;
+
+		for (; startIt != endIt; ++startIt)
+		{
+			if (startIt == g_Sessions.end())
+				break;
+
+			// 읽을게 있는지 체크
+			if (FD_ISSET(startIt->second->m_ClientSocket, &rset))
+			{
+				Session *s = startIt->second;
+
+				// recv
+				int directSize = s->recvBuffer.DirectEnqueueSize();
+				// Rear가 0일 때
+				int retVal = recv(s->m_ClientSocket, s->recvBuffer.GetRearPtr(), directSize, 0);
+				if (retVal == SOCKET_ERROR)
+				{
+					int errVal = WSAGetLastError();
+					if (errVal != WSAEWOULDBLOCK)
+					{
+						// wprintf(L"recv error : %d\n", errVal);
+
+						// 중복 삽입 방지
+						if (s->m_isVaild)
+						{
+							// wprintf(L"Player %d disconnected!\n", s->m_Id);
+							deleteQueue.push_back(s);
+							s->m_isVaild = FALSE;
+						}
+						continue;
+					}
+				}
+				if (retVal == 0)
+				{
 					// 중복 삽입 방지
 					if (s->m_isVaild)
 					{
-						wprintf(L"Player %d disconnected!\n", s->m_Id);
+						//wprintf(L"Player %d disconnected!\n", s->m_Id);
 						deleteQueue.push_back(s);
 						s->m_isVaild = FALSE;
 					}
 					continue;
 				}
-			}
-			if (retVal == 0)
-			{
-				// 중복 삽입 방지
-				if (s->m_isVaild)
+
+				s->m_PrevRecvTime = timeGetTime();
+
+				s->recvBuffer.MoveRear(retVal);
+
+				if (!g_pProcessPacket->Process(startIt->first))
 				{
-					wprintf(L"Player %d disconnected!\n", s->m_Id);
-					deleteQueue.push_back(s);
-					s->m_isVaild = FALSE;
-				}
-				continue;
-			}
-
-			s->recvBuffer.MoveRear(retVal);
-
-			if (!ProcessPacket(session.first))
-			{
-				if (s->m_isVaild)
-				{
-					wprintf(L"Player %d disconnected!\n", s->m_Id);
-					deleteQueue.push_back(s);
-					s->m_isVaild = FALSE;
-				}
-			}
-		}
-	}
-
-	return true;
-}
-
-bool NetworkManager::WriteSelect()
-{
-	int errVal;
-	int retVal;
-
-	FD_ZERO(&wset);
-
-	FD_SET(listenSocket, &wset);
-
-	// 세션 돌면서 등록
-	for (auto &session : g_Sessions)
-	{
-		FD_SET(session.second->clientSocket, &wset);
-	}
-
-	timeval t;
-	t.tv_sec = 0;
-	t.tv_usec = 0;
-
-	// select()
-	retVal = select(0, NULL, &wset, NULL, &t);
-	if (retVal == SOCKET_ERROR)
-	{
-		errVal = WSAGetLastError();
-		wprintf(L"write select() Error : %d\n", errVal);
-		return false;
-	}
-
-	for (auto &session : g_Sessions)
-	{
-		// wset에 있는지 체크
-		if (FD_ISSET(session.second->clientSocket, &wset))
-		{
-			// 이때 보낸다.
-			Session *s = session.second;
-
-			// 다이렉트로 보낼 수 있는 것은 모두 보낸다.
-			int directSize = s->sendBuffer.DirectDequeueSize();
-
-			int retVal = send(s->clientSocket, s->sendBuffer.GetFrontPtr(), directSize, 0);
-			if (retVal == SOCKET_ERROR)
-			{
-				int errVal = WSAGetLastError();
-				if (errVal != WSAEWOULDBLOCK)
-				{
-					wprintf(L"send error : %d\n", errVal);
-
-					// 중복 삽입 방지
 					if (s->m_isVaild)
 					{
+						// wprintf(L"Player %d disconnected!\n", s->m_Id);
 						deleteQueue.push_back(s);
 						s->m_isVaild = FALSE;
 					}
-					continue;
 				}
 			}
 
-			if (directSize == retVal)
+			// wset에 있는지 체크
+			if (FD_ISSET(startIt->second->m_ClientSocket, &wset))
 			{
-				s->sendBuffer.Clear();
-				continue;
-			}
+				// 이때 보낸다.
+				Session *s = startIt->second;
 
-			s->sendBuffer.MoveFront(retVal);
+				// 다이렉트로 보낼 수 있는 것은 모두 보낸다.
+				int directSize = s->sendBuffer.DirectDequeueSize();
+
+				int retVal = send(s->m_ClientSocket, s->sendBuffer.GetFrontPtr(), directSize, 0);
+				if (retVal == SOCKET_ERROR)
+				{
+					int errVal = WSAGetLastError();
+					if (errVal != WSAEWOULDBLOCK)
+					{
+						// wprintf(L"send error : %d\n", errVal);
+
+						// 중복 삽입 방지
+						if (s->m_isVaild)
+						{
+							deleteQueue.push_back(s);
+							s->m_isVaild = FALSE;
+						}
+
+						continue;
+					}
+				}
+
+				if (directSize == retVal)
+				{
+					s->sendBuffer.Clear();
+					continue;
+				}
+
+				s->sendBuffer.MoveFront(retVal);
+			}
 		}
+
+		for (int i = 0; i < 63; i++)
+		{
+			++prevStartIt;
+			++endIt;
+		}
+
+		if (startIt == g_Sessions.end())
+			break;
+
+		loopCount++;
 	}
 
 	return true;
@@ -269,98 +290,27 @@ bool NetworkManager::RegisterUnicast(Session *pSession, char *packet, int size)
 
 bool NetworkManager::RegisterBroadcast(Session *pSession, char *packet, int size)
 {
-	for (auto &ses : g_Sessions)
+
+
+	int startY = g_Players[pSession->m_Id]->m_Y - SECTOR_VIEW_START;
+	int startX = g_Players[pSession->m_Id]->m_X - SECTOR_VIEW_START;
+
+	for (int y = 0; y < SECTOR_VIEW_COUNT; y++)
 	{
-		if (ses.second == pSession)
-			continue;
-
-		ses.second->sendBuffer.Enqueue(packet, size);
-	}
-
-	return true;
-}
-
-bool NetworkManager::ProcessPacket(int sessionId)
-{
-	// 링버퍼에서 꺼내서
-	// 패킷 처리
-	Session *curSession = g_Sessions[sessionId];
-
-	while (true)
-	{
-		int size = curSession->recvBuffer.GetUseSize();
-		if (size < sizeof(PacketHeader))
-			break;
-
-		PacketHeader header;
-		curSession->recvBuffer.Peek((char *)&header, sizeof(PacketHeader));
-		if (size < header.bySize + sizeof(PacketHeader))
-			break;
-
-		if (!ConsumePacket(curSession, (PACKET_CODE)header.byType))
+		for (int x = 0; x < SECTOR_VIEW_COUNT; x++)
 		{
-			// false가 반환 되는 건 잘못된 상황
-			return false;
+			if (startY + y < 0 || startY + y >= SECTOR_MAX_Y || startX + x < 0 || startX + x >= SECTOR_MAX_X)
+				continue;
+
+			auto &s = g_Sectors[startY + y][startX + x];
+			for (auto &player : g_Sectors[startY + y][startX + x])
+			{
+				if (player.second->m_Id == pSession->m_Id)
+					continue;
+
+				g_Sessions[player.first]->sendBuffer.Enqueue(packet, size);
+			}
 		}
-
-	}
-
-	return true;
-}
-
-bool NetworkManager::ConsumePacket(Session *session, PACKET_CODE code)
-{
-
-	switch (code)
-	{
-	case PACKET_CODE::PACKET_CS_MOVE_START:
-	{
-		PacketCSMoveStart packet;
-		session->recvBuffer.Dequeue((char *)&packet, sizeof(PacketCSMoveStart));
-		return ProcessPacket::PacketProc_MoveStart(session, (char *)&packet);
-	}
-	break;
-
-	case PACKET_CODE::PACKET_CS_MOVE_STOP:
-	{
-		PacketCSMoveStop packet;
-		session->recvBuffer.Dequeue((char *)&packet, sizeof(PacketCSMoveStop));
-		return ProcessPacket::PacketProc_MoveStop(session, (char *)&packet);
-	}
-	break;
-
-	case PACKET_CODE::PACKET_CS_ATTACK1:
-	{
-		PacketCSAttack1 packet;
-		session->recvBuffer.Dequeue((char *)&packet, sizeof(PacketCSAttack1));
-		return ProcessPacket::PacketProc_Attack1(session, (char *)&packet);
-	}
-	break;
-
-	case PACKET_CODE::PACKET_CS_ATTACK2:
-	{
-		PacketCSAttack2 packet;
-		session->recvBuffer.Dequeue((char *)&packet, sizeof(PacketCSAttack2));
-		return ProcessPacket::PacketProc_Attack2(session, (char *)&packet);
-	}
-	break;
-
-	case PACKET_CODE::PACKET_CS_ATTACK3:
-	{
-		PacketCSAttack3 packet;
-		session->recvBuffer.Dequeue((char *)&packet, sizeof(PacketCSAttack3));
-		return ProcessPacket::PacketProc_Attack3(session, (char *)&packet);
-	}
-	break;
-
-	case PACKET_CODE::PACKET_CS_SYNC:
-	{
-
-	}
-	break;
-
-	default:
-		break;
 	}
 
 	return true;
@@ -380,61 +330,67 @@ bool NetworkManager::Accept()
 		return false;
 	}
 
-	// 63명 이상
-	if (g_Sessions.size() > 63)
-	{
-		// 최대 접속 수용 인원 초과 
-		closesocket(clientSock);
-		return false;
-	}
-
-
 	// 접속 수용
 	++g_UserId;
 	INT id = g_UserId;
 
-	Session *newSession = new Session(id, clientSock);
-	InetNtop(AF_INET, &clientAddr.sin_addr, newSession->szClientIP, 16);
+	Session *newSession = g_SessionPool.Alloc();
+	newSession->m_Id = id;
+	newSession->m_ClientSocket = clientSock;
+	newSession->m_PrevRecvTime = timeGetTime();
+
+	InetNtop(AF_INET, &clientAddr.sin_addr, newSession->m_szClientIP, 16);
 
 	USHORT ranX = (rand() % (RANGE_MOVE_RIGHT - RANGE_MOVE_LEFT - 1)) + RANGE_MOVE_LEFT + 1;
 	USHORT ranY = (rand() % (RANGE_MOVE_BOTTOM - RANGE_MOVE_TOP - 1)) + RANGE_MOVE_TOP + 1;
 
-	Player newPlayer(id, ranX, ranY);
-
-	wprintf(L"Connected # %s\n", newSession->szClientIP);
-	wprintf(L"Player ID # %d, x : %d, y : %d\n", id, ranX, ranY);
+	Player *newPlayer = g_PlayerPool.Alloc();
+	newPlayer->m_Id = id;
+	newPlayer->m_Y = ranY;
+	newPlayer->m_X = ranX;
+	newPlayer->m_Action = (DWORD)MOVE_DIR::MOVE_DIR_STOP;
+	newPlayer->m_Direction = (DWORD)MOVE_DIR::MOVE_DIR_RR;
 
 	// 내 캐릭터 생성 정보 전달
+	GenPacket::makePacketSCCreateMyCharacter(false, newSession, newPlayer->m_Id, newPlayer->m_Direction, newPlayer->m_X, newPlayer->m_Y, (BYTE)newPlayer->m_Hp);
+
+	int secY = CalSectorY(ranY);
+	int secX = CalSectorX(ranX);
+	
+	newPlayer->m_SecY = secY;
+	newPlayer->m_SecX = secX;
+
+	// wprintf(L"Connected # %s\n", newSession->szClientIP);
+	// wprintf(L"Player ID # %d, x : %d, y : %d\n", id, ranX, ranY);
+	// wprintf(L"Sector # %d, x : %d, y : %d\n", id, secX, secY);
+
+	int startY = secY - SECTOR_VIEW_START;
+	int startX = secX - SECTOR_VIEW_START;
+
+	for (int y = 0; y < SECTOR_VIEW_COUNT; y++)
 	{
-		PacketSCCreateMyCharacter packet;
-		makePacketSCCreateMyCharacter(&packet, newPlayer.m_Id, newPlayer.m_Direction, newPlayer.m_X, newPlayer.m_Y, (BYTE)newPlayer.m_Hp);
-		newSession->sendBuffer.Enqueue((char *)&packet, sizeof(PacketSCCreateMyCharacter));
+		for (int x = 0; x < SECTOR_VIEW_COUNT; x++)
+		{
+			if (startY + y < 0 || startY + y >= SECTOR_MAX_Y || startX + x < 0 || startX + x >= SECTOR_MAX_X)
+				continue;
+
+			auto &s = g_Sectors[startY + y][startX + x];
+			for (auto player : g_Sectors[startY + y][startX + x])
+			{
+				Player *remainPlayer = player.second;
+
+				// unicast
+				GenPacket::makePacketSCCreateOtherCharacter(false, newSession, remainPlayer->m_Id, (CHAR)remainPlayer->m_Direction, remainPlayer->m_X, remainPlayer->m_Y, (CHAR)remainPlayer->m_Hp);
+
+				GenPacket::makePacketSCMoveStart(false, newSession, remainPlayer->m_Id, (CHAR)remainPlayer->m_Action, remainPlayer->m_X, remainPlayer->m_Y);
+
+				Session *ses = g_Sessions[player.first];
+				GenPacket::makePacketSCCreateOtherCharacter(false, ses, newPlayer->m_Id, (CHAR)newPlayer->m_Direction, newPlayer->m_X, newPlayer->m_Y, (CHAR)newPlayer->m_Hp);
+			}
+		}
 	}
 
-
-	// 현재 들어와있는 유저 정보 전달
-	for (auto &player : g_Players)
-	{
-		Player remainPlayer = player.second;
-
-		PacketSCCreateOtherCharacter packet;
-		makePacketSCCreateOtherCharacter(&packet, remainPlayer.m_Id, (CHAR)remainPlayer.m_Direction, remainPlayer.m_X, remainPlayer.m_Y, (CHAR)remainPlayer.m_Hp);
-		newSession->sendBuffer.Enqueue((char *)&packet, sizeof(PacketSCCreateMyCharacter));
-
-		PacketSCMoveStart movePacket;
-		makePacketSCMoveStart(&movePacket, remainPlayer.m_Id, (CHAR)remainPlayer.m_Action, remainPlayer.m_X, remainPlayer.m_Y);
-		newSession->sendBuffer.Enqueue((char *)&movePacket, sizeof(PacketSCMoveStart));
-	}
-
-	// 들어와 있는 모든 유저에게 정보 전달
-	for (auto &session : g_Sessions)
-	{
-		Session *ses = session.second;
-
-		PacketSCCreateOtherCharacter packet;
-		makePacketSCCreateOtherCharacter(&packet, newPlayer.m_Id, (CHAR)newPlayer.m_Direction, newPlayer.m_X, newPlayer.m_Y, (CHAR)newPlayer.m_Hp);
-		ses->sendBuffer.Enqueue((char *)&packet, sizeof(PacketSCCreateOtherCharacter));
-	}
+	g_Sectors[secY][secX].insert(std::make_pair(id, newPlayer));
 
 	// 다 보냈으니 map에 Insert
 	g_Sessions.insert(std::make_pair(id, newSession));
@@ -443,30 +399,68 @@ bool NetworkManager::Accept()
 	return true;
 }
 
+void NetworkManager::TimeoutCheck()
+{
+	INT time = timeGetTime();
+	for (auto &ses : g_Sessions)
+	{
+		if (time - ses.second->m_PrevRecvTime > NETWORK_PACKET_RECV_TIMEOUT)
+		{
+			if (ses.second->m_isVaild)
+			{
+				deleteQueue.push_back(ses.second);
+				ses.second->m_isVaild = FALSE;
+			}
+		}
+	}
+}
+
 bool NetworkManager::DisconnectClients()
 {
 
 	// 남아있는 애들한테 삭제 정보 전송
 	for (Session *ses : deleteQueue)
 	{
-		PacketSCDeleteCharacter packet;
-		packet.byCode = PACKET_IDENTIFIER;
-		packet.bySize = sizeof(PacketSCDeleteCharacter) - sizeof(PacketHeader);
-		packet.byType = (BYTE)PACKET_CODE::PACKET_SC_DELETE_CHARACTER;
-		packet.id = ses->m_Id;
-
 		// 들어와 있는 모든 세션에 패킷 인큐
 		// 삭제될 세션에 인큐되어도 어차피 아래에서 지워줌
-		for (auto &s : g_Sessions)
+
+		// Broadcast
+		Player *delPlayer = g_Players[ses->m_Id];
+
+		int secY = delPlayer->m_SecY;
+		int secX = delPlayer->m_SecX;
+
+		/*
+		if (g_Sectors[secY][secX].find(delPlayer->m_Id) == g_Sectors[secY][secX].end())
+			__debugbreak();
+		*/
+
+		g_Sectors[secY][secX].erase(delPlayer->m_Id);
+		g_Players.erase(delPlayer->m_Id);
+		g_Sessions.erase(ses->m_Id);
+
+		int startY = secY - SECTOR_VIEW_START;
+		int startX = secX - SECTOR_VIEW_START;
+
+		for (int y = 0; y < SECTOR_VIEW_COUNT; y++)
 		{
-			s.second->sendBuffer.Enqueue((char *)&packet, sizeof(PacketSCDeleteCharacter));
+			for (int x = 0; x < SECTOR_VIEW_COUNT; x++)
+			{
+				if (startY + y < 0 || startY + y >= SECTOR_MAX_Y || startX + x < 0 || startX + x >= SECTOR_MAX_X)
+					continue;
+
+				for (auto player : g_Sectors[startY + y][startX + x])
+				{
+					Player *remainPlayer = player.second;
+
+					GenPacket::makePacketSCDeleteCharacter(FALSE, g_Sessions[remainPlayer->m_Id], ses->m_Id);
+				}
+			}
 		}
 
-		closesocket(ses->clientSocket);
-		g_Sessions.erase(ses->m_Id);
-		g_Players.erase(ses->m_Id);
-		// 지워주기
-		delete ses;
+		closesocket(ses->m_ClientSocket);
+		g_SessionPool.Free(ses);
+		g_PlayerPool.Free(delPlayer);
 	}
 
 	deleteQueue.clear();

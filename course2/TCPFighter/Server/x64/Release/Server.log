@@ -1,0 +1,21 @@
+﻿  pch.cpp
+  GameLogic.cpp
+  GenPacket.cpp
+  Main.cpp
+E:\Procademy\PROCADEMEY\course2\TCPFighter\Server\Main.cpp(11,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  NetworkManager.cpp
+  Packet.cpp
+  Player.cpp
+  ProcessPacket.cpp
+E:\Procademy\PROCADEMEY\course2\TCPFighter\Server\ProcessPacket.cpp(146,72): warning C4244: '인수': 'SHORT'에서 'CHAR'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+E:\Procademy\PROCADEMEY\course2\TCPFighter\Server\ProcessPacket.cpp(196,72): warning C4244: '인수': 'SHORT'에서 'CHAR'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+E:\Procademy\PROCADEMEY\course2\TCPFighter\Server\ProcessPacket.cpp(248,72): warning C4244: '인수': 'SHORT'에서 'CHAR'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  RingBuffer.cpp
+  Session.cpp
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  All 421 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  Server.vcxproj -> E:\Procademy\PROCADEMEY\course2\TCPFighter\x64\Release\Server.exe
+  'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+  배치 파일이 아닙니다.

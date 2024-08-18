@@ -21,7 +21,7 @@ class Arg:
 path = str()
 
 def PacketListFileParse():
-    f = open("C:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\Automation_Tool\PacketList.txt", 'r')
+    f = open("E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\Automation_Tool\PacketList.txt", 'r')
 
     PacketDir = str()
     index = 0
@@ -65,7 +65,7 @@ def PacketListFileParse():
     f.close()
 
 def JinJaTemplate():
-    file_loader = FileSystemLoader("C:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\templates")
+    file_loader = FileSystemLoader("E:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\templates")
     env = Environment(loader=file_loader)
     # 파일명
     template1 = env.get_template("DefinePacket.h")
@@ -74,25 +74,25 @@ def JinJaTemplate():
     template4 = env.get_template("ProcessPacket.h")
 
     result1 = template1.render(scList=SCList, csList=CSList)
-    f1 = open('C:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\DefinePacket.h', 'w+')
+    f1 = open('E:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\DefinePacket.h', 'w+')
     f1.write(result1)
     f1.close()
     print(result1)
 
     result2 = template2.render(scList=SCList, csList=CSList)
-    f2 = open('C:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\GenPacket.h', 'w+')
+    f2 = open('E:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\GenPacket.h', 'w+')
     f2.write(result2)
     f2.close()
     print(result1)
     
     result3 = template3.render(scList=SCList, csList=CSList)
-    f3 = open('C:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\GenPacket.cpp', 'w+')
+    f3 = open('E:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\GenPacket.cpp', 'w+')
     f3.write(result3)
     f3.close()
     print(result3)
 
     result4 = template4.render(scList=SCList, csList=CSList)
-    f4 = open('C:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\ProcessPacket.h', 'w+')
+    f4 = open('E:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\ProcessPacket.h', 'w+')
     f4.write(result4)
     f4.close()
     print(result4)

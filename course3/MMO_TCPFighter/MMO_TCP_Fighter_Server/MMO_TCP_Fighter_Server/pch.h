@@ -10,10 +10,15 @@
 #include <windows.h>
 #include <deque>
 #include <vector>
+#include <unordered_map>
 #include <map>
 #include <locale>
 #include <process.h>
 #include <memory>
 
+#include "ObjectPool.h"
 #include "RingBuffer.h"
 #include "SerializableBuffer.h"
+
+#pragma warning(disable : 26495)
+#pragma warning(disable : 4244)

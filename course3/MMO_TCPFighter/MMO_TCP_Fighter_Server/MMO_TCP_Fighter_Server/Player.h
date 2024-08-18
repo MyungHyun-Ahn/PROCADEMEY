@@ -10,39 +10,19 @@ public:
 	Player() = default;
 	Player(INT id, USHORT x, USHORT y) : m_Id(id), m_X(x), m_Y(y), m_Direction((char)MOVE_DIR::MOVE_DIR_LL), m_Action((DWORD)MOVE_DIR::MOVE_DIR_STOP) {}
 
-	bool Move(SHORT x, SHORT y)
-	{
-		bool flagX = true;
-		bool flagY = true;
+	bool Move(SHORT x, SHORT y);
 
-		if (m_X + x <= RANGE_MOVE_LEFT || m_X + x >= RANGE_MOVE_RIGHT)
-		{
-			flagX = false;
-		}
+	inline bool GetDamage(INT damage) { m_Id -= damage; }
 
-		if (m_Y + y <= RANGE_MOVE_TOP || m_Y + y >= RANGE_MOVE_BOTTOM)
-		{
-			flagY = false;
-		}
-
-		if (flagX && flagY)
-		{
-			m_X += x;
-			m_Y += y;
-			wprintf(L"Player id %d Move x : %d, y : %d\n", m_Id, m_X, m_Y);
-
-			return true;
-		}
-
-		return false;
-	}
-
-	bool GetDamage(INT damage) { m_Id -= damage; }
+	void MoveSector(int prevY, int prevX, int nowY, int nowX);
 
 private:
 	INT m_Id;
 	USHORT m_X;
 	USHORT m_Y;
+
+	USHORT m_SecX;
+	USHORT m_SecY;
 
 	BYTE m_Direction;
 	DWORD m_Action;
@@ -53,4 +33,5 @@ private:
 extern unsigned int g_UserId;
 
 // Player 자료구조
-extern std::map<INT, Player> g_Players;
+extern std::unordered_map<INT, Player *> g_Players;
+extern ObjectPool<Player> g_PlayerPool;

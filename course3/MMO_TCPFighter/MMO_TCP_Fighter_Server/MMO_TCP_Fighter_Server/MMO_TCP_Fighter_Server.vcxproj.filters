@@ -28,13 +28,19 @@
     <ClInclude Include="NetworkManager.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="Packet.h">
-      <Filter>Network</Filter>
-    </ClInclude>
     <ClInclude Include="SerializableBuffer.h">
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="DefinePacket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Sector.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
       <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
@@ -66,10 +72,16 @@
     <ClCompile Include="NetworkManager.cpp">
       <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="Packet.cpp">
+    <ClCompile Include="SerializableBuffer.cpp">
       <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="SerializableBuffer.cpp">
+    <ClCompile Include="Sector.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
       <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,6 +97,9 @@
     </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{a7059cd4-c8f5-4df6-a575-9e4ef21f0a5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{03617dd6-c2b4-484d-8f01-fe4f42d78065}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@ public:
 	virtual bool ConsumePacket(Session *pSession, PACKET_CODE code) = 0;
 
 	{%- for pkt in csList %}
-	virtual bool PacketProc{{pkt.name}}r(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProc{{pkt.name}}(Session *pSession, PACKET_CODE code) = 0;
 	{%- endfor %}
 };
 
@@ -27,8 +27,6 @@ public:
 			int ret = curSession->recvBuffer.Peek((char *)&header, sizeof(PacketHeader));
 			if (size < header.bySize + sizeof(PacketHeader))
 				break;
-			
-			curSession->recvBuffer.MoveFront(ret);
 			
 			if (!ConsumePacket(curSession, (PACKET_CODE)header.byType))
 			{
@@ -51,9 +49,14 @@ public:
 		default:
 			break;
 		}
+
+		return false;
 	}
 
 	{%- for pkt in csList %}
 	bool PacketProc{{pkt.name}}(Session *pSession, PACKET_CODE code);
 	{%- endfor %}
 };
+
+extern ProcessPacket g_ProcessPacket;
+extern ProcessPacketInterface *g_pProcessPacket;

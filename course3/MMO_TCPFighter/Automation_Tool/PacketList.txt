@@ -57,7 +57,7 @@ Sync 251
 - x : USHORT
 - y : USHORT
 
-Echo 252
+Echo 253
 - time : DWORD
 
 # Client to Server
@@ -87,5 +87,5 @@ Attack3 24
 - x : USHORT
 - y : USHORT
 
-Echo 253
+Echo 252
 - time : DWORD

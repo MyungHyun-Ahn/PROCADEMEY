@@ -24,7 +24,7 @@ enum class PACKET_CODE
 	SCAttack3 = 25,
 	SCDamage = 30,
 	SCSync = 251,
-	SCEcho = 252,
+	SCEcho = 253,
 
 
 	// C -> S Packet
@@ -33,5 +33,5 @@ enum class PACKET_CODE
 	CSAttack1 = 20,
 	CSAttack2 = 22,
 	CSAttack3 = 24,
-	CSEcho = 253,
+	CSEcho = 252,
 };
