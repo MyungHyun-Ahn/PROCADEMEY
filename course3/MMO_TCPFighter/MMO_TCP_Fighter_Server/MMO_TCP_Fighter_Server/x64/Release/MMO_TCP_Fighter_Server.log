@@ -2,11 +2,16 @@
           1개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
+  GameLogic.cpp
+  Main.cpp
   NetworkManager.cpp
+  Player.cpp
+  ProcessPacket.cpp
+  Sector.cpp
   코드를 생성하고 있습니다.
-  2 of 576 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  17 of 636 functions ( 2.7%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    12 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   MMO_TCP_Fighter_Server.vcxproj -> E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\x64\Release\MMO_TCP_Fighter_Server.exe
   'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는

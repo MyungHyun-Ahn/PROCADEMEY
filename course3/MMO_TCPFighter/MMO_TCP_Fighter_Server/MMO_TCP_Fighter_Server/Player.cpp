@@ -15,12 +15,12 @@ bool Player::Move(SHORT x, SHORT y)
 	bool flagX = true;
 	bool flagY = true;
 
-	if (m_X + x <= RANGE_MOVE_LEFT || m_X + x >= RANGE_MOVE_RIGHT)
+	if (m_X + x < RANGE_MOVE_LEFT || m_X + x >= RANGE_MOVE_RIGHT)
 	{
 		flagX = false;
 	}
 
-	if (m_Y + y <= RANGE_MOVE_TOP || m_Y + y >= RANGE_MOVE_BOTTOM)
+	if (m_Y + y < RANGE_MOVE_TOP || m_Y + y >= RANGE_MOVE_BOTTOM)
 	{
 		flagY = false;
 	}
@@ -39,9 +39,6 @@ bool Player::Move(SHORT x, SHORT y)
 			// 섹터 이동하며 Delete Create 메시지 보내기
 			MoveSector(m_SecY, m_SecX, nowSecY, nowSecX);
 		}
-
-		// wprintf(L"Player id %d Move x : %d, y : %d\n", m_Id, m_X, m_Y);
-		// wprintf(L"Sector # %d, x : %d, y : %d\n", m_Id, nowSecX, nowSecY);
 
 		return true;
 	}
@@ -87,10 +84,12 @@ void Player::MoveSector(int prevY, int prevX, int nowY, int nowX)
 						continue;
 
 					GenPacket::makePacketSCCreateOtherCharacter(FALSE, g_Sessions[player.first], m_Id, m_Direction, m_X, m_Y, m_Hp);
-					GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[player.first], m_Id, (CHAR)m_Action, m_X, m_Y);
+					if (m_Action != (CHAR)MOVE_DIR::MOVE_DIR_STOP)
+						GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[player.first], m_Id, (CHAR)m_Action, m_X, m_Y);
 
 					GenPacket::makePacketSCCreateOtherCharacter(FALSE, g_Sessions[m_Id], player.first, m_Direction, player.second->m_X, player.second->m_Y, player.second->m_Hp);
-					GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[m_Id], player.first, (CHAR)player.second->m_Action, player.second->m_X, player.second->m_Y);
+					if (player.second->m_Action != (CHAR)MOVE_DIR::MOVE_DIR_STOP)
+						GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[m_Id], player.first, (CHAR)player.second->m_Action, player.second->m_X, player.second->m_Y);
 				}
 			} while (0);
 
@@ -136,10 +135,12 @@ void Player::MoveSector(int prevY, int prevX, int nowY, int nowX)
 						continue;
 
 					GenPacket::makePacketSCCreateOtherCharacter(FALSE, g_Sessions[player.first], m_Id, m_Direction, m_X, m_Y, m_Hp);
-					GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[player.first], m_Id, (CHAR)m_Action, m_X, m_Y);
+					if (m_Action != (CHAR)MOVE_DIR::MOVE_DIR_STOP)
+						GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[player.first], m_Id, (CHAR)m_Action, m_X, m_Y);
 
 					GenPacket::makePacketSCCreateOtherCharacter(FALSE, g_Sessions[m_Id], player.first, m_Direction, player.second->m_X, player.second->m_Y, m_Hp);
-					GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[m_Id], player.first, (CHAR)player.second->m_Action, player.second->m_X, player.second->m_Y);
+					if (player.second->m_Action != (CHAR)MOVE_DIR::MOVE_DIR_STOP)
+						GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[m_Id], player.first, (CHAR)player.second->m_Action, player.second->m_X, player.second->m_Y);
 				}
 			} while (0);
 
@@ -182,10 +183,12 @@ void Player::MoveSector(int prevY, int prevX, int nowY, int nowX)
 						continue;
 
 					GenPacket::makePacketSCCreateOtherCharacter(FALSE, g_Sessions[player.first], m_Id, m_Direction, m_X, m_Y, m_Hp);
-					GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[player.first], m_Id, (CHAR)m_Action, m_X, m_Y);
+					if (m_Action != (CHAR)MOVE_DIR::MOVE_DIR_STOP)
+						GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[player.first], m_Id, (CHAR)m_Action, m_X, m_Y);
 
 					GenPacket::makePacketSCCreateOtherCharacter(FALSE, g_Sessions[m_Id], player.first, m_Direction, player.second->m_X, player.second->m_Y, player.second->m_Hp);
-					GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[m_Id], player.first, (CHAR)player.second->m_Action, player.second->m_X, player.second->m_Y);
+					if (player.second->m_Action != (CHAR)MOVE_DIR::MOVE_DIR_STOP)
+						GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[m_Id], player.first, (CHAR)player.second->m_Action, player.second->m_X, player.second->m_Y);
 				}
 			} while (0);
 
@@ -226,10 +229,12 @@ void Player::MoveSector(int prevY, int prevX, int nowY, int nowX)
 						continue;
 
 					GenPacket::makePacketSCCreateOtherCharacter(FALSE, g_Sessions[player.first], m_Id, m_Direction, m_X, m_Y, m_Hp);
-					GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[player.first], m_Id, (CHAR)m_Action, m_X, m_Y);
+					if (m_Action != (CHAR)MOVE_DIR::MOVE_DIR_STOP)
+						GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[player.first], m_Id, (CHAR)m_Action, m_X, m_Y);
 
 					GenPacket::makePacketSCCreateOtherCharacter(FALSE, g_Sessions[m_Id], player.first, m_Direction, player.second->m_X, player.second->m_Y, m_Hp);
-					GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[m_Id], player.first, (CHAR)player.second->m_Action, player.second->m_X, player.second->m_Y);
+					if (player.second->m_Action != (CHAR)MOVE_DIR::MOVE_DIR_STOP)
+						GenPacket::makePacketSCMoveStart(FALSE, g_Sessions[m_Id], player.first, (CHAR)player.second->m_Action, player.second->m_X, player.second->m_Y);
 				}
 			} while (0);
 

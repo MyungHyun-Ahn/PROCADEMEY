@@ -42,4 +42,8 @@ extern bool g_bShutdown;
 extern int g_CurUserIDValue;
 extern NetworkManager *g_NetworkMgr;
 
+extern int g_AcceptTPS;
+extern int g_RecvTPS;
+extern int g_SendTPS;
+extern int g_SyncCount;
 

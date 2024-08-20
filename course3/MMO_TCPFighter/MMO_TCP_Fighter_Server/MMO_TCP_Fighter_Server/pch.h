@@ -16,9 +16,11 @@
 #include <process.h>
 #include <memory>
 
+#include "Define.h"
 #include "ObjectPool.h"
 #include "RingBuffer.h"
 #include "SerializableBuffer.h"
+#include "Logger.h"
 
 #pragma warning(disable : 26495)
 #pragma warning(disable : 4244)

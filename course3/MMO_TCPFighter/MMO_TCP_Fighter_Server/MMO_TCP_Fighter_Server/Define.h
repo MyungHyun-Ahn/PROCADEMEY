@@ -4,7 +4,9 @@
 constexpr const char *SERVER_IP = "0.0.0.0";
 constexpr short SERVER_PORT = 10611;
 
-constexpr int TICK_PER_FRAME = (1000 / 25);
+
+constexpr int FRAME_PER_SECOND = 25;
+constexpr int TICK_PER_FRAME = (1000 / FRAME_PER_SECOND);
 
 
 constexpr BYTE PACKET_IDENTIFIER = 0x89;
@@ -49,8 +51,8 @@ constexpr int ATTACK3_DAMAGE = 3;
 
 
 // 캐릭터 이동 속도   // 25fps 기준 이동속도
-constexpr int SPEED_PLAYER_X = 6;	// 3   50fps;
-constexpr int SPEED_PLAYER_Y = 4;	// 2   50fps;
+constexpr int SPEED_PLAYER_X = 3 * (50 / FRAME_PER_SECOND);	// 3   50fps;
+constexpr int SPEED_PLAYER_Y = 2 * (50 / FRAME_PER_SECOND);	// 2   50fps;
 
 
 // 이동 오류체크 범위

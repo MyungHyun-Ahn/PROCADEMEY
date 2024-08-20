@@ -10,6 +10,10 @@
 
 bool g_bShutdown = false;
 int g_CurUserIDValue = 0;
+int g_AcceptTPS = 0;
+int g_RecvTPS = 0;
+int g_SendTPS = 0;
+int g_SyncCount = 0;
 
 NetworkManager::NetworkManager() : listenSocket(INVALID_SOCKET)
 {
@@ -91,7 +95,13 @@ bool NetworkManager::Select()
 	auto startIt = g_Sessions.begin();
 	auto prevStartIt = startIt;
 	auto endIt = startIt;
-	std::advance(endIt, 63);
+
+	for (int i = 0; i < 63; i++)
+	{
+		++endIt;
+		if (endIt == g_Sessions.end())
+			break;
+	}
 
 	INT time = timeGetTime();
 
@@ -147,6 +157,7 @@ bool NetworkManager::Select()
 		if (FD_ISSET(listenSocket, &rset))
 		{
 			Accept();
+			g_AcceptTPS++;
 		}
 
 		startIt = prevStartIt;
@@ -195,7 +206,6 @@ bool NetworkManager::Select()
 				}
 
 				s->m_PrevRecvTime = timeGetTime();
-
 				s->recvBuffer.MoveRear(retVal);
 
 				if (!g_pProcessPacket->Process(startIt->first))
@@ -207,6 +217,8 @@ bool NetworkManager::Select()
 						s->m_isVaild = FALSE;
 					}
 				}
+
+				g_RecvTPS++;
 			}
 
 			// wset에 있는지 체크
@@ -240,10 +252,12 @@ bool NetworkManager::Select()
 				if (directSize == retVal)
 				{
 					s->sendBuffer.Clear();
+					g_SendTPS++;
 					continue;
 				}
 
 				s->sendBuffer.MoveFront(retVal);
+				g_SendTPS++;
 			}
 		}
 
@@ -251,6 +265,8 @@ bool NetworkManager::Select()
 		{
 			++prevStartIt;
 			++endIt;
+			if (endIt == g_Sessions.end())
+				break;
 		}
 
 		if (startIt == g_Sessions.end())
@@ -290,10 +306,8 @@ bool NetworkManager::RegisterUnicast(Session *pSession, char *packet, int size)
 
 bool NetworkManager::RegisterBroadcast(Session *pSession, char *packet, int size)
 {
-
-
-	int startY = g_Players[pSession->m_Id]->m_Y - SECTOR_VIEW_START;
-	int startX = g_Players[pSession->m_Id]->m_X - SECTOR_VIEW_START;
+	int startY = g_Players[pSession->m_Id]->m_SecY - SECTOR_VIEW_START;
+	int startX = g_Players[pSession->m_Id]->m_SecX - SECTOR_VIEW_START;
 
 	for (int y = 0; y < SECTOR_VIEW_COUNT; y++)
 	{
@@ -352,7 +366,7 @@ bool NetworkManager::Accept()
 	newPlayer->m_Direction = (DWORD)MOVE_DIR::MOVE_DIR_RR;
 
 	// 내 캐릭터 생성 정보 전달
-	GenPacket::makePacketSCCreateMyCharacter(false, newSession, newPlayer->m_Id, newPlayer->m_Direction, newPlayer->m_X, newPlayer->m_Y, (BYTE)newPlayer->m_Hp);
+	GenPacket::makePacketSCCreateMyCharacter(FALSE, newSession, newPlayer->m_Id, newPlayer->m_Direction, newPlayer->m_X, newPlayer->m_Y, (BYTE)newPlayer->m_Hp);
 
 	int secY = CalSectorY(ranY);
 	int secX = CalSectorX(ranX);
@@ -380,12 +394,13 @@ bool NetworkManager::Accept()
 				Player *remainPlayer = player.second;
 
 				// unicast
-				GenPacket::makePacketSCCreateOtherCharacter(false, newSession, remainPlayer->m_Id, (CHAR)remainPlayer->m_Direction, remainPlayer->m_X, remainPlayer->m_Y, (CHAR)remainPlayer->m_Hp);
+				GenPacket::makePacketSCCreateOtherCharacter(FALSE, newSession, remainPlayer->m_Id, (CHAR)remainPlayer->m_Direction, remainPlayer->m_X, remainPlayer->m_Y, (CHAR)remainPlayer->m_Hp);
 
-				GenPacket::makePacketSCMoveStart(false, newSession, remainPlayer->m_Id, (CHAR)remainPlayer->m_Action, remainPlayer->m_X, remainPlayer->m_Y);
+				if (remainPlayer->m_Action != (CHAR)MOVE_DIR::MOVE_DIR_STOP)
+					GenPacket::makePacketSCMoveStart(FALSE, newSession, remainPlayer->m_Id, (CHAR)remainPlayer->m_Action, remainPlayer->m_X, remainPlayer->m_Y);
 
 				Session *ses = g_Sessions[player.first];
-				GenPacket::makePacketSCCreateOtherCharacter(false, ses, newPlayer->m_Id, (CHAR)newPlayer->m_Direction, newPlayer->m_X, newPlayer->m_Y, (CHAR)newPlayer->m_Hp);
+				GenPacket::makePacketSCCreateOtherCharacter(FALSE, ses, newPlayer->m_Id, (CHAR)newPlayer->m_Direction, newPlayer->m_X, newPlayer->m_Y, (CHAR)newPlayer->m_Hp);
 			}
 		}
 	}

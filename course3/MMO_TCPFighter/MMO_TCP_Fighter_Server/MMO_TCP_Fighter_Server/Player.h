@@ -1,5 +1,14 @@
 #pragma once
 
+struct SyncDbg
+{
+	char isStart;
+	int sX;
+	int sY;
+	int cX;
+	int cY;
+};
+
 class Player
 {
 public:
@@ -28,6 +37,8 @@ private:
 	DWORD m_Action;
 
 	SHORT m_Hp = MAX_PLAYER_HP;
+
+	std::list<SyncDbg> syncList;
 };
 
 extern unsigned int g_UserId;
