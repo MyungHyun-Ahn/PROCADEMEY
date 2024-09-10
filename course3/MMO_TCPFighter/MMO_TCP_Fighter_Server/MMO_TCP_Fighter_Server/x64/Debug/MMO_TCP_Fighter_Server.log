@@ -5,118 +5,17 @@
   pch.cpp
   GameLogic.cpp
   GenPacket.cpp
+  Logger.cpp
   Main.cpp
   NetworkManager.cpp
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(316,20): error C2838: 'PACKET_CS_MOVE_START': 멤버 선언의 정규화된 이름이 잘못되었습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(316,20): error C2065: 'PACKET_CS_MOVE_START': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(316,20): error C2131: 식이 상수로 계산되지 않았습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(318,3): error C2065: 'PacketCSMoveStart': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(318,21): error C2146: 구문 오류: ';'이(가) 'packet' 식별자 앞에 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(318,21): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(319,40): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(319,55): error C2065: 'PacketCSMoveStart': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(320,25): error C2039: 'PacketProc_MoveStart': 'ProcessPacket'의 멤버가 아닙니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(320,64): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(320,25): error C3861: 'PacketProc_MoveStart': 식별자를 찾을 수 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(324,20): error C2838: 'PACKET_CS_MOVE_STOP': 멤버 선언의 정규화된 이름이 잘못되었습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(324,20): error C2065: 'PACKET_CS_MOVE_STOP': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(324,20): error C2131: 식이 상수로 계산되지 않았습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(326,3): error C2065: 'PacketCSMoveStop': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(326,20): error C2146: 구문 오류: ';'이(가) 'packet' 식별자 앞에 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(326,20): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(327,40): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(327,55): error C2065: 'PacketCSMoveStop': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(328,25): error C2039: 'PacketProc_MoveStop': 'ProcessPacket'의 멤버가 아닙니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(328,63): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(328,25): error C3861: 'PacketProc_MoveStop': 식별자를 찾을 수 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(332,20): error C2838: 'PACKET_CS_ATTACK1': 멤버 선언의 정규화된 이름이 잘못되었습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(332,20): error C2065: 'PACKET_CS_ATTACK1': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(332,20): error C2131: 식이 상수로 계산되지 않았습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(334,3): error C2065: 'PacketCSAttack1': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(334,19): error C2146: 구문 오류: ';'이(가) 'packet' 식별자 앞에 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(334,19): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(335,40): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(335,55): error C2065: 'PacketCSAttack1': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(336,25): error C2039: 'PacketProc_Attack1': 'ProcessPacket'의 멤버가 아닙니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(336,62): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(336,25): error C3861: 'PacketProc_Attack1': 식별자를 찾을 수 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(340,20): error C2838: 'PACKET_CS_ATTACK2': 멤버 선언의 정규화된 이름이 잘못되었습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(340,20): error C2065: 'PACKET_CS_ATTACK2': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(340,20): error C2131: 식이 상수로 계산되지 않았습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(342,3): error C2065: 'PacketCSAttack2': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(342,19): error C2146: 구문 오류: ';'이(가) 'packet' 식별자 앞에 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(342,19): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(343,40): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(343,55): error C2065: 'PacketCSAttack2': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(344,25): error C2039: 'PacketProc_Attack2': 'ProcessPacket'의 멤버가 아닙니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(344,62): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(344,25): error C3861: 'PacketProc_Attack2': 식별자를 찾을 수 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(348,20): error C2838: 'PACKET_CS_ATTACK3': 멤버 선언의 정규화된 이름이 잘못되었습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(348,20): error C2065: 'PACKET_CS_ATTACK3': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(348,20): error C2131: 식이 상수로 계산되지 않았습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(350,3): error C2065: 'PacketCSAttack3': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(350,19): error C2146: 구문 오류: ';'이(가) 'packet' 식별자 앞에 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(350,19): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(351,40): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(351,55): error C2065: 'PacketCSAttack3': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(352,25): error C2039: 'PacketProc_Attack3': 'ProcessPacket'의 멤버가 아닙니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(352,62): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(352,25): error C3861: 'PacketProc_Attack3': 식별자를 찾을 수 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(356,20): error C2838: 'PACKET_CS_SYNC': 멤버 선언의 정규화된 이름이 잘못되었습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(356,20): error C2065: 'PACKET_CS_SYNC': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(356,20): error C2131: 식이 상수로 계산되지 않았습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(316,20): error C2051: case 식이 상수가 아닙니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(324,20): error C2051: case 식이 상수가 아닙니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(332,20): error C2051: case 식이 상수가 아닙니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(340,20): error C2051: case 식이 상수가 아닙니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(348,20): error C2051: case 식이 상수가 아닙니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(356,20): error C2051: case 식이 상수가 아닙니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(364,2): warning C4065: switch문에 'default'가 있으나 'case' 레이블이 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(409,3): error C2065: 'PacketSCCreateMyCharacter': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(409,29): error C2146: 구문 오류: ';'이(가) 'packet' 식별자 앞에 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(409,29): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(410,34): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(410,3): error C3861: 'makePacketSCCreateMyCharacter': 식별자를 찾을 수 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(411,43): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(411,58): error C2065: 'PacketSCCreateMyCharacter': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(420,3): error C2065: 'PacketSCCreateOtherCharacter': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(420,32): error C2146: 구문 오류: ';'이(가) 'packet' 식별자 앞에 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(420,32): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(421,37): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(421,3): error C3861: 'makePacketSCCreateOtherCharacter': 식별자를 찾을 수 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(422,43): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(422,58): error C2065: 'PacketSCCreateMyCharacter': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(424,3): error C2065: 'PacketSCMoveStart': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(424,21): error C2146: 구문 오류: ';'이(가) 'movePacket' 식별자 앞에 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(424,21): error C2065: 'movePacket': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(425,26): error C2065: 'movePacket': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(425,3): error C3861: 'makePacketSCMoveStart': 식별자를 찾을 수 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(426,43): error C2065: 'movePacket': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(426,62): error C2065: 'PacketSCMoveStart': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(434,3): error C2065: 'PacketSCCreateOtherCharacter': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(434,32): error C2146: 구문 오류: ';'이(가) 'packet' 식별자 앞에 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(434,32): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(435,37): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(435,3): error C3861: 'makePacketSCCreateOtherCharacter': 식별자를 찾을 수 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(436,36): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(436,51): error C2065: 'PacketSCCreateOtherCharacter': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(452,3): error C2065: 'PacketSCDeleteCharacter': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(452,27): error C2146: 구문 오류: ';'이(가) 'packet' 식별자 앞에 없습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(452,27): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(453,3): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(454,3): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(454,26): error C2065: 'PacketSCDeleteCharacter': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(455,3): error C2065: 'packet': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(455,38): error C2838: 'PACKET_SC_DELETE_CHARACTER': 멤버 선언의 정규화된 이름이 잘못되었습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(455,38): error C2065: 'PACKET_SC_DELETE_CHARACTER': 선언되지 않은 식별자입니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\NetworkManager.cpp(455,38): error C1003: 오류 수가 100개를 초과했습니다. 컴파일을 중지합니다.
-  Packet.cpp
+  ObjectPool.cpp
   Player.cpp
   ProcessPacket.cpp
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\ProcessPacket.cpp(166,78): warning C4244: '인수': 'SHORT'에서 'CHAR'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\ProcessPacket.cpp(224,78): warning C4244: '인수': 'SHORT'에서 'CHAR'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\MMO_TCP_Fighter_Server\ProcessPacket.cpp(284,78): warning C4244: '인수': 'SHORT'에서 'CHAR'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   RingBuffer.cpp
+  Sector.cpp
   SerializableBuffer.cpp
   Session.cpp
   코드를 생성하고 있습니다...
+  MMO_TCP_Fighter_Server.vcxproj -> E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\x64\Debug\MMO_TCP_Fighter_Server.exe
+  'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+  배치 파일이 아닙니다.

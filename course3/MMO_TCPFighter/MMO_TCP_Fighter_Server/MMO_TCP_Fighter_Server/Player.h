@@ -38,7 +38,9 @@ private:
 
 	SHORT m_Hp = MAX_PLAYER_HP;
 
+#ifdef SYNC_DBG
 	std::list<SyncDbg> syncList;
+#endif
 };
 
 extern unsigned int g_UserId;

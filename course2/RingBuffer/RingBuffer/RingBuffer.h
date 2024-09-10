@@ -34,7 +34,7 @@ public:
 	{
 		if (m_iRear >= m_iFront) 
 		{
-			return m_iCapacity - m_iRear - (m_iFront == 0 ? 1 : 0);
+			return m_iCapacity - m_iRear;
 		}
 		else 
 		{

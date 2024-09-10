@@ -36,7 +36,10 @@ bool ProcessPacket::PacketProcCSMoveStart(Session *pSession, PACKET_CODE code)
 	}
 
 	Player *player = g_Players[pSession->m_Id];
+
+#ifdef SYNC_DBG
 	player->syncList.push_back({ TRUE, player->m_X, player->m_Y, x, y });
+#endif
 
 	if (abs(player->m_X - x) > ERROR_RANGE ||
 		abs(player->m_Y - y) > ERROR_RANGE)
@@ -45,6 +48,7 @@ bool ProcessPacket::PacketProcCSMoveStart(Session *pSession, PACKET_CODE code)
 		g_SyncCount++;
 		g_Logger->WriteLog(L"SYNC", LOG_LEVEL::SYSTEM, L"[%04d][START] PlayerId : %d, Server X : %d, Y : %d | Client X : %d, Y : %d", g_SyncCount, pSession->m_Id, player->m_X, player->m_Y, x, y);
 
+#ifdef SYNC_DBG
 		for (auto &dbg : player->syncList)
 		{
 			if (dbg.isStart)
@@ -52,6 +56,7 @@ bool ProcessPacket::PacketProcCSMoveStart(Session *pSession, PACKET_CODE code)
 			else
 				g_Logger->WriteLog(L"SYNC_PLAYER_HISTORY", LOG_LEVEL::DEBUG, L"[%04d][STOP] PlayerId : %d, Server X : %d, Y : %d, Client X : %d, Y : %d", g_SyncCount, player->m_Id, dbg.sX, dbg.sY, dbg.cX, dbg.cY);
 		}
+#endif
 
 		// 서버 좌표로 조정
 		x = player->m_X;
@@ -88,7 +93,6 @@ bool ProcessPacket::PacketProcCSMoveStart(Session *pSession, PACKET_CODE code)
 
 	// Broadcast
 	GenPacket::makePacketSCMoveStart(TRUE, pSession, pSession->m_Id, player->m_Direction, x, y);
-	GenPacket::makePacketSCMoveStart(FALSE, pSession, pSession->m_Id, player->m_Direction, x, y);
 	return true;
 }
 
@@ -111,7 +115,10 @@ bool ProcessPacket::PacketProcCSMoveStop(Session *pSession, PACKET_CODE code)
 	}
 
 	Player *player = g_Players[pSession->m_Id];
+
+#ifdef SYNC_DBG
 	player->syncList.push_back({ FALSE, player->m_X, player->m_Y, x, y });
+#endif
 
 	if (abs(player->m_X - x) > ERROR_RANGE ||
 		abs(player->m_Y - y) > ERROR_RANGE)
@@ -121,6 +128,7 @@ bool ProcessPacket::PacketProcCSMoveStop(Session *pSession, PACKET_CODE code)
 		g_SyncCount++;
 		g_Logger->WriteLog(L"SYNC", LOG_LEVEL::SYSTEM, L"[%04d][STOP] PlayerId : %d, Server X : %d, Y : %d | Client X : %d, Y : %d", g_SyncCount, pSession->m_Id, player->m_X, player->m_Y, x, y);
 
+#ifdef SYNC_DBG
 		for (auto &dbg : player->syncList)
 		{
 			if (dbg.isStart)
@@ -128,6 +136,7 @@ bool ProcessPacket::PacketProcCSMoveStop(Session *pSession, PACKET_CODE code)
 			else
 				g_Logger->WriteLog(L"SYNC_PLAYER_HISTORY", LOG_LEVEL::DEBUG, L"[%04d][STOP] PlayerId : %d, , Server X : %d, Y : %d, Client X : %d, Y : %d", g_SyncCount, player->m_Id, dbg.sX, dbg.sY, dbg.cX, dbg.cY);
 		}
+#endif
 
 		// 서버 좌표로 조정
 		x = player->m_X;
@@ -164,7 +173,6 @@ bool ProcessPacket::PacketProcCSMoveStop(Session *pSession, PACKET_CODE code)
 
 	// Broadcast
 	GenPacket::makePacketSCMoveStop(TRUE, pSession, pSession->m_Id, g_Players[pSession->m_Id]->m_Direction, x, y);
-	GenPacket::makePacketSCMoveStop(FALSE, pSession, pSession->m_Id, g_Players[pSession->m_Id]->m_Direction, x, y);
 	return true;
 }
 

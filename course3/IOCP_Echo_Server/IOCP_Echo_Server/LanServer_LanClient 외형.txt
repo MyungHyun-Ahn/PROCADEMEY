@@ -1,0 +1,127 @@
+CLanServer
+CLanClient
+
+CNetServer (일반 클라이언트와의 통신목적)
+CNetClient 
+
+
+# 서버간 통신 모듈 설계
+
+클라역할 - CLanClient
+
+서버역할 - CLanServer
+
+
+	- 설계 가이드.
+
+	* IOCP 모델을 사용함.
+
+	* 클래스 내부에 워커 스레드를 가짐.
+
+	* 이벤트 함수 (접속완료,받기완료,보내기완료) 는 순수가상 함수로 제작.
+
+	* 실제 사용부는 위 두개의 클래스를 상속 사용하도록 제작.
+
+	* 내부에서 자체적으로 세션 연결을 관리함.
+
+
+
+CLanServer
+
+
+	- bool Start(...) 오픈 IP / 포트 / 워커스레드 수 (생성수, 러닝수) / 나글옵션 / 최대접속자 수
+	- void Stop(...)
+	- int GetSessionCount(...)
+
+	- bool Disconnect(SessionID) 		/ SESSION_ID  
+	- bool SendPacket(SessionID, CPacket *)   / SESSION_ID 
+
+
+
+
+	virtual bool OnConnectionRequest(IP,Port) = 0;     	   < accept 직후 
+			return false; 시 클라이언트 거부.
+			return true; 시 접속 허용	
+
+	virtual void	OnClientJoin(Client 정보 / SessionID / 기타등등) = 0;   < Accept 후 접속처리 완료 후 호출.
+			OnAccept(..)
+
+	virtual void 	OnClientLeave(SessionID) = 0;   	         	   < Release 후 호출
+			OnRelease(..)
+
+
+	virtual void 	OnRecv(SessionID, CPacket *) = 0;              < 패킷 수신 완료 후
+			OnMessage(..)
+
+//	virtual void OnSend(SessionID, int sendsize) = 0;           < 패킷 송신 완료 후
+
+//	virtual void OnWorkerThreadBegin() = 0;                    < 워커스레드 GQCS 바로 하단에서 호출
+//	virtual void OnWorkerThreadEnd() = 0;                      < 워커스레드 1루프 종료 후
+
+	virtual void OnError(int errorcode, wchar *) = 0;
+
+		int getAcceptTPS();
+		int getRecvMessageTPS();
+		int getSendMessageTPS();
+
+
+
+
+모니터링 항목 :
+
+AcceptTPS
+RecvMessageTPS
+SendMessageTPS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CLanClient
+
+	- bool Connect	바인딩 IP, 서버IP / 워커스레드 수 / 나글옵션
+	- bool Disconnect()
+	- bool SendPacket(CPacket *)
+
+	virtual void OnEnterJoinServer() = 0;		< 서버와의 연결 성공 후
+ 	virtual void OnLeaveServer() = 0;		< 서버와의 연결이 끊어졌을 때
+
+	virtual void OnRecv(Packet *) = 0;		< 하나의 패킷 수신 완료 후
+	virtual void OnSend(int sendsize) = 0;		< 패킷 송신 완료 후
+
+//	virtual void OnWorkerThreadBegin() = 0;
+//	virtual void OnWorkerThreadEnd() = 0;
+
+	virtual void OnError(int errorcode, wchar *) = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,7 +12,7 @@ int main()
 {
 	srand(time(nullptr));
 
-	RingBuffer rb(1000);
+	RingBuffer rb(500);
 	printf("테스트 시작 : %d, %d\n", rb.GetCapacity(), rb.GetFreeSize());
 
 	while (true)
