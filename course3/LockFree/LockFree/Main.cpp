@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "LFStack.h"
 
+#define THREAD_COUNT 2
 
 LFStack<UINT64> s;
 
@@ -44,7 +45,7 @@ unsigned int ThreadFuncPop(LPVOID lpPram)
 
 	int thId = GetCurrentThreadId();
 
-	for (UINT64 i = 0; i < 25000000; i++)
+	for (UINT64 i = 0; i < 100000000 / THREAD_COUNT; i++)
 	{
 		UINT64 data;
 		s.Pop(&data);
@@ -52,8 +53,6 @@ unsigned int ThreadFuncPop(LPVOID lpPram)
 
 	return 0;
 }
-
-#define THREAD_COUNT 4
 
 int main()
 {
@@ -87,7 +86,7 @@ int main()
 
 	printf("정상종료\n");
 	
-	if (s.m_pTop == nullptr)
+	if (s.m_pTop != nullptr)
 		__debugbreak();
 
 	return 0;
