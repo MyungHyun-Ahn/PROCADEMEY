@@ -47,13 +47,11 @@ public:
 	void Pop(T *data)
 	{
 		Node<T> *t;
-		Node<T> *backT;
 		Node<T> *newTop;
 
-		do
+		do 
 		{
 			t = m_pTop;
-			backT = t;
 			newTop = t->next;
 		} while (InterlockedCompareExchangePointer((volatile PVOID *)&m_pTop, (PVOID)newTop, (PVOID)t) != t);
 
@@ -63,9 +61,6 @@ public:
 
 		*data = t->data;
 		delete t;
-
-
-
 	}
 
 
