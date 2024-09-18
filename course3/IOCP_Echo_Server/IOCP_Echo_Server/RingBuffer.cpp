@@ -24,17 +24,23 @@ int RingBuffer::Enqueue(char *data, int size)
 	if (freeSize < size)
 		return -1;
 
+	int rear = m_iRear;
 	int des = DirectEnqueueSize();
 	int firstPartSize = 0;
 	if (des < 0)
 		firstPartSize = size;
 	else
 		firstPartSize = min(size, des);
-	int secondPartSize = size - firstPartSize;
 
-	memcpy_s(m_PQueue + m_iRear, freeSize, data, firstPartSize);
+	int secondPartSize = size - firstPartSize;
+	memcpy_s(m_PQueue + rear, freeSize, data, firstPartSize);
 	memcpy_s(m_PQueue, secondPartSize, data + firstPartSize, secondPartSize);
 	MoveRear(size);
+
+	UINT64 s = *(UINT64 *)(m_PQueue + rear);
+	SerializableBuffer *sBuffer1 = (SerializableBuffer *)s;
+	if ((UINT64)sBuffer1 == 0xcdcdcdcdcdcdcdcd)
+	 	__debugbreak();
 
 	return size;
 }
@@ -55,16 +61,42 @@ int RingBuffer::Peek(char *buffer, int size)
 		return -1;
 	}
 
+	int front = m_iFront;
 	int dds = DirectDequeueSize();
 	int firstPartSize = 0;
+
 	if (dds < 0)
 		firstPartSize = size;
 	else
 		firstPartSize = min(size, dds);
 	int secondPartSize = size - firstPartSize;
 
-	memcpy_s(buffer, size, m_PQueue + m_iFront, firstPartSize);
+	memcpy_s(buffer, size, m_PQueue + front, firstPartSize);
 	memcpy_s(buffer + firstPartSize, size - firstPartSize, m_PQueue, secondPartSize);
 
 	return size;
+}
+
+int RingBuffer::Peek(char *buffer, int size, int offset)
+{
+	if (GetUseSize(offset) < size) {
+		return -1;
+	}
+
+	int front = m_iFront;
+	front = (front + offset) % m_iCapacity;
+	int dds = DirectDequeueSize(offset);
+	int firstPartSize = 0;
+
+	if (dds < 0)
+		firstPartSize = size;
+	else
+		firstPartSize = min(size, dds);
+
+	int secondPartSize = size - firstPartSize;
+
+	memcpy_s(buffer, size, m_PQueue + front, firstPartSize);
+	memcpy_s(buffer + firstPartSize, size - firstPartSize, m_PQueue, secondPartSize);
+
+	return 0;
 }

@@ -11,8 +11,18 @@ public:
 	inline int GetCapacity() { return m_iCapacity - 1; }
 
 	// 현재 사용중인 용량 얻기
-	inline int GetUseSize() { return (m_iRear - m_iFront + m_iCapacity) % m_iCapacity; }
-
+	inline int GetUseSize() 
+	{ 
+		int r = m_iRear;
+		int f = m_iFront;
+		return (r - f + m_iCapacity) % m_iCapacity; 
+	}
+	inline int GetUseSize(int offset) 
+	{ 
+		int r = m_iRear;
+		int f = m_iFront;
+		return (r - (f + offset) + m_iCapacity) % m_iCapacity; 
+	}
 	// 현재 버퍼에 남은 용량 얻기
 	inline int GetFreeSize() { return m_iCapacity - GetUseSize() - 1; }
 
@@ -27,7 +37,7 @@ public:
 
 	// 데이터 추출하고 꺼내지는 않음
 	int Peek(char *buffer, int size);
-
+	int Peek(char *buffer, int size, int offset);
 
 	// 버퍼 포인터로 외부에서 조작하는 함수들
 	// 외부에서 한번에 조작할 수 있는 길이 반환
@@ -60,8 +70,27 @@ public:
 		}
 	}
 
+	inline int DirectDequeueSize(int offset)
+	{
+		int f = m_iFront;
+		f = (f + offset) % m_iCapacity;
+		int r = m_iRear;
+
+		if (f <= r)
+		{
+			return r - f;
+		}
+		else
+		{
+			return m_iCapacity - f;
+		}
+	}
+
 	// Front, Rear 커서 이동
-	inline int MoveRear(int size) { m_iRear = (m_iRear + size) % m_iCapacity; return m_iRear; }
+	inline int MoveRear(int size) 
+	{ 
+		m_iRear = (m_iRear + size) % m_iCapacity; return m_iRear; 
+	}
 	inline int MoveFront(int size) { m_iFront = (m_iFront + size) % m_iCapacity; return m_iFront; }
 
 	inline char *GetPQueuePtr() { return m_PQueue; }

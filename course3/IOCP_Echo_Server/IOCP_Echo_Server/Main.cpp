@@ -7,14 +7,12 @@ int main()
 {
 	g_Server = new CEchoServer;
 
-	g_Server->Start(SERVER_IP, SERVER_PORT, 2, 2, 100);
+	g_Server->Start(SERVER_IP, SERVER_PORT, 2, 2, 65535);
 
-	// while (true)
-	// {
-	// 	YieldProcessor();
-	// }
-
-	g_Server->AccepterThread();
+	while (true)
+	{
+		YieldProcessor();
+	}
 
 	return 0;
 }

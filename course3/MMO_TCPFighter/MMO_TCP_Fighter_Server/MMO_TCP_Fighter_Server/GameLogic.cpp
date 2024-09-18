@@ -9,14 +9,17 @@ void GameLogic::Update()
 	{
 		switch ((MOVE_DIR)player.second->m_Action)
 		{
+		// ¿ÞÂÊ
 		case MOVE_DIR::MOVE_DIR_LL:
 			player.second->Move(-SPEED_PLAYER_X, 0);
 			break;
 
+		// ´ë°¢¼± ¿ÞÂÊ ¾Æ·¡
 		case MOVE_DIR::MOVE_DIR_LU:
 			player.second->Move(-SPEED_PLAYER_X, -SPEED_PLAYER_Y);
 			break;
 
+		// À§
 		case MOVE_DIR::MOVE_DIR_UU:
 			player.second->Move(0, -SPEED_PLAYER_Y);
 			break;

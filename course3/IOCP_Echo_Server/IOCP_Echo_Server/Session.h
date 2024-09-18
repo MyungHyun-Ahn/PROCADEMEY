@@ -4,6 +4,12 @@ class Session
 public:
 	friend class CLanServer;
 
+	Session() 
+		: m_RecvOverlapped(IOOperation::RECV)
+		, m_SendOverlapped(IOOperation::SEND)
+		, m_IsValid(FALSE)
+	{}
+
 	Session(SOCKET socket, UINT64 sessionID) 
 		: m_ClientSocket(socket)
 		, m_SessionID(sessionID)
@@ -17,6 +23,18 @@ public:
 	{
 	}
 
+	void Init(SOCKET socket, UINT64 sessionId)
+	{
+		m_ClientSocket = socket;
+		m_SessionID = sessionId;
+		m_SendFlag = FALSE;
+		InterlockedExchange(&m_IsValid, TRUE);
+		m_ioCount = 0;
+		m_SendCount = 0;
+		m_SendBuffer.Clear();
+		m_RecvBuffer.Clear();
+	}
+
 	void RecvCompleted(int size);
 
 	bool SendPacket(SerializableBuffer *buffer);
@@ -25,18 +43,36 @@ public:
 	bool PostRecv();
 	bool PostSend();
 
+	void Clear()
+	{
+		InterlockedExchange(&m_IsValid, FALSE);
+		m_ioCount = 0;
+		m_SendFlag = 0;
+		m_ClientSocket = INVALID_SOCKET;
+		m_SessionID = -1;
+
+		m_RecvBuffer.Clear();
+		m_SendBuffer.Clear();
+	}
+
 public:
-	BOOL m_IsValid;
+	LONG				m_IsValid;
 
-	SOCKET m_ClientSocket;
-	UINT64 m_SessionID;
-	RingBuffer m_RecvBuffer;
-	RingBuffer m_SendBuffer;
+	SOCKET				m_ClientSocket;
+	UINT64				m_SessionID;
+	RingBuffer			m_RecvBuffer;
+	RingBuffer			m_SendBuffer;
 
-	OverlappedEx m_RecvOverlapped;
-	OverlappedEx m_SendOverlapped;
+	WSABUF				m_SendWSABuf[MAX_SEND_WSABUF_COUNT];
+	LONG				m_SendCount;
+	LONG				m_SendCountBack;
 
-	LONG m_ioCount = 0;
-	LONG m_SendFlag = 0;
+	OverlappedEx		m_RecvOverlapped;
+	OverlappedEx		m_SendOverlapped;
+
+	LONG				m_ioCount = 0;
+	LONG				m_SendFlag = 0;
 };
+
+extern ObjectPool<Session> g_SessionPool;
 

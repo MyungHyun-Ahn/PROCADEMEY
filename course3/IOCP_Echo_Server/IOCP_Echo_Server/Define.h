@@ -5,6 +5,9 @@ constexpr const CHAR *SERVER_IP = "0.0.0.0";
 constexpr USHORT SERVER_PORT = 6000;
 
 constexpr USHORT PACKET_HEADER_SIZE = 2;
+constexpr USHORT MAX_SEND_WSABUF_COUNT = 100;
+
+constexpr UINT64 LOGIN_PAYLOAD = 0x7FFFFFFFFFFFFFFF;
 
 enum class IOOperation
 {

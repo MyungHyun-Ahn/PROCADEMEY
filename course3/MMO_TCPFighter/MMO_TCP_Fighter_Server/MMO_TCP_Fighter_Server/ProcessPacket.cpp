@@ -88,6 +88,7 @@ bool ProcessPacket::PacketProcCSMoveStart(Session *pSession, PACKET_CODE code)
 	if (nowSecX != player->m_SecX || nowSecY != player->m_SecY)
 	{
 		// 섹터 이동하며 Delete Create 메시지 보내기
+		// g_Logger->WriteLog(L"MoveSector", LOG_LEVEL::SYSTEM, L"[PacketProcCSMoveStart] %d %d %d %d", player->m_SecY, player->m_SecX, nowSecY, nowSecX);
 		player->MoveSector(player->m_SecY, player->m_SecX, nowSecY, nowSecX);
 	}
 
@@ -168,6 +169,7 @@ bool ProcessPacket::PacketProcCSMoveStop(Session *pSession, PACKET_CODE code)
 	if (nowSecX != player->m_SecX || nowSecY != player->m_SecY)
 	{
 		// 섹터 이동하며 Delete Create 메시지 보내기
+		// g_Logger->WriteLog(L"MoveSector", LOG_LEVEL::SYSTEM, L"[PacketProcCSMoveStop] %d %d %d %d", player->m_SecY, player->m_SecX, nowSecY, nowSecX);
 		player->MoveSector(player->m_SecY, player->m_SecX, nowSecY, nowSecX);
 	}
 

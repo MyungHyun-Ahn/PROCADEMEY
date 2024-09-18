@@ -4,6 +4,7 @@ class SerializableBuffer
 public:
 	enum class DEFINE
 	{
+		HEADER_SIZE = sizeof(USHORT),
 		DEFAULT_SIZE = 1400
 	};
 
@@ -15,18 +16,22 @@ public:
 
 	inline void Clear()
 	{
-		m_Rear = 0;
-		m_Front = 0;
+		m_HeaderFront = 0;
+		m_Front = (int)DEFINE::HEADER_SIZE;
+		m_Rear = (int)DEFINE::HEADER_SIZE;
 	}
 
+	bool EnqueueHeader(char *buffer, int size);
 	bool Enqueue(char *buffer, int size);
 	bool Dequeue(char *buffer, int size);
 
 	inline int GetBufferSize() { return m_MaxSize; }
 	inline int GetDataSize() { return m_Rear - m_Front; }
+	inline int GetHeaderSize() { return  (int)DEFINE::HEADER_SIZE; }
 
 	// 외부에서 버퍼를 직접 조작하기 위한 용도
 	inline char *GetBufferPtr() { return m_Buffer; }
+	inline char *GetContentBufferPtr() { return m_Buffer + m_Front; }
 	inline int MoveWritePos(int size) { m_Rear += size; return m_Rear; }
 	inline int MoveReadPos(int size) { m_Front += size; return m_Front; }
 
@@ -166,6 +171,21 @@ public:
 		return *this;
 	}
 
+	inline SerializableBuffer &operator<<(UINT64 iData)
+	{
+		if (m_MaxSize - m_Rear > sizeof(UINT64))
+		{
+			// TODO: resize
+		}
+
+		UINT64 *ptr = (UINT64 *)(m_Buffer + m_Rear);
+		*ptr = iData;
+
+		MoveWritePos(sizeof(UINT64));
+
+		return *this;
+	}
+
 	inline SerializableBuffer &operator<<(double dData)
 	{
 		if (m_MaxSize - m_Rear > sizeof(double))
@@ -297,6 +317,19 @@ public:
 		return *this;
 	}
 
+	inline SerializableBuffer &operator>>(UINT64 &iData)
+	{
+		if (GetDataSize() < sizeof(UINT64))
+		{
+			throw;
+		}
+
+		iData = *(UINT64 *)(m_Buffer + m_Front);
+		MoveReadPos(sizeof(UINT64));
+
+		return *this;
+	}
+
 	inline SerializableBuffer &operator>>(double &dData)
 	{
 		if (GetDataSize() < sizeof(double))
@@ -313,7 +346,10 @@ public:
 
 private:
 	char *m_Buffer;
+	int m_HeaderFront = 0;
 	int m_Front = 0;
 	int m_Rear = 0;
 	int m_MaxSize = (int)DEFINE::DEFAULT_SIZE;
 };
+
+extern ObjectPool<SerializableBuffer> g_SBufferPool;

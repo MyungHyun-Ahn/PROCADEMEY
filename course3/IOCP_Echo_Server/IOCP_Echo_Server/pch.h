@@ -21,7 +21,10 @@
 #include <unordered_map>
 #include <map>
 #include <vector>
+#include <stack>
+#include <deque>
 
 #include "Define.h"
+#include "ObjectPool.h"
 #include "RingBuffer.h"
 #include "SerializableBuffer.h"

@@ -10,8 +10,17 @@ bool CEchoServer::OnConnectionRequest(const WCHAR *ip, USHORT port)
 
 void CEchoServer::OnAccept(const UINT64 sessionID)
 {
+	USHORT index = GetSessionIndex(sessionID);
+	Session *p = m_pArrSession[index];
+	if (p->m_SessionID != sessionID)
+		__debugbreak();
+
 	// 클라이언트 정보 생성
 	// wprintf(L"[Content] Client Join : %lld\n", sessionID);
+	SerializableBuffer *sBuffer = g_SBufferPool.Alloc();
+	sBuffer->Clear();
+	(*sBuffer) << LOGIN_PAYLOAD;
+	SendPacket(sessionID, sBuffer);
 }
 
 void CEchoServer::OnClientLeave(const UINT64 sessionID)
@@ -27,16 +36,14 @@ void CEchoServer::OnRecv(const UINT64 sessionID, SerializableBuffer *message)
 
 	__int64 num;
 	*message >> num;
-	// printf("[Content] Client ID : %lld, Recv Msg : %lld\n", sessionID, num);
 
-	SerializableBuffer sBuffer;
-	sBuffer << num;
-	
-	EnterCriticalSection(&g_SessionMapLock);
-	Session *pSession = g_SessionMap[sessionID];
-	LeaveCriticalSection(&g_SessionMapLock);
+	UINT64 id = GetSessionIndex(sessionID);
+	// printf("[Content] Client ID : %lld, Recv Msg : %lld\n", id, num);
 
-	pSession->SendPacket(&sBuffer);
+	SerializableBuffer *sBuffer = g_SBufferPool.Alloc();
+	sBuffer->Clear();
+	(*sBuffer) << num;
+	SendPacket(sessionID, sBuffer);
 }
 
 void CEchoServer::OnError(int errorcode, WCHAR *errMsg)
