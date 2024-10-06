@@ -23,8 +23,14 @@
 #include <vector>
 #include <stack>
 #include <deque>
+#include <new>
+
+// 락프리 자료구조
+#include "Node.h"
+#include "LFMemoryPool.h"
+#include "LFStack.h"
+#include "LFQueue.h"
 
 #include "Define.h"
-#include "ObjectPool.h"
 #include "RingBuffer.h"
 #include "SerializableBuffer.h"

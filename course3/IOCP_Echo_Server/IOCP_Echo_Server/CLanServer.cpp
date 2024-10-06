@@ -140,7 +140,7 @@ bool CLanServer::ReleaseSession(Session *pSession)
 	closesocket(pSession->m_ClientSocket);
 	pSession->Clear();
 
-	g_SessionPool.Free(pSession);
+	Session::Free(pSession);
 	// delete pSession;
 
 	AcquireSRWLockExclusive(&m_DisconnectStackLock);
@@ -261,7 +261,7 @@ int CLanServer::AccepterThread()
 		USHORT cindex = GetSessionIndex(id);
 		UINT64 csid = GetSessionId(id);
 
-		Session *pSession = g_SessionPool.Alloc();
+		Session *pSession = Session::Alloc();
 
 		pSession->Init(clientSocket, id);
 		m_pArrSession[index] = pSession;

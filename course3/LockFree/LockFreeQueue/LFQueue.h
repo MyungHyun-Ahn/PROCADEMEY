@@ -49,24 +49,7 @@ public:
 
 			if (InterlockedCompareExchangePointer((PVOID *)&tail->next, node, next) == next)
 			{
-				// 이런 상황이 발생
-				if (InterlockedCompareExchangePointer((PVOID *)&m_Tail, node, tail) != tail) // 실패의 경우 그 이유 추적 - 사실 실패해도 상관 없다.
-				{
-					LONG64 backUp = InterlockedIncrement64(&logIndex);
-					QNode<T> *head = m_Head;
-					QNode<T> *headNext = head->next;
-					logging[backUp % 200000] = { 0, 1, (USHORT)GetCurrentThreadId(), (USHORT)node->data, head, headNext, tail, next };
-
-					// __debugbreak();
-					break;
-				}
-
-				LONG64 backUp = InterlockedIncrement64(&logIndex);
-				QNode<T> *head = m_Head;
-				QNode<T> *headNext = head->next;
-				logging[backUp % 200000] = { 0, 0, (USHORT)GetCurrentThreadId(), (USHORT)node->data, head, headNext, tail, next };
-
-				USHORT myThId = (USHORT)GetCurrentThreadId();
+				InterlockedCompareExchangePointer((PVOID *)&m_Tail, node, tail);
 
 				// 성공했는데 m_Tail->next가 NULL이 아닌 상황
 				if (m_Tail->next != NULL)
@@ -98,14 +81,6 @@ public:
 				if (InterlockedCompareExchangePointer((PVOID *)&m_Head, next, head) == head)
 				{
 					*t = next->data;
-					QNode<T> *backHead = m_Head;
-					QNode<T> *backNext = backHead->next;
-
-					LONG64 backUp = InterlockedIncrement64(&logIndex);
-					QNode<T> *tail = m_Tail;
-					QNode<T> *tailNext = tail->next;
-					logging[backUp % 200000] = { 1, 0, (USHORT)GetCurrentThreadId(), (USHORT)next->data, backHead, backNext, tail, tailNext };
-
 					delete head;
 				}
 			}

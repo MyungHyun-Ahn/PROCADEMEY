@@ -7,21 +7,21 @@
     <Filter Include="Content">
       <UniqueIdentifier>{ff6f96e8-4741-4e77-b634-2aa28d9fb263}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{586ce6f8-d24f-4db2-b1b9-92f55e5a1c55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LockFree">
+      <UniqueIdentifier>{9d9aed23-0186-490e-bc4a-9b241c4fc5cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="LanServer_LanClient 외형.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>Network</Filter>
-    </ClInclude>
     <ClInclude Include="CLanServer.h">
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="Session.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="RingBuffer.h">
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="Define.h">
@@ -30,21 +30,33 @@
     <ClInclude Include="CEchoServer.h">
       <Filter>Content</Filter>
     </ClInclude>
-    <ClInclude Include="SerializableBuffer.h">
-      <Filter>Network</Filter>
+    <ClInclude Include="RingBuffer.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Etc</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
-      <Filter>Network</Filter>
+      <Filter>LockFree</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>LockFree</Filter>
+    </ClInclude>
+    <ClInclude Include="LFStack.h">
+      <Filter>LockFree</Filter>
+    </ClInclude>
+    <ClInclude Include="LFMemoryPool.h">
+      <Filter>LockFree</Filter>
+    </ClInclude>
+    <ClInclude Include="LFQueue.h">
+      <Filter>LockFree</Filter>
+    </ClInclude>
+    <ClInclude Include="SerializableBuffer.h">
+      <Filter>Etc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
     <ClCompile Include="CLanServer.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
-    <ClCompile Include="RingBuffer.cpp">
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="Session.cpp">
@@ -54,11 +66,31 @@
       <Filter>Content</Filter>
     </ClCompile>
     <ClCompile Include="SerializableBuffer.cpp">
-      <Filter>Network</Filter>
+      <Filter>Etc</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="RingBuffer.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
     <ClCompile Include="ObjectPool.cpp">
-      <Filter>Network</Filter>
+      <Filter>LockFree</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>LockFree</Filter>
+    </ClCompile>
+    <ClCompile Include="LFMemoryPool.cpp">
+      <Filter>LockFree</Filter>
+    </ClCompile>
+    <ClCompile Include="LFQueue.cpp">
+      <Filter>LockFree</Filter>
+    </ClCompile>
+    <ClCompile Include="LFStack.cpp">
+      <Filter>LockFree</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

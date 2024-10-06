@@ -306,10 +306,11 @@ public:
 
 	inline SerializableBuffer &operator>>(__int64 &iData)
 	{
-		if (GetDataSize() < sizeof(__int64))
-		{
-			throw;
-		}
+		// int size = GetDataSize();
+		// if (size < sizeof(__int64))
+		// {
+		// 	throw;
+		// }
 
 		iData = *(__int64 *)(m_Buffer + m_Front);
 		MoveReadPos(sizeof(__int64));
@@ -343,6 +344,18 @@ public:
 		return *this;
 	}
 
+public:
+	inline static SerializableBuffer *Alloc()
+	{
+		SerializableBuffer *ptr = m_SBufferLFMemoryPool.Alloc();
+		ptr->Clear();
+		return ptr;
+	}
+
+	inline static void Free(SerializableBuffer *delPtr)
+	{
+		m_SBufferLFMemoryPool.Free(delPtr);
+	}
 
 private:
 	char *m_Buffer;
@@ -350,6 +363,6 @@ private:
 	int m_Front = 0;
 	int m_Rear = 0;
 	int m_MaxSize = (int)DEFINE::DEFAULT_SIZE;
-};
 
-extern ObjectPool<SerializableBuffer> g_SBufferPool;
+	inline static LFMemoryPool<SerializableBuffer> m_SBufferLFMemoryPool = LFMemoryPool<SerializableBuffer>(100, false);
+};

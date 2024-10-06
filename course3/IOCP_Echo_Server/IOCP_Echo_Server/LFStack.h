@@ -62,6 +62,6 @@ public:
 
 public:
 	LFMemoryPool<SNode<T>> m_LFMemoryPool;
-	SNode<T>			*m_pTop = nullptr;
+	SNode<T> *m_pTop = nullptr;
 	ULONG_PTR			m_CurrentIdentifier = 0;
 };

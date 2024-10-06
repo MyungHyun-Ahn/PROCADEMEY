@@ -40,7 +40,6 @@ struct MPNode
 	void *poolPtr;
 #endif
 	DATA data;
-	ULONG_PTR identifier; // 새로 TOP이 될 수 있는 부분에만 발급
 	MPNode *next;
 
 #ifdef SAFE_MODE

@@ -20,12 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LFMemoryPool.h" />
+    <ClInclude Include="LFQueue.h" />
     <ClInclude Include="LFStack.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LFMemoryPool.cpp" />
+    <ClCompile Include="LFQueue.cpp" />
     <ClCompile Include="LFStack.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Node.cpp" />

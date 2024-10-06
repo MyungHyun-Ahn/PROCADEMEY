@@ -2,11 +2,12 @@
 
 #include "LFMemoryPool.h"
 #include "LFStack.h"
+#include "LFQueue.h"
 
 #define THREAD_COUNT 2
 
 LFStack<UINT64> s;
-
+LFQueue<UINT64> q;
 
 unsigned int ThreadFunc(LPVOID lpPram)
 {
@@ -56,25 +57,33 @@ unsigned int ThreadFuncPop(LPVOID lpPram)
 	return 0;
 }
 
+unsigned int ThreadFuncQueue(LPVOID lpPram)
+{
+	while (1)
+	{
+		int thId = GetCurrentThreadId();
+
+		for (UINT64 i = 0; i < 3; i++)
+		{
+			q.Enqueue(i);
+
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			UINT64 data;
+			q.Dequeue(&data);
+			// printf("Pop ThreadId = %d, Data = %d\n", thId, data);
+		}
+	}
+}
+
 int main()
 {
-	// HANDLE pushTh = (HANDLE)_beginthreadex(nullptr, 0, ThreadFuncPush, nullptr, CREATE_SUSPENDED, nullptr);
-	// ResumeThread(pushTh);
-	// WaitForSingleObject(pushTh, INFINITE); // 넣어두고
-	// 
-	// // 계속 Pop만
-	// HANDLE arrTh[THREAD_COUNT];
-	// for (int i = 0; i < THREAD_COUNT; i++)
-	// {
-	// 	arrTh[i] = (HANDLE)_beginthreadex(nullptr, 0, ThreadFuncPop, nullptr, CREATE_SUSPENDED, nullptr);
-	// 	if (arrTh[i] == 0)
-	// 		return 1;
-	// }
-
 	HANDLE arrTh[THREAD_COUNT];
 	for (int i = 0; i < THREAD_COUNT; i++)
 	{
-		arrTh[i] = (HANDLE)_beginthreadex(nullptr, 0, ThreadFunc, nullptr, CREATE_SUSPENDED, nullptr);
+		arrTh[i] = (HANDLE)_beginthreadex(nullptr, 0, ThreadFuncQueue, nullptr, CREATE_SUSPENDED, nullptr);
 		if (arrTh[i] == 0)
 			return 1;
 	}
@@ -87,9 +96,6 @@ int main()
 	WaitForMultipleObjects(THREAD_COUNT, arrTh, true, INFINITE);
 
 	printf("정상종료\n");
-
-	if (s.m_pTop != nullptr)
-		__debugbreak();
 
 	return 0;
 }

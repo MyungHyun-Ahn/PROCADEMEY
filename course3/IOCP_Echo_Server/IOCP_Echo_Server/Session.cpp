@@ -1,8 +1,7 @@
 #include "pch.h"
+#include "LFMemoryPool.h"
 #include "Session.h"
 #include "CLanServer.h"
-
-ObjectPool<Session> g_SessionPool(100, false);
 
 void Session::RecvCompleted(int size)
 {
@@ -20,7 +19,7 @@ void Session::RecvCompleted(int size)
 
 		m_RecvBuffer.MoveFront(retVal);
 
-		SerializableBuffer *buffer = g_SBufferPool.Alloc();
+		SerializableBuffer *buffer = SerializableBuffer::Alloc();
 		buffer->Clear();
 		retVal = m_RecvBuffer.Dequeue(buffer->GetContentBufferPtr(), packetHeader);
 		if (retVal != packetHeader)
@@ -32,7 +31,7 @@ void Session::RecvCompleted(int size)
 		buffer->MoveWritePos(retVal);
 
 		g_Server->OnRecv(m_SessionID, buffer);
-		g_SBufferPool.Free(buffer);
+		SerializableBuffer::Free(buffer);
 		currentUseSize = m_RecvBuffer.GetUseSize();
 	}
 }
@@ -52,7 +51,7 @@ void Session::SendCompleted(int size)
 	{
 		SerializableBuffer *sendSBuffer;
 		m_SendBuffer.Dequeue((char *)&sendSBuffer, sizeof(SerializableBuffer *));
-		g_SBufferPool.Free(sendSBuffer);
+		SerializableBuffer::Free(sendSBuffer);
 	}
 
 	// m_SendBuffer.MoveFront(size);

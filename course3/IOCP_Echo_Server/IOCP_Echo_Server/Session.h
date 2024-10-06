@@ -56,6 +56,17 @@ public:
 	}
 
 public:
+	static Session *Alloc()
+	{
+		return m_SessionLFMemoryPool.Alloc();
+	}
+
+	static void Free(Session *ptr)
+	{
+		m_SessionLFMemoryPool.Free(ptr);
+	}
+
+public:
 	LONG				m_IsValid;
 
 	SOCKET				m_ClientSocket;
@@ -72,7 +83,6 @@ public:
 
 	LONG				m_ioCount = 0;
 	LONG				m_SendFlag = 0;
+
+	inline static LFMemoryPool<Session> m_SessionLFMemoryPool = LFMemoryPool<Session>(100, false);
 };
-
-extern ObjectPool<Session> g_SessionPool;
-

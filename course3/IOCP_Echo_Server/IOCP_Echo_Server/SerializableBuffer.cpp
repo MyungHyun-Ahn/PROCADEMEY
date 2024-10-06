@@ -1,7 +1,6 @@
 #include "pch.h"
+#include "LFMemoryPool.h"
 #include "SerializableBuffer.h"
-
-ObjectPool<SerializableBuffer> g_SBufferPool(100, false);
 
 SerializableBuffer::SerializableBuffer()
 {
