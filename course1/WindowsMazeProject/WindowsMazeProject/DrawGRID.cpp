@@ -247,6 +247,11 @@ void RenderInfo(HDC hdc)
 
 	Node *nextNode = g_arrNodes[destY][destX];
 
+	if (destX == -1 || destY == -1)
+	{
+		nextNode = NULL;
+	}
+
 	while (nextNode != NULL)
 	{
 
@@ -270,6 +275,11 @@ void RenderInfo(HDC hdc)
 		SelectGDI pen = SelectGDI(hdc, PEN_TYPE::RED);
 
 		Node *curNode = g_arrNodes[startY][startX];
+
+		if (startY == -1 || startX == -1)
+		{
+			curNode = NULL;
+		}
 
 		while (curNode != NULL)
 		{

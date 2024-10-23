@@ -34,7 +34,7 @@ int g_Val02 = 0;
 
 Mutex mutex(10000);
 
-void ThreadFunc02()
+unsigned ThreadFunc02(void *pParam)
 {
 	for (int i = 0; i < ADD_COUNT; i++)
 	{
@@ -44,12 +44,32 @@ void ThreadFunc02()
 		g_Val02++;
 		mutex.UnLock();
 	}
+
+	return 0;
 }
+
+unsigned RThreadFunc02(void *pParam)
+{
+	for (int i = 0; i < ADD_COUNT; i++)
+	{
+		mutex.Lock();
+
+		mutex.Lock();
+
+		// printf("ThreadID[%d]\n", GetThreadId(GetCurrentThread()));
+		g_Val02++;
+		mutex.UnLock();
+		mutex.UnLock();
+	}
+
+	return 0;
+}
+
 
 int g_Val03 = 0;
 std::mutex mtx;
 
-void ThreadFunc03()
+unsigned ThreadFunc03(void *pParam)
 {
 	for (int i = 0; i < ADD_COUNT; i++)
 	{
@@ -58,12 +78,14 @@ void ThreadFunc03()
 		g_Val03++;
 		mtx.unlock();
 	}
+
+	return 0;
 }
 
 int g_Val04 = 0;
 SRWLOCK srw;
 
-void ThreadFunc04()
+unsigned ThreadFunc04(void *pParam)
 {
 	for (int i = 0; i < ADD_COUNT; i++)
 	{
@@ -72,22 +94,25 @@ void ThreadFunc04()
 		g_Val04++;
 		ReleaseSRWLockExclusive(&srw);
 	}
+
+	return 0;
 }
 
 #define THREAD_COUNT 2
 
-int main()
+void CriticalSectionTest()
 {
-	InitializeCriticalSection(&cs);
-	for (int n = 0; n < 1; ++n)
+	// InitializeCriticalSection(&cs);
+	InitializeCriticalSectionAndSpinCount(&cs, 10000);
+	for (int n = 0; n < 100; ++n)
 	{
-		PROFILE_BEGIN(__WFUNC__, 1);
+		PROFILE_BEGIN(__WFUNC__, 0);
 
 		HANDLE thread01[THREAD_COUNT];
 
 		for (int i = 0; i < THREAD_COUNT; ++i)
 		{
-			thread01[i] = (HANDLE)_beginthreadex(NULL, NULL, (_beginthreadex_proc_type)ThreadFunc01, NULL, CREATE_SUSPENDED, NULL);
+			thread01[i] = (HANDLE)_beginthreadex(NULL, NULL, ThreadFunc01, NULL, CREATE_SUSPENDED, NULL);
 		}
 
 		for (int i = 0; i < THREAD_COUNT; ++i)
@@ -97,20 +122,27 @@ int main()
 
 		WaitForMultipleObjects(THREAD_COUNT, thread01, TRUE, INFINITE);
 
-		printf("%d\n", g_Val01);
+		for (int i = 0; i < THREAD_COUNT; ++i)
+		{
+			CloseHandle(thread01[i]);
+		}
 	}
 
-	return 0;
+	printf("%d\n", g_Val01);
 	DeleteCriticalSection(&cs);
+}
+
+void MyMutexTest()
+{
 	for (int n = 0; n < 100; ++n)
 	{
-		PROFILE_BEGIN(__WFUNC__, 2);
+		PROFILE_BEGIN(__WFUNC__, 0);
 
 		HANDLE thread02[THREAD_COUNT];
 
 		for (int i = 0; i < THREAD_COUNT; ++i)
 		{
-			thread02[i] = (HANDLE)_beginthreadex(NULL, NULL, (_beginthreadex_proc_type)ThreadFunc02, NULL, CREATE_SUSPENDED, NULL);
+			thread02[i] = (HANDLE)_beginthreadex(NULL, NULL, ThreadFunc02, NULL, CREATE_SUSPENDED, NULL);
 		}
 
 		for (int i = 0; i < THREAD_COUNT; ++i)
@@ -120,17 +152,27 @@ int main()
 
 		WaitForMultipleObjects(THREAD_COUNT, thread02, TRUE, INFINITE);
 
-		// printf("%d\n", g_Val02);
+		for (int i = 0; i < THREAD_COUNT; ++i)
+		{
+			CloseHandle(thread02[i]);
+		}
+
 	}
+
+	printf("%d\n", g_Val02);
+}
+
+void StdMutexTest()
+{
 	for (int n = 0; n < 100; ++n)
 	{
-		PROFILE_BEGIN(__WFUNC__, 3);
+		PROFILE_BEGIN(__WFUNC__, 0);
 
 		HANDLE thread03[THREAD_COUNT];
 
 		for (int i = 0; i < THREAD_COUNT; ++i)
 		{
-			thread03[i] = (HANDLE)_beginthreadex(NULL, NULL, (_beginthreadex_proc_type)ThreadFunc03, NULL, CREATE_SUSPENDED, NULL);
+			thread03[i] = (HANDLE)_beginthreadex(NULL, NULL, ThreadFunc03, NULL, CREATE_SUSPENDED, NULL);
 		}
 
 		for (int i = 0; i < THREAD_COUNT; ++i)
@@ -140,20 +182,28 @@ int main()
 
 		WaitForMultipleObjects(THREAD_COUNT, thread03, TRUE, INFINITE);
 
-		// printf("%d\n", g_Val03);
+		for (int i = 0; i < THREAD_COUNT; ++i)
+		{
+			CloseHandle(thread03[i]);
+		}
 	}
 
+	printf("%d\n", g_Val03);
+}
+
+void SRWLockTest()
+{
 	InitializeSRWLock(&srw);
 
 	for (int n = 0; n < 100; ++n)
 	{
-		PROFILE_BEGIN(__WFUNC__, 4);
+		PROFILE_BEGIN(__WFUNC__, 0);
 
 		HANDLE thread04[THREAD_COUNT];
 
 		for (int i = 0; i < THREAD_COUNT; ++i)
 		{
-			thread04[i] = (HANDLE)_beginthreadex(NULL, NULL, (_beginthreadex_proc_type)ThreadFunc04, NULL, CREATE_SUSPENDED, NULL);
+			thread04[i] = (HANDLE)_beginthreadex(NULL, NULL, ThreadFunc04, NULL, CREATE_SUSPENDED, NULL);
 		}
 
 		for (int i = 0; i < THREAD_COUNT; ++i)
@@ -163,8 +213,52 @@ int main()
 
 		WaitForMultipleObjects(THREAD_COUNT, thread04, TRUE, INFINITE);
 
-		// printf("%d\n", g_Val03);
+		for (int i = 0; i < THREAD_COUNT; ++i)
+		{
+			CloseHandle(thread04[i]);
+		}
 	}
+
+	printf("%d\n", g_Val04);
+}
+
+void MyRecursionMutexTest()
+{
+	for (int n = 0; n < 100; ++n)
+	{
+		PROFILE_BEGIN(__WFUNC__, 0);
+
+		HANDLE thread02[THREAD_COUNT];
+
+		for (int i = 0; i < THREAD_COUNT; ++i)
+		{
+			thread02[i] = (HANDLE)_beginthreadex(NULL, NULL, RThreadFunc02, NULL, CREATE_SUSPENDED, NULL);
+		}
+
+		for (int i = 0; i < THREAD_COUNT; ++i)
+		{
+			ResumeThread(thread02[i]);
+		}
+
+		WaitForMultipleObjects(THREAD_COUNT, thread02, TRUE, INFINITE);
+
+		for (int i = 0; i < THREAD_COUNT; ++i)
+		{
+			CloseHandle(thread02[i]);
+		}
+
+	}
+
+	printf("%d\n", g_Val02);
+}
+
+int main()
+{
+	// MyRecursionMutexTest();
+	MyMutexTest();
+	// CriticalSectionTest();
+	// SRWLockTest();
+	// StdMutexTest();
 
 	return 0;
 }

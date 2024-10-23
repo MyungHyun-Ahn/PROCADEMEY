@@ -2,7 +2,6 @@
 //
 #include "pch.h"
 #include "DrawGRID.h"
-#include "EllersMazeGenerator.h"
 #include "resource.h"
 
 #pragma warning(disable : 6385)

@@ -138,7 +138,6 @@
     <ClInclude Include="CellularAutomata.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="DrawGRID.h" />
-    <ClInclude Include="EllersMazeGenerator.h" />
     <ClInclude Include="JPS.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="pch.h" />
@@ -152,7 +151,6 @@
     <ClCompile Include="Bresenham.cpp" />
     <ClCompile Include="CellularAutomata.cpp" />
     <ClCompile Include="DrawGRID.cpp" />
-    <ClCompile Include="EllersMazeGenerator.cpp" />
     <ClCompile Include="JPS.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="pch.cpp">

@@ -1,4 +1,5 @@
 import os
+import sys
 from jinja2 import Environment, FileSystemLoader
 
 CSList = list()
@@ -18,10 +19,9 @@ class Arg:
         self.name = Name
         self.type = Type
 
-path = str()
-
 def PacketListFileParse():
-    f = open("E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\Automation_Tool\PacketList.txt", 'r')
+    filePath = sys.argv[1] + '\\PacketList.txt'
+    f = open(filePath, 'r')
 
     PacketDir = str()
     index = 0
@@ -65,7 +65,8 @@ def PacketListFileParse():
     f.close()
 
 def JinJaTemplate():
-    file_loader = FileSystemLoader("E:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\templates")
+    path = os.getcwd()
+    file_loader = FileSystemLoader(sys.argv[1] + '\\templates')
     env = Environment(loader=file_loader)
     # 파일명
     template1 = env.get_template("DefinePacket.h")
@@ -74,28 +75,24 @@ def JinJaTemplate():
     template4 = env.get_template("ProcessPacket.h")
 
     result1 = template1.render(scList=SCList, csList=CSList)
-    f1 = open('E:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\DefinePacket.h', 'w+')
+    f1 = open(sys.argv[1] + '\\result\\DefinePacket.h', 'w+')
     f1.write(result1)
     f1.close()
-    print(result1)
 
     result2 = template2.render(scList=SCList, csList=CSList)
-    f2 = open('E:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\GenPacket.h', 'w+')
+    f2 = open(sys.argv[1] + '\\result\\GenPacket.h', 'w+')
     f2.write(result2)
     f2.close()
-    print(result1)
     
     result3 = template3.render(scList=SCList, csList=CSList)
-    f3 = open('E:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\GenPacket.cpp', 'w+')
+    f3 = open(sys.argv[1] + '\\result\\GenPacket.cpp', 'w+')
     f3.write(result3)
     f3.close()
-    print(result3)
 
     result4 = template4.render(scList=SCList, csList=CSList)
-    f4 = open('E:\\Procademy\\PROCADEMEY\\course3\\MMO_TCPFighter\\Automation_Tool\\result\\ProcessPacket.h', 'w+')
+    f4 = open(sys.argv[1] + '\\result\\ProcessPacket.h', 'w+')
     f4.write(result4)
     f4.close()
-    print(result4)
 
 def Main():
     PacketListFileParse()

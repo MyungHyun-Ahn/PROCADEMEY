@@ -128,7 +128,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)\..\Automation_Tool\CodeGenerator.bat</Command>
+      <Command>$(SolutionDir)\..\Automation_Tool\CodeGenerator.bat $(SolutionDir)..\Automation_Tool</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -152,7 +152,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)\..\Automation_Tool\CodeGenerator.bat</Command>
+      <Command>$(SolutionDir)\..\Automation_Tool\CodeGenerator.bat $(SolutionDir)..\Automation_Tool</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -172,7 +172,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)\..\Automation_Tool\CodeGenerator.bat</Command>
+      <Command>$(SolutionDir)\..\Automation_Tool\CodeGenerator.bat $(SolutionDir)..\Automation_Tool</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -196,7 +196,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)\..\Automation_Tool\CodeGenerator.bat</Command>
+      <Command>$(SolutionDir)\..\Automation_Tool\CodeGenerator.bat $(SolutionDir)..\Automation_Tool</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

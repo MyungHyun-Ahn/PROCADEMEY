@@ -1,21 +1,7 @@
-﻿          1개 파일이 복사되었습니다.
-          1개 파일이 복사되었습니다.
-          1개 파일이 복사되었습니다.
-          1개 파일이 복사되었습니다.
-  pch.cpp
-  GameLogic.cpp
-  GenPacket.cpp
-  Logger.cpp
-  Main.cpp
-  NetworkManager.cpp
-  ObjectPool.cpp
-  Player.cpp
-  ProcessPacket.cpp
-  RingBuffer.cpp
-  Sector.cpp
-  SerializableBuffer.cpp
-  Session.cpp
-  코드를 생성하고 있습니다...
-  MMO_TCP_Fighter_Server.vcxproj -> E:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\x64\Debug\MMO_TCP_Fighter_Server.exe
-  'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
-  배치 파일이 아닙니다.
+﻿  액세스가 거부되었습니다.
+  시스템이 지정된 드라이브를 찾을 수 없습니다.
+  시스템이 지정된 드라이브를 찾을 수 없습니다.
+  시스템이 지정된 드라이브를 찾을 수 없습니다.
+  시스템이 지정된 드라이브를 찾을 수 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(156,5): error MSB3073: "C:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\..\Automation_Tool\CodeGenerator.bat
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(156,5): error MSB3073: :VCEnd" 명령이 종료되었습니다(코드: 1).

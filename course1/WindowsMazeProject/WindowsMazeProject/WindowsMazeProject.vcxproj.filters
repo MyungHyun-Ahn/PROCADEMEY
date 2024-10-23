@@ -57,9 +57,6 @@
     <ClInclude Include="Bresenham.h">
       <Filter>MazeLogic</Filter>
     </ClInclude>
-    <ClInclude Include="EllersMazeGenerator.h">
-      <Filter>MapGenerator</Filter>
-    </ClInclude>
     <ClInclude Include="CellularAutomata.h">
       <Filter>MapGenerator</Filter>
     </ClInclude>
@@ -88,9 +85,6 @@
     </ClCompile>
     <ClCompile Include="Bresenham.cpp">
       <Filter>MazeLogic</Filter>
-    </ClCompile>
-    <ClCompile Include="EllersMazeGenerator.cpp">
-      <Filter>MapGenerator</Filter>
     </ClCompile>
     <ClCompile Include="CellularAutomata.cpp">
       <Filter>MapGenerator</Filter>
