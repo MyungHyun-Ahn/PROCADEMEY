@@ -437,6 +437,8 @@ bool CNetworkManager::DisconnectClients()
 	// 남아있는 애들한테 삭제 정보 전송
 	for (CSession *ses : m_deleteQueue)
 	{
+		// 컨텐츠
+
 		// 들어와 있는 모든 세션에 패킷 인큐
 		// 삭제될 세션에 인큐되어도 어차피 아래에서 지워줌
 
@@ -446,10 +448,6 @@ bool CNetworkManager::DisconnectClients()
 		int secY = delPlayer->m_SecY;
 		int secX = delPlayer->m_SecX;
 
-		/*
-		if (g_Sectors[secY][secX].find(delPlayer->m_Id) == g_Sectors[secY][secX].end())
-			__debugbreak();
-		*/
 
 		g_Sectors[secY][secX].erase(delPlayer->m_Id);
 		g_Players.erase(delPlayer->m_Id);
