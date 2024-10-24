@@ -41,3 +41,4 @@
 #pragma warning(disable : 26110) // Lock 래핑 경고
 #pragma warning(disable : 26495)
 #pragma warning(disable : 4244)
+#pragma warning(disable : 6011) // Crash 위한 nullptr 참조

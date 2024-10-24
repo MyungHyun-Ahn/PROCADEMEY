@@ -24,10 +24,16 @@ int CRingBuffer::Enqueue(char *data, int size)
 	if (freeSize < size)
 		return -1;
 
-	int firstPartSize = min(size, DirectEnqueueSize());
-	int secondPartSize = size - firstPartSize;
+	int rear = m_iRear;
+	int des = DirectEnqueueSize();
+	int firstPartSize = 0;
+	if (des < 0)
+		firstPartSize = size;
+	else
+		firstPartSize = min(size, des);
 
-	memcpy_s(m_PQueue + m_iRear, freeSize, data, firstPartSize);
+	int secondPartSize = size - firstPartSize;
+	memcpy_s(m_PQueue + rear, freeSize, data, firstPartSize);
 	memcpy_s(m_PQueue, secondPartSize, data + firstPartSize, secondPartSize);
 	MoveRear(size);
 
@@ -50,11 +56,42 @@ int CRingBuffer::Peek(char *buffer, int size)
 		return -1;
 	}
 
-	int firstPartSize = min(size, DirectDequeueSize());
+	int front = m_iFront;
+	int dds = DirectDequeueSize();
+	int firstPartSize = 0;
+
+	if (dds < 0)
+		firstPartSize = size;
+	else
+		firstPartSize = min(size, dds);
 	int secondPartSize = size - firstPartSize;
 
-	memcpy_s(buffer, size, m_PQueue + m_iFront, firstPartSize);
+	memcpy_s(buffer, size, m_PQueue + front, firstPartSize);
 	memcpy_s(buffer + firstPartSize, size - firstPartSize, m_PQueue, secondPartSize);
 
 	return size;
+}
+
+int CRingBuffer::Peek(char *buffer, int size, int offset)
+{
+	if (GetUseSize(offset) < size) {
+		return -1;
+	}
+
+	int front = m_iFront;
+	front = (front + offset) % m_iCapacity;
+	int dds = DirectDequeueSize(offset);
+	int firstPartSize = 0;
+
+	if (dds < 0)
+		firstPartSize = size;
+	else
+		firstPartSize = min(size, dds);
+
+	int secondPartSize = size - firstPartSize;
+
+	memcpy_s(buffer, size, m_PQueue + front, firstPartSize);
+	memcpy_s(buffer + firstPartSize, size - firstPartSize, m_PQueue, secondPartSize);
+
+	return 0;
 }

@@ -22,8 +22,8 @@ public:
 	bool Enqueue(char *buffer, int size);
 	bool Dequeue(char *buffer, int size);
 
-	inline int GetBufferSize() { return m_MaxSize; }
-	inline int GetDataSize() { return m_Rear - m_Front; }
+	inline int GetBufferSize() const { return m_MaxSize; }
+	inline int GetDataSize() const { return m_Rear - m_Front; }
 
 	// 외부에서 버퍼를 직접 조작하기 위한 용도
 	inline char *GetBufferPtr() { return m_Buffer; }
