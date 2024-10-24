@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Define.h"
-#include "Player.h"
+#include "CPlayer.h"
 #include "GameLogic.h"
 
 void GameLogic::Update()

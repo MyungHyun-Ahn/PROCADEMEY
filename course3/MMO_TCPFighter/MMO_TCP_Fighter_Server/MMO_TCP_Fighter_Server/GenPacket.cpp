@@ -1,18 +1,18 @@
 #include "pch.h"
 #include "DefinePacket.h"
-#include "Session.h"
+#include "CSession.h"
 #include "GenPacket.h"
 #include "Define.h"
-#include "NetworkManager.h"
+#include "CNetworkManager.h"
 
-SerializableBuffer &operator<<(SerializableBuffer &sBuffer, PacketHeader &header)
+CSerializableBuffer &operator<<(CSerializableBuffer &sBuffer, PacketHeader &header)
 {
 	sBuffer << header.byCode << header.bySize << header.byType;
 	return sBuffer;
 }
-void GenPacket::makePacketSCCreateMyCharacter(BOOL bIsBroadcast, Session *pSession, INT id, CHAR direction, USHORT x, USHORT y, BYTE hp)
+void GenPacket::makePacketSCCreateMyCharacter(BOOL bIsBroadcast, CSession *pSession, INT id, CHAR direction, USHORT x, USHORT y, BYTE hp)
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;
@@ -27,9 +27,9 @@ void GenPacket::makePacketSCCreateMyCharacter(BOOL bIsBroadcast, Session *pSessi
 		g_NetworkMgr->RegisterUnicast(pSession, (char *)buffer.GetBufferPtr(), buffer.GetDataSize());
 } 
 
-void GenPacket::makePacketSCCreateOtherCharacter(BOOL bIsBroadcast, Session *pSession, INT id, CHAR direction, USHORT x, USHORT y, BYTE hp)
+void GenPacket::makePacketSCCreateOtherCharacter(BOOL bIsBroadcast, CSession *pSession, INT id, CHAR direction, USHORT x, USHORT y, BYTE hp)
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;
@@ -44,9 +44,9 @@ void GenPacket::makePacketSCCreateOtherCharacter(BOOL bIsBroadcast, Session *pSe
 		g_NetworkMgr->RegisterUnicast(pSession, (char *)buffer.GetBufferPtr(), buffer.GetDataSize());
 } 
 
-void GenPacket::makePacketSCDeleteCharacter(BOOL bIsBroadcast, Session *pSession, INT id)
+void GenPacket::makePacketSCDeleteCharacter(BOOL bIsBroadcast, CSession *pSession, INT id)
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;
@@ -61,9 +61,9 @@ void GenPacket::makePacketSCDeleteCharacter(BOOL bIsBroadcast, Session *pSession
 		g_NetworkMgr->RegisterUnicast(pSession, (char *)buffer.GetBufferPtr(), buffer.GetDataSize());
 } 
 
-void GenPacket::makePacketSCMoveStart(BOOL bIsBroadcast, Session *pSession, INT id, CHAR direction, USHORT x, USHORT y)
+void GenPacket::makePacketSCMoveStart(BOOL bIsBroadcast, CSession *pSession, INT id, CHAR direction, USHORT x, USHORT y)
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;
@@ -78,9 +78,9 @@ void GenPacket::makePacketSCMoveStart(BOOL bIsBroadcast, Session *pSession, INT 
 		g_NetworkMgr->RegisterUnicast(pSession, (char *)buffer.GetBufferPtr(), buffer.GetDataSize());
 } 
 
-void GenPacket::makePacketSCMoveStop(BOOL bIsBroadcast, Session *pSession, INT id, CHAR direction, USHORT x, USHORT y)
+void GenPacket::makePacketSCMoveStop(BOOL bIsBroadcast, CSession *pSession, INT id, CHAR direction, USHORT x, USHORT y)
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;
@@ -95,9 +95,9 @@ void GenPacket::makePacketSCMoveStop(BOOL bIsBroadcast, Session *pSession, INT i
 		g_NetworkMgr->RegisterUnicast(pSession, (char *)buffer.GetBufferPtr(), buffer.GetDataSize());
 } 
 
-void GenPacket::makePacketSCAttack1(BOOL bIsBroadcast, Session *pSession, INT id, CHAR direction, USHORT x, USHORT y)
+void GenPacket::makePacketSCAttack1(BOOL bIsBroadcast, CSession *pSession, INT id, CHAR direction, USHORT x, USHORT y)
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;
@@ -112,9 +112,9 @@ void GenPacket::makePacketSCAttack1(BOOL bIsBroadcast, Session *pSession, INT id
 		g_NetworkMgr->RegisterUnicast(pSession, (char *)buffer.GetBufferPtr(), buffer.GetDataSize());
 } 
 
-void GenPacket::makePacketSCAttack2(BOOL bIsBroadcast, Session *pSession, INT id, CHAR direction, USHORT x, USHORT y)
+void GenPacket::makePacketSCAttack2(BOOL bIsBroadcast, CSession *pSession, INT id, CHAR direction, USHORT x, USHORT y)
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;
@@ -129,9 +129,9 @@ void GenPacket::makePacketSCAttack2(BOOL bIsBroadcast, Session *pSession, INT id
 		g_NetworkMgr->RegisterUnicast(pSession, (char *)buffer.GetBufferPtr(), buffer.GetDataSize());
 } 
 
-void GenPacket::makePacketSCAttack3(BOOL bIsBroadcast, Session *pSession, INT id, CHAR direction, USHORT x, USHORT y)
+void GenPacket::makePacketSCAttack3(BOOL bIsBroadcast, CSession *pSession, INT id, CHAR direction, USHORT x, USHORT y)
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;
@@ -146,9 +146,9 @@ void GenPacket::makePacketSCAttack3(BOOL bIsBroadcast, Session *pSession, INT id
 		g_NetworkMgr->RegisterUnicast(pSession, (char *)buffer.GetBufferPtr(), buffer.GetDataSize());
 } 
 
-void GenPacket::makePacketSCDamage(BOOL bIsBroadcast, Session *pSession, INT attackId, INT damageId, CHAR damageHp)
+void GenPacket::makePacketSCDamage(BOOL bIsBroadcast, CSession *pSession, INT attackId, INT damageId, CHAR damageHp)
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;
@@ -163,9 +163,9 @@ void GenPacket::makePacketSCDamage(BOOL bIsBroadcast, Session *pSession, INT att
 		g_NetworkMgr->RegisterUnicast(pSession, (char *)buffer.GetBufferPtr(), buffer.GetDataSize());
 } 
 
-void GenPacket::makePacketSCSync(BOOL bIsBroadcast, Session *pSession, INT id, USHORT x, USHORT y)
+void GenPacket::makePacketSCSync(BOOL bIsBroadcast, CSession *pSession, INT id, USHORT x, USHORT y)
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;
@@ -180,9 +180,9 @@ void GenPacket::makePacketSCSync(BOOL bIsBroadcast, Session *pSession, INT id, U
 		g_NetworkMgr->RegisterUnicast(pSession, (char *)buffer.GetBufferPtr(), buffer.GetDataSize());
 } 
 
-void GenPacket::makePacketSCEcho(BOOL bIsBroadcast, Session *pSession, DWORD time)
+void GenPacket::makePacketSCEcho(BOOL bIsBroadcast, CSession *pSession, DWORD time)
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;

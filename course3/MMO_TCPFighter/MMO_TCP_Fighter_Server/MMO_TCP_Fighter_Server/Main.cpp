@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Define.h"
-#include "Player.h"
-#include "Session.h"
-#include "NetworkManager.h"
+#include "CPlayer.h"
+#include "CSession.h"
+#include "CNetworkManager.h"
 #include "GameLogic.h"
 
 DWORD g_mTime;
@@ -30,15 +30,24 @@ void Monitor()
 	g_SendTPS = 0;
 }
 
+// ¸ðµç ½Ì±ÛÅæ °´Ã¼ÀÇ ÃÊ±âÈ­¸¦ ÀÌ°÷¿¡¼­
+void InitializeSingleton()
+{
+	g_Logger = CLogger::GetInstance();
+	g_Logger->SetDirectory(L"LogFile");
+	g_Logger->SetLogLevel(LOG_LEVEL::DEBUG);
+
+	g_Profiler = CProfileManager::GetInstance();
+
+	g_NetworkMgr = CNetworkManager::GetInstance();
+}
+
 int main()
 {
 	srand((unsigned int)time(nullptr));
 
-	g_Logger = Logger::GetInstance();
-	g_Logger->SetDirectory(L"LogFile");
-	g_Logger->SetLogLevel(LOG_LEVEL::DEBUG);
+	InitializeSingleton();
 
-	g_NetworkMgr = NetworkManager::GetInstance();
 	g_NetworkMgr->Start();
 
 	timeBeginPeriod(1);
@@ -56,8 +65,6 @@ int main()
 		if (int time = timeGetTime(); time - prevTick >= TICK_PER_FRAME)
 		{
 			GameLogic::Update();
-			// g_NetworkMgr->WriteSelect();
-			// g_NetworkMgr->TimeoutCheck();
 			prevTick += TICK_PER_FRAME;
 			g_FPS++;
 		}

@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "Define.h"
 #include "DefinePacket.h"
-#include "Session.h"
-#include "Player.h"
-#include "NetworkManager.h"
+#include "CSession.h"
+#include "CPlayer.h"
+#include "CNetworkManager.h"
 #include "GenPacket.h"
 #include "Sector.h"
 #include "ProcessPacket.h"
@@ -11,13 +11,13 @@
 ProcessPacket g_ProcessPacket;
 ProcessPacketInterface *g_pProcessPacket = &g_ProcessPacket;
 
-SerializableBuffer &operator>>(SerializableBuffer &sBuffer, PacketHeader &header)
+CSerializableBuffer &operator>>(CSerializableBuffer &sBuffer, PacketHeader &header)
 {
 	sBuffer.Dequeue((char *)&header, sizeof(header));
 	return sBuffer;
 }
 
-bool ProcessPacket::PacketProcCSMoveStart(Session *pSession, PACKET_CODE code)
+bool ProcessPacket::PacketProcCSMoveStart(CSession *pSession, PACKET_CODE code)
 {
 	PacketHeader header;
 	pSession->recvBuffer.Dequeue((char *)&header, sizeof(header));
@@ -27,7 +27,7 @@ bool ProcessPacket::PacketProcCSMoveStart(Session *pSession, PACKET_CODE code)
 	USHORT y;
 
 	{
-		SerializableBuffer *sBuffer = g_SBufferPool.Alloc();
+		CSerializableBuffer *sBuffer = g_SBufferPool.Alloc();
 		int ret = pSession->recvBuffer.Dequeue((char *)sBuffer->GetBufferPtr(), header.bySize);
 		sBuffer->MoveWritePos(ret);
 		*sBuffer >> moveDir >> x >> y;
@@ -35,7 +35,7 @@ bool ProcessPacket::PacketProcCSMoveStart(Session *pSession, PACKET_CODE code)
 		g_SBufferPool.Free(sBuffer);
 	}
 
-	Player *player = g_Players[pSession->m_Id];
+	CPlayer *player = g_Players[pSession->m_Id];
 
 #ifdef SYNC_DBG
 	player->syncList.push_back({ TRUE, player->m_X, player->m_Y, x, y });
@@ -97,7 +97,7 @@ bool ProcessPacket::PacketProcCSMoveStart(Session *pSession, PACKET_CODE code)
 	return true;
 }
 
-bool ProcessPacket::PacketProcCSMoveStop(Session *pSession, PACKET_CODE code)
+bool ProcessPacket::PacketProcCSMoveStop(CSession *pSession, PACKET_CODE code)
 {
 	PacketHeader header;
 	pSession->recvBuffer.Dequeue((char *)&header, sizeof(header));
@@ -107,7 +107,7 @@ bool ProcessPacket::PacketProcCSMoveStop(Session *pSession, PACKET_CODE code)
 	USHORT y;
 
 	{
-		SerializableBuffer *sBuffer = g_SBufferPool.Alloc();
+		CSerializableBuffer *sBuffer = g_SBufferPool.Alloc();
 		int ret = pSession->recvBuffer.Dequeue((char *)sBuffer->GetBufferPtr(), header.bySize);
 		sBuffer->MoveWritePos(ret);
 		*sBuffer >> viewDir >> x >> y;
@@ -115,7 +115,7 @@ bool ProcessPacket::PacketProcCSMoveStop(Session *pSession, PACKET_CODE code)
 		g_SBufferPool.Free(sBuffer);
 	}
 
-	Player *player = g_Players[pSession->m_Id];
+	CPlayer *player = g_Players[pSession->m_Id];
 
 #ifdef SYNC_DBG
 	player->syncList.push_back({ FALSE, player->m_X, player->m_Y, x, y });
@@ -178,7 +178,7 @@ bool ProcessPacket::PacketProcCSMoveStop(Session *pSession, PACKET_CODE code)
 	return true;
 }
 
-bool ProcessPacket::PacketProcCSAttack1(Session *pSession, PACKET_CODE code)
+bool ProcessPacket::PacketProcCSAttack1(CSession *pSession, PACKET_CODE code)
 {
 	PacketHeader header;
 	pSession->recvBuffer.Dequeue((char *)&header, sizeof(header));
@@ -188,7 +188,7 @@ bool ProcessPacket::PacketProcCSAttack1(Session *pSession, PACKET_CODE code)
 	USHORT playerY;
 
 	{
-		SerializableBuffer *sBuffer = g_SBufferPool.Alloc();
+		CSerializableBuffer *sBuffer = g_SBufferPool.Alloc();
 		int ret = pSession->recvBuffer.Dequeue((char *)sBuffer->GetBufferPtr(), header.bySize);
 		sBuffer->MoveWritePos(ret);
 		*sBuffer >> direction >> playerX >> playerY;
@@ -214,7 +214,7 @@ bool ProcessPacket::PacketProcCSAttack1(Session *pSession, PACKET_CODE code)
 
 			for (auto &player : g_Sectors[startY + y][startX + x])
 			{
-				Player *targetPlayer = player.second;
+				CPlayer *targetPlayer = player.second;
 
 				if (targetPlayer->m_Id == pSession->m_Id)
 					continue;
@@ -234,7 +234,7 @@ bool ProcessPacket::PacketProcCSAttack1(Session *pSession, PACKET_CODE code)
 				{
 					if (g_Sessions[targetPlayer->m_Id]->m_isVaild)
 					{
-						g_NetworkMgr->deleteQueue.push_back(g_Sessions[targetPlayer->m_Id]);
+						g_NetworkMgr->m_deleteQueue.push_back(g_Sessions[targetPlayer->m_Id]);
 						g_Sessions[targetPlayer->m_Id]->m_isVaild = FALSE;
 					}
 				}
@@ -258,7 +258,7 @@ END1:
 	return true;
 }
 
-bool ProcessPacket::PacketProcCSAttack2(Session *pSession, PACKET_CODE code)
+bool ProcessPacket::PacketProcCSAttack2(CSession *pSession, PACKET_CODE code)
 {
 	PacketHeader header;
 	pSession->recvBuffer.Dequeue((char *)&header, sizeof(header));
@@ -268,7 +268,7 @@ bool ProcessPacket::PacketProcCSAttack2(Session *pSession, PACKET_CODE code)
 	USHORT playerY;
 
 	{
-		SerializableBuffer *sBuffer = g_SBufferPool.Alloc();
+		CSerializableBuffer *sBuffer = g_SBufferPool.Alloc();
 		int ret = pSession->recvBuffer.Dequeue((char *)sBuffer->GetBufferPtr(), header.bySize);
 		sBuffer->MoveWritePos(ret);
 
@@ -296,7 +296,7 @@ bool ProcessPacket::PacketProcCSAttack2(Session *pSession, PACKET_CODE code)
 			auto &s = g_Sectors[startY + y][startX + x];
 			for (auto &player : g_Sectors[startY + y][startX + x])
 			{
-				Player *targetPlayer = player.second;
+				CPlayer *targetPlayer = player.second;
 
 				if (targetPlayer->m_Id == pSession->m_Id)
 					continue;
@@ -316,7 +316,7 @@ bool ProcessPacket::PacketProcCSAttack2(Session *pSession, PACKET_CODE code)
 				{
 					if (g_Sessions[targetPlayer->m_Id]->m_isVaild)
 					{
-						g_NetworkMgr->deleteQueue.push_back(g_Sessions[targetPlayer->m_Id]);
+						g_NetworkMgr->m_deleteQueue.push_back(g_Sessions[targetPlayer->m_Id]);
 						g_Sessions[targetPlayer->m_Id]->m_isVaild = FALSE;
 					}
 				}
@@ -339,7 +339,7 @@ END2:
 	return true;
 }
 
-bool ProcessPacket::PacketProcCSAttack3(Session *pSession, PACKET_CODE code)
+bool ProcessPacket::PacketProcCSAttack3(CSession *pSession, PACKET_CODE code)
 {
 	PacketHeader header;
 	pSession->recvBuffer.Dequeue((char *)&header, sizeof(header));
@@ -349,7 +349,7 @@ bool ProcessPacket::PacketProcCSAttack3(Session *pSession, PACKET_CODE code)
 	USHORT playerY;
 
 	{
-		SerializableBuffer *sBuffer = g_SBufferPool.Alloc();
+		CSerializableBuffer *sBuffer = g_SBufferPool.Alloc();
 		int ret = pSession->recvBuffer.Dequeue((char *)sBuffer->GetBufferPtr(), header.bySize);
 		sBuffer->MoveWritePos(ret);
 		*sBuffer >> direction >> playerX >> playerY;
@@ -376,7 +376,7 @@ bool ProcessPacket::PacketProcCSAttack3(Session *pSession, PACKET_CODE code)
 			auto &s = g_Sectors[startY + y][startX + x];
 			for (auto &player : g_Sectors[startY + y][startX + x])
 			{
-				Player *targetPlayer = player.second;
+				CPlayer *targetPlayer = player.second;
 
 				if (targetPlayer->m_Id == pSession->m_Id)
 					continue;
@@ -396,7 +396,7 @@ bool ProcessPacket::PacketProcCSAttack3(Session *pSession, PACKET_CODE code)
 				{
 					if (g_Sessions[targetPlayer->m_Id]->m_isVaild)
 					{
-						g_NetworkMgr->deleteQueue.push_back(g_Sessions[targetPlayer->m_Id]);
+						g_NetworkMgr->m_deleteQueue.push_back(g_Sessions[targetPlayer->m_Id]);
 						g_Sessions[targetPlayer->m_Id]->m_isVaild = FALSE;
 					}
 				}
@@ -419,7 +419,7 @@ END3:
 	return true;
 }
 
-bool ProcessPacket::PacketProcCSEcho(Session *pSession, PACKET_CODE code)
+bool ProcessPacket::PacketProcCSEcho(CSession *pSession, PACKET_CODE code)
 {
 	// wprintf(L"Echo # Player Id %d\n", pSession->m_Id);
 
@@ -429,7 +429,7 @@ bool ProcessPacket::PacketProcCSEcho(Session *pSession, PACKET_CODE code)
 	DWORD time;
 
 	{
-		SerializableBuffer *sBuffer = g_SBufferPool.Alloc();
+		CSerializableBuffer *sBuffer = g_SBufferPool.Alloc();
 		int ret = pSession->recvBuffer.Dequeue((char *)sBuffer->GetBufferPtr(), header.bySize);
 		sBuffer->MoveWritePos(ret);
 		*sBuffer >> time;

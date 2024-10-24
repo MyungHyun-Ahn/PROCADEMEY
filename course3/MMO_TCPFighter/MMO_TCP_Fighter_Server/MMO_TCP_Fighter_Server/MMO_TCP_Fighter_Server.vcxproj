@@ -23,36 +23,38 @@
     <ClInclude Include="DefinePacket.h" />
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="GenPacket.h" />
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="NetworkManager.h" />
-    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="CLogger.h" />
+    <ClInclude Include="CNetworkManager.h" />
+    <ClInclude Include="CObjectPool.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="CPlayer.h" />
     <ClInclude Include="ProcessPacket.h" />
-    <ClInclude Include="RingBuffer.h" />
+    <ClInclude Include="CProfiler.h" />
+    <ClInclude Include="CRingBuffer.h" />
     <ClInclude Include="Sector.h" />
-    <ClInclude Include="SerializableBuffer.h" />
-    <ClInclude Include="Session.h" />
+    <ClInclude Include="CSerializableBuffer.h" />
+    <ClInclude Include="CSession.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GenPacket.cpp" />
-    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="CLogger.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="NetworkManager.cpp" />
-    <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="CNetworkManager.cpp" />
+    <ClCompile Include="CObjectPool.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="ProcessPacket.cpp" />
-    <ClCompile Include="RingBuffer.cpp" />
+    <ClCompile Include="CProfiler.cpp" />
+    <ClCompile Include="CRingBuffer.cpp" />
     <ClCompile Include="Sector.cpp" />
-    <ClCompile Include="SerializableBuffer.cpp" />
-    <ClCompile Include="Session.cpp" />
+    <ClCompile Include="CSerializableBuffer.cpp" />
+    <ClCompile Include="CSession.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

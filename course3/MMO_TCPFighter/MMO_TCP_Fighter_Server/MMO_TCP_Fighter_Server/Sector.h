@@ -1,6 +1,6 @@
 #pragma once
 
-class Player;
+class CPlayer;
 
 inline int CalSectorX(int x)
 {
@@ -12,4 +12,4 @@ inline int CalSectorY(int y)
 	return (y - RANGE_MOVE_LEFT) / SECTOR_SIZE;
 }
 
-extern std::unordered_map<INT, Player *> g_Sectors[SECTOR_MAX_Y][SECTOR_MAX_X];
+extern std::unordered_map<INT, CPlayer *> g_Sectors[SECTOR_MAX_Y][SECTOR_MAX_X];

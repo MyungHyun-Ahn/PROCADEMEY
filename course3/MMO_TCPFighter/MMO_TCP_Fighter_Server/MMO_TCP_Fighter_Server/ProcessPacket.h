@@ -3,13 +3,13 @@ class ProcessPacketInterface
 {
 public:
 	virtual bool Process(int sessionId) = 0;
-	virtual bool ConsumePacket(Session *pSession, PACKET_CODE code) = 0;
-	virtual bool PacketProcCSMoveStart(Session *pSession, PACKET_CODE code) = 0;
-	virtual bool PacketProcCSMoveStop(Session *pSession, PACKET_CODE code) = 0;
-	virtual bool PacketProcCSAttack1(Session *pSession, PACKET_CODE code) = 0;
-	virtual bool PacketProcCSAttack2(Session *pSession, PACKET_CODE code) = 0;
-	virtual bool PacketProcCSAttack3(Session *pSession, PACKET_CODE code) = 0;
-	virtual bool PacketProcCSEcho(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool ConsumePacket(CSession *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSMoveStart(CSession *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSMoveStop(CSession *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSAttack1(CSession *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSAttack2(CSession *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSAttack3(CSession *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProcCSEcho(CSession *pSession, PACKET_CODE code) = 0;
 };
 
 class ProcessPacket : public ProcessPacketInterface
@@ -17,7 +17,7 @@ class ProcessPacket : public ProcessPacketInterface
 public:
 	bool Process(int sessionId)
 	{
-		Session *curSession = g_Sessions[sessionId];
+		CSession *curSession = g_Sessions[sessionId];
 
 		while (true)
 		{
@@ -40,7 +40,7 @@ public:
 		return true;
 	}
 
-	bool ConsumePacket(Session *pSession, PACKET_CODE code)
+	bool ConsumePacket(CSession *pSession, PACKET_CODE code)
 	{
 		switch (code)
 		{
@@ -62,12 +62,12 @@ public:
 
 		return false;
 	}
-	bool PacketProcCSMoveStart(Session *pSession, PACKET_CODE code);
-	bool PacketProcCSMoveStop(Session *pSession, PACKET_CODE code);
-	bool PacketProcCSAttack1(Session *pSession, PACKET_CODE code);
-	bool PacketProcCSAttack2(Session *pSession, PACKET_CODE code);
-	bool PacketProcCSAttack3(Session *pSession, PACKET_CODE code);
-	bool PacketProcCSEcho(Session *pSession, PACKET_CODE code);
+	bool PacketProcCSMoveStart(CSession *pSession, PACKET_CODE code);
+	bool PacketProcCSMoveStop(CSession *pSession, PACKET_CODE code);
+	bool PacketProcCSAttack1(CSession *pSession, PACKET_CODE code);
+	bool PacketProcCSAttack2(CSession *pSession, PACKET_CODE code);
+	bool PacketProcCSAttack3(CSession *pSession, PACKET_CODE code);
+	bool PacketProcCSEcho(CSession *pSession, PACKET_CODE code);
 };
 
 extern ProcessPacket g_ProcessPacket;

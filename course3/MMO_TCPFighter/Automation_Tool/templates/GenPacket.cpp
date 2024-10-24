@@ -1,20 +1,20 @@
 #include "pch.h"
 #include "DefinePacket.h"
-#include "Session.h"
+#include "CSession.h"
 #include "GenPacket.h"
 #include "Define.h"
-#include "NetworkManager.h"
+#include "CNetworkManager.h"
 
-SerializableBuffer &operator<<(SerializableBuffer &sBuffer, PacketHeader &header)
+CSerializableBuffer &operator<<(CSerializableBuffer &sBuffer, PacketHeader &header)
 {
 	sBuffer << header.byCode << header.bySize << header.byType;
 	return sBuffer;
 }
 
 {%- for pkt in scList %}
-void GenPacket::makePacket{{pkt.name}}(BOOL bIsBroadcast, Session *pSession, {%- for arg in pkt.argList %} {{arg.type}} {{arg.name}}{{'' if loop.last else ','}}{%- endfor %})
+void GenPacket::makePacket{{pkt.name}}(BOOL bIsBroadcast, CSession *pSession, {%- for arg in pkt.argList %} {{arg.type}} {{arg.name}}{{'' if loop.last else ','}}{%- endfor %})
 {
-	SerializableBuffer buffer;
+	CSerializableBuffer buffer;
 	PacketHeader header;
 	
 	header.byCode = PACKET_IDENTIFIER;

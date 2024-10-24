@@ -3,10 +3,10 @@ class ProcessPacketInterface
 {
 public:
 	virtual bool Process(int sessionId) = 0;
-	virtual bool ConsumePacket(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool ConsumePacket(CSession *pSession, PACKET_CODE code) = 0;
 
 	{%- for pkt in csList %}
-	virtual bool PacketProc{{pkt.name}}(Session *pSession, PACKET_CODE code) = 0;
+	virtual bool PacketProc{{pkt.name}}(CSession *pSession, PACKET_CODE code) = 0;
 	{%- endfor %}
 };
 
@@ -15,7 +15,7 @@ class ProcessPacket : public ProcessPacketInterface
 public:
 	bool Process(int sessionId)
 	{
-		Session *curSession = g_Sessions[sessionId];
+		CSession *curSession = g_Sessions[sessionId];
 
 		while (true)
 		{
@@ -38,7 +38,7 @@ public:
 		return true;
 	}
 
-	bool ConsumePacket(Session *pSession, PACKET_CODE code)
+	bool ConsumePacket(CSession *pSession, PACKET_CODE code)
 	{
 		switch (code)
 		{
@@ -54,7 +54,7 @@ public:
 	}
 
 	{%- for pkt in csList %}
-	bool PacketProc{{pkt.name}}(Session *pSession, PACKET_CODE code);
+	bool PacketProc{{pkt.name}}(CSession *pSession, PACKET_CODE code);
 	{%- endfor %}
 };
 

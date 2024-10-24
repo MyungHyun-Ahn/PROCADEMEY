@@ -1,23 +1,23 @@
-﻿  C:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\..\Automation_Tool
-          1개 파일이 복사되었습니다.
+﻿          1개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
   pch.cpp
   GameLogic.cpp
   GenPacket.cpp
-  Logger.cpp
+  CLogger.cpp
   Main.cpp
-  NetworkManager.cpp
-  ObjectPool.cpp
-  Player.cpp
+  CNetworkManager.cpp
+  CObjectPool.cpp
+  CPlayer.cpp
   ProcessPacket.cpp
-  RingBuffer.cpp
+  CProfiler.cpp
+  CRingBuffer.cpp
   Sector.cpp
-  SerializableBuffer.cpp
-  Session.cpp
+  CSerializableBuffer.cpp
+  CSession.cpp
   코드를 생성하고 있습니다.
   Previous IPDB not found, fall back to full compilation.
-  All 584 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 656 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   코드를 생성했습니다.
   MMO_TCP_Fighter_Server.vcxproj -> C:\Procademy\PROCADEMEY\course3\MMO_TCPFighter\MMO_TCP_Fighter_Server\x64\Release\MMO_TCP_Fighter_Server.exe
