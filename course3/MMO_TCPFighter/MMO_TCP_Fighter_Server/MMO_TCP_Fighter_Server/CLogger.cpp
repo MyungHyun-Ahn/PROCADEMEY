@@ -1,12 +1,11 @@
 #include "pch.h"
-#include <strsafe.h>
 #include "CLogger.h"
 
 CLogger *g_Logger;
 
 CLogger::CLogger()
 {
-	InitializeCriticalSection(&m_cs);
+	InitializeSRWLock(&m_srwFileLock);
 }
 
 CLogger::~CLogger()
@@ -29,7 +28,7 @@ void CLogger::WriteLog(const WCHAR *type, LOG_LEVEL logLevel, const WCHAR *fmt, 
 
 	StringCchPrintf(fileName, 256, L".\\%s\\%d%02d_%s.txt", m_directoryName, tmTime.tm_year + 1900, tmTime.tm_mon + 1, type);
 
-	long long logCount = InterlockedIncrement64(&m_LogCount);
+	INT64 logCount = InterlockedIncrement64(&m_LogCount);
 
 	WCHAR logLevelStr[10] = { 0, };
 
@@ -69,13 +68,13 @@ void CLogger::WriteLog(const WCHAR *type, LOG_LEVEL logLevel, const WCHAR *fmt, 
 		WriteLog(L"ERROR", LOG_LEVEL::ERR, L"로그 버퍼 크기 부족");
 	}
 
-	EnterCriticalSection(&m_cs);
+	FileLock();
 
 	m_pFile = _wfsopen(fileName, L"a, ccs = UTF-16LE", _SH_DENYWR);
 	if (m_pFile == nullptr)
 	{
 		wprintf(L"file open fail, errorCode = %d\n", GetLastError());
-		LeaveCriticalSection(&m_cs);
+		FileUnLock();
 		return;
 	}
 	fwrite(totalBuf, 1, wcslen(totalBuf) * sizeof(WCHAR), m_pFile);
@@ -83,7 +82,7 @@ void CLogger::WriteLog(const WCHAR *type, LOG_LEVEL logLevel, const WCHAR *fmt, 
 	fclose(m_pFile);
 	m_pFile = nullptr;
 
-	LeaveCriticalSection(&m_cs);
+	FileUnLock();
 }
 
 WCHAR g_MessageBuf[10000] = { 0, };

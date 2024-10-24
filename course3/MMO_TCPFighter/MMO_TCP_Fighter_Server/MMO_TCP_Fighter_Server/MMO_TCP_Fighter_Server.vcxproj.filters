@@ -46,6 +46,9 @@
     <ClInclude Include="CProfiler.h">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="CCrashDump.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ProcessPacket.cpp">
@@ -88,6 +91,9 @@
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="CProfiler.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="CCrashDump.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>

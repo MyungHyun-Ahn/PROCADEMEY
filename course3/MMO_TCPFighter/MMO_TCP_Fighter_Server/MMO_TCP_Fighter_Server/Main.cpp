@@ -9,6 +9,8 @@ DWORD g_mTime;
 DWORD g_FPS = 0;
 DWORD g_LoopCount = 0;
 
+CCrashDump crashDump;
+
 void Monitor()
 {
 	DWORD dTime = timeGetTime() - g_mTime;
@@ -38,7 +40,6 @@ void InitializeSingleton()
 	g_Logger->SetLogLevel(LOG_LEVEL::DEBUG);
 
 	g_Profiler = CProfileManager::GetInstance();
-
 	g_NetworkMgr = CNetworkManager::GetInstance();
 }
 

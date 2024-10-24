@@ -10,6 +10,8 @@
 
 // 윈도우 API
 #include <windows.h>
+#include <Psapi.h>
+#include <strsafe.h>
 
 // C 런타임 라이브러리
 #include <cstdio>
@@ -33,6 +35,9 @@
 #include "CSerializableBuffer.h"
 #include "CLogger.h"
 #include "CProfiler.h"
+#include "CCrashDump.h"
 
+// warning disable
+#pragma warning(disable : 26110) // Lock 래핑 경고
 #pragma warning(disable : 26495)
 #pragma warning(disable : 4244)

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CCrashDump.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="DefinePacket.h" />
     <ClInclude Include="GameLogic.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="CSession.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCrashDump.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GenPacket.cpp" />
     <ClCompile Include="CLogger.cpp" />
