@@ -53,9 +53,9 @@ unsigned ThreadFunc1(LPVOID lpParam)
 			g_Turn = 0;
 
 #ifdef LOAD_BARRIER
-			// Load는 스토어를 앞지를 수 있음
-			// 근데 load끼리는 앞지를 수 없음
-			// 위에서 연관있는 store를 로드 함으로 아래의 로드 코드가 앞지를 수 없게함
+			// Load는 Store를 앞지를 수 있음
+			// 근데 Load끼리는 앞지를 수 없음
+			// 위에서 연관있는 Store를 Load 함으로 아래의 로드 코드가 앞지를 수 없게함
 			CHAR loadBarrierFlag = g_Flags[0];
 			CHAR loadBarrierTurn = g_Turn;
 #endif
@@ -86,7 +86,7 @@ unsigned ThreadFunc1(LPVOID lpParam)
 			debugInfo[index] = { 0, 1, g_Flags[1], flag, g_Turn, turn };
 #endif
 			// I/O을 걸어버려서 상황이 덜 나타날까?
-			// 했는데 별 차이 없는듯?
+			// 했는데 별 차이 없음?
 #ifdef LOG_PRINT
 			wprintf(L"%d Lock \t ThreadFunc1 : Flag : %d, Turn : %d, loadFlag : %d loadTurn : %d\n", index, g_Flags[1], g_Turn, flag, turn);
 #endif
