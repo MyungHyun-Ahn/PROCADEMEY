@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D7CF7BFD-1D0A-46AD-B7FD-F3AF324334F0}|ThreadTest\\ThreadTest.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\ThreadTest\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D7CF7BFD-1D0A-46AD-B7FD-F3AF324334F0}|ThreadTest\\ThreadTest.vcxproj|solutionrelative:ThreadTest\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D680DA3D-8778-4796-A371-FD7B21D25DF1}|Peterson\\Peterson.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D680DA3D-8778-4796-A371-FD7B21D25DF1}|Peterson\\Peterson.vcxproj|solutionrelative:Peterson\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D680DA3D-8778-4796-A371-FD7B21D25DF1}|Peterson\\Peterson.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Logger.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D680DA3D-8778-4796-A371-FD7B21D25DF1}|Peterson\\Peterson.vcxproj|solutionrelative:Peterson\\Logger.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7CF7BFD-1D0A-46AD-B7FD-F3AF324334F0}|ThreadTest\\ThreadTest.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\ThreadTest\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D7CF7BFD-1D0A-46AD-B7FD-F3AF324334F0}|ThreadTest\\ThreadTest.vcxproj|solutionrelative:ThreadTest\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D680DA3D-8778-4796-A371-FD7B21D25DF1}|Peterson\\Peterson.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Logger.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -26,11 +26,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 518,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Logger.cpp",
               "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Logger.cpp",
               "RelativeDocumentMoniker": "Peterson\\Logger.cpp",
@@ -54,7 +54,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Main.cpp",
               "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Main.cpp",
               "RelativeDocumentMoniker": "Peterson\\Main.cpp",
@@ -67,15 +67,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Main.cpp",
               "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\ThreadTest\\Main.cpp",
               "RelativeDocumentMoniker": "ThreadTest\\Main.cpp",
               "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\ThreadTest\\Main.cpp",
               "RelativeToolTip": "ThreadTest\\Main.cpp",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAAAEMAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAACIAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-07-15T07:37:43.298Z"
+              "WhenOpened": "2024-07-15T07:37:43.298Z",
+              "EditorCaption": ""
             }
           ]
         }

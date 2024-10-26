@@ -27,10 +27,14 @@ unsigned Accecpt(LPVOID lpParam)
 
 unsigned Disconnect(LPVOID lpParam)
 {
-	srand((unsigned)time(nullptr) + 1);
+	DWORD threadId = GetCurrentThreadId();
+	srand((unsigned)time(nullptr) + threadId);
 
 	while (!g_Shutdown)
 	{
+		if (g_connect <= 0)
+			continue;
+
 		InterlockedDecrement(&g_connect);
 		SHORT sleepTime = (rand() % 900) + 100;
 		Sleep(sleepTime);
