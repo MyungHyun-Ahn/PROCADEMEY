@@ -1,24 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\",
+  "WorkspaceRootPath": "C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\Thread_Debug.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\Thread_Debug.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|solutionrelative:Thread_Debug\\Thread_Debug.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\ReadMe.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|solutionrelative:Thread_Debug\\ReadMe.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\define.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\define.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|solutionrelative:Thread_Debug\\define.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\internal\\locks.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\ReadMe.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|solutionrelative:Thread_Debug\\ReadMe.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\internal\\winapi_thunks.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\internal\\locks.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\misc\\invalid_parameter.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
@@ -30,7 +27,7 @@
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\conio\\getwch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\targetver.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\targetver.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0172B48C-A504-49B7-BA04-7F36FCCD55D3}|Thread_Debug\\Thread_Debug.vcxproj|solutionrelative:Thread_Debug\\targetver.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -63,76 +60,64 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Thread_Debug.cpp",
-              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\Thread_Debug.cpp",
+              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\Thread_Debug.cpp",
               "RelativeDocumentMoniker": "Thread_Debug\\Thread_Debug.cpp",
-              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\Thread_Debug.cpp",
+              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\Thread_Debug.cpp",
               "RelativeToolTip": "Thread_Debug\\Thread_Debug.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAJcAAAAAAAAA",
+              "ViewState": "AgIAAGgBAAAAAAAAAAAAAOgBAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-07-22T17:28:40.26Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "getwch.cpp",
               "DocumentMoniker": "E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\conio\\getwch.cpp",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\conio\\getwch.cpp",
               "ToolTip": "E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\conio\\getwch.cpp",
-              "RelativeToolTip": "..\\..\\..\\..\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\conio\\getwch.cpp",
-              "ViewState": "AQIAACAAAAAAAAAAAAApwC8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-07-22T17:46:17.162Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-22T17:46:17.162Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "invalid_parameter.cpp",
               "DocumentMoniker": "E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\misc\\invalid_parameter.cpp",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\misc\\invalid_parameter.cpp",
               "ToolTip": "E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\misc\\invalid_parameter.cpp",
-              "RelativeToolTip": "..\\..\\..\\..\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\misc\\invalid_parameter.cpp",
-              "ViewState": "AQIAAN0AAAAAAAAAAAApwOwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-07-22T17:55:52.199Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-22T17:55:52.199Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ReadMe.txt",
-              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\ReadMe.txt",
+              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\ReadMe.txt",
               "RelativeDocumentMoniker": "Thread_Debug\\ReadMe.txt",
-              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\ReadMe.txt",
+              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\ReadMe.txt",
               "RelativeToolTip": "Thread_Debug\\ReadMe.txt",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAAAA0AAAAMAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwA0AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
               "WhenOpened": "2024-07-22T17:56:38.592Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "initconin.cpp",
               "DocumentMoniker": "E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\conio\\initconin.cpp",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\conio\\initconin.cpp",
               "ToolTip": "E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\conio\\initconin.cpp",
-              "RelativeToolTip": "..\\..\\..\\..\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\conio\\initconin.cpp",
-              "ViewState": "AQIAAEAAAAAAAAAAAAAgwFEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-07-22T17:31:15.288Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-22T17:31:15.288Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "define.h",
-              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\define.h",
+              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\define.h",
               "RelativeDocumentMoniker": "Thread_Debug\\define.h",
-              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\define.h",
+              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\define.h",
               "RelativeToolTip": "Thread_Debug\\define.h",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAUwBIAAAAWAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-07-22T17:35:52.558Z",
               "EditorCaption": ""
@@ -142,44 +127,21 @@
               "DocumentIndex": 3,
               "Title": "locks.cpp",
               "DocumentMoniker": "E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\internal\\locks.cpp",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\internal\\locks.cpp",
               "ToolTip": "E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\internal\\locks.cpp",
-              "RelativeToolTip": "..\\..\\..\\..\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\internal\\locks.cpp",
-              "ViewState": "AQIAABsAAAAAAAAAAAApwDUAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-07-22T18:04:37.285Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-22T18:04:37.285Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "targetver.h",
-              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\targetver.h",
+              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\targetver.h",
               "RelativeDocumentMoniker": "Thread_Debug\\targetver.h",
-              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\targetver.h",
+              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\Thread_Debug_error\\Thread_Debug\\targetver.h",
               "RelativeToolTip": "Thread_Debug\\targetver.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-07-22T17:28:37.306Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 176,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "winapi_thunks.cpp",
-              "DocumentMoniker": "E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\internal\\winapi_thunks.cpp",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\internal\\winapi_thunks.cpp",
-              "ToolTip": "E:\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\internal\\winapi_thunks.cpp",
-              "RelativeToolTip": "..\\..\\..\\..\\Windows Kits\\10\\Source\\10.0.22621.0\\ucrt\\internal\\winapi_thunks.cpp",
-              "ViewState": "AQIAAOECAAAAAAAAAAAswO4CAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-07-22T17:46:28.442Z",
               "EditorCaption": ""
             }
           ]

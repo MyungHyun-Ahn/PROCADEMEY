@@ -1,12 +1,17 @@
-﻿  Main.cpp
-E:\Procademy\PROCADEMEY\course3\JobQ\JobQ\Main.cpp(179,13): warning C4477: 'wprintf' : 서식 문자열 '%s'에 'wchar_t *' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>'입니다.
-E:\Procademy\PROCADEMEY\course3\JobQ\JobQ\Main.cpp(237,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-E:\Procademy\PROCADEMEY\course3\JobQ\JobQ\Main.cpp(277,45): warning C4267: '=': 'size_t'에서 'SHORT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  pch.cpp
+  Main.cpp
+  RingBuffer.cpp
+C:\Procademy\PROCADEMEY\course3\JobQ\JobQ\Main.cpp(179,13): warning C4477: 'wprintf' : 서식 문자열 '%s'에 'wchar_t *' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>'입니다.
+  (소스 파일 '/Main.cpp'을(를) 컴파일하는 중)
+  
+C:\Procademy\PROCADEMEY\course3\JobQ\JobQ\Main.cpp(237,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Main.cpp'을(를) 컴파일하는 중)
+  
+C:\Procademy\PROCADEMEY\course3\JobQ\JobQ\Main.cpp(277,45): warning C4267: '=': 'size_t'에서 'SHORT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Main.cpp'을(를) 컴파일하는 중)
+  
   코드를 생성하고 있습니다.
-  1 of 181 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 181 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   코드를 생성했습니다.
-  JobQ.vcxproj -> E:\Procademy\PROCADEMEY\course3\JobQ\x64\Release\JobQ.exe
-  'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
-  배치 파일이 아닙니다.
+  JobQ.vcxproj -> C:\Procademy\PROCADEMEY\course3\JobQ\x64\Release\JobQ.exe

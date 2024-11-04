@@ -5,18 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{D7CF7BFD-1D0A-46AD-B7FD-F3AF324334F0}|ThreadTest\\ThreadTest.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\ThreadTest\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D7CF7BFD-1D0A-46AD-B7FD-F3AF324334F0}|ThreadTest\\ThreadTest.vcxproj|solutionrelative:ThreadTest\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D680DA3D-8778-4796-A371-FD7B21D25DF1}|Peterson\\Peterson.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D680DA3D-8778-4796-A371-FD7B21D25DF1}|Peterson\\Peterson.vcxproj|solutionrelative:Peterson\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D680DA3D-8778-4796-A371-FD7B21D25DF1}|Peterson\\Peterson.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Logger.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D680DA3D-8778-4796-A371-FD7B21D25DF1}|Peterson\\Peterson.vcxproj|solutionrelative:Peterson\\Logger.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D680DA3D-8778-4796-A371-FD7B21D25DF1}|Peterson\\Peterson.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Logger.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D680DA3D-8778-4796-A371-FD7B21D25DF1}|Peterson\\Peterson.vcxproj|solutionrelative:Peterson\\Logger.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,45 +14,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 518,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Logger.cpp",
-              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Logger.cpp",
-              "RelativeDocumentMoniker": "Peterson\\Logger.cpp",
-              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Logger.cpp",
-              "RelativeToolTip": "Peterson\\Logger.cpp",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAB8AAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-23T09:37:43.929Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Logger.h",
-              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Logger.h",
-              "RelativeDocumentMoniker": "Peterson\\Logger.h",
-              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Logger.h",
-              "RelativeToolTip": "Peterson\\Logger.h",
-              "ViewState": "AgIAABcAAAAAAAAAAADwvygAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-23T09:37:22.913Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Main.cpp",
-              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Main.cpp",
-              "RelativeDocumentMoniker": "Peterson\\Main.cpp",
-              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\Peterson\\Main.cpp",
-              "RelativeToolTip": "Peterson\\Main.cpp",
-              "ViewState": "AgIAAG8AAAAAAAAAAAAAABUAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-07-16T10:21:52.996Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -73,9 +24,9 @@
               "RelativeDocumentMoniker": "ThreadTest\\Main.cpp",
               "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\ThreadTest\\ThreadTest\\Main.cpp",
               "RelativeToolTip": "ThreadTest\\Main.cpp",
-              "ViewState": "AgIAADwAAAAAAAAAAAAAACIAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACcAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-07-15T07:37:43.298Z",
+              "WhenOpened": "2024-10-28T06:16:48.788Z",
               "EditorCaption": ""
             }
           ]

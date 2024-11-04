@@ -13,7 +13,8 @@ LONG g_connect = 0;
 
 unsigned Accecpt(LPVOID lpParam)
 {
-	srand((unsigned)time(nullptr));
+	DWORD threadId = GetCurrentThreadId();
+	srand((unsigned)time(nullptr) + threadId);
 
 	while (!g_Shutdown)
 	{
@@ -72,7 +73,7 @@ int main()
 {
 	timeBeginPeriod(1);
 
-	InitializeCriticalSection(&cs);
+	// InitializeCriticalSection(&cs);
 	InitializeSRWLock(&srw);
 
 	HANDLE arrThread[THREAD_COUNT];
@@ -107,6 +108,8 @@ int main()
 
 	for (HANDLE th : arrThread)
 		CloseHandle(th);
+
+	// DeleteCriticalSection(&cs);
 
 	return 0;
 }

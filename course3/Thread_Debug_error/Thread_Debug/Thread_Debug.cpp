@@ -138,7 +138,6 @@ void DeleteSession(DWORD dwSessionID)
 			g_PlayerList.erase(PlayerIter);
 
 			// ABCD BUG 2 - Unlock 안함
-
 			UnlockPlayer();
 			return;
 		}
@@ -209,8 +208,8 @@ unsigned int WINAPI AcceptThread(LPVOID lpParam)
 		//----------------------------------------------------------
 		while ( !g_AcceptPacketList.empty() )
 		{
-			dwSessionID = *g_AcceptPacketList.begin();
 			LockAccept();
+			dwSessionID = *g_AcceptPacketList.begin();
 			g_AcceptPacketList.pop_front();
 			UnlockAccept();
 
@@ -361,6 +360,9 @@ unsigned int WINAPI UpdateThread(LPVOID lpParam)
 			dwSessionID = *g_ActionPacketList.begin();
 			g_ActionPacketList.pop_front();
 
+			// CPU 사용률은 낮은데 - 처리율이 낮음
+			UnlockAction();
+
 			//----------------------------------------------------------
 			// PlayerList 에 이미 존재하는 SessionID 인지 확인. 있는 경우만 해당 플레이어 찾아서 + 1
 			//----------------------------------------------------------
@@ -383,8 +385,6 @@ unsigned int WINAPI UpdateThread(LPVOID lpParam)
 				}
 			}
 			UnlockPlayer();
-			UnlockAction();
-
 		}
 
 	}

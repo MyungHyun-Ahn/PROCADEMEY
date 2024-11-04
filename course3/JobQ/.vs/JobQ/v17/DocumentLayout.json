@@ -1,32 +1,32 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\",
+  "WorkspaceRootPath": "C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|solutionrelative:JobQ\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|solutionrelative:JobQ\\RingBuffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|solutionrelative:JobQ\\pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|solutionrelative:JobQ\\RingBuffer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|E:\\APPS\\VISUALSTUDIO\\VC\\TOOLS\\MSVC\\14.40.33807\\INCLUDE\\XMEMORY||{3B902123-F8A7-4915-9F01-361F908088D0}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|E:\\APPS\\VISUALSTUDIO\\VC\\TOOLS\\MSVC\\14.40.33807\\INCLUDE\\ALGORITHM||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{C8789FF9-DD6D-4D78-B0DD-B2C50555CBFE}|JobQ\\JobQ.vcxproj|solutionrelative:JobQ\\pch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\apps\\VisualStudio\\VC\\Tools\\MSVC\\14.40.33807\\include\\algorithm||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\apps\\VisualStudio\\VC\\Tools\\MSVC\\14.40.33807\\include\\xmemory||{3B902123-F8A7-4915-9F01-361F908088D0}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,92 +58,82 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Main.cpp",
-              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\Main.cpp",
+              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\Main.cpp",
               "RelativeDocumentMoniker": "JobQ\\Main.cpp",
-              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\Main.cpp",
+              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\Main.cpp",
               "RelativeToolTip": "JobQ\\Main.cpp",
-              "ViewState": "AQIAAAwBAAAAAAAAAAAkwCgBAAAEAAAA",
+              "ViewState": "AgIAAM4AAAAAAAAAAAAiwOQAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-07-21T15:35:56.59Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "pch.cpp",
-              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.cpp",
+              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.cpp",
               "RelativeDocumentMoniker": "JobQ\\pch.cpp",
-              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.cpp",
+              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.cpp",
               "RelativeToolTip": "JobQ\\pch.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-07-21T19:13:00.858Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-21T19:13:00.858Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "RingBuffer.cpp",
-              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.cpp",
+              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.cpp",
               "RelativeDocumentMoniker": "JobQ\\RingBuffer.cpp",
-              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.cpp",
+              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.cpp",
               "RelativeToolTip": "JobQ\\RingBuffer.cpp",
               "ViewState": "AQIAAAwAAAAAAAAAAAAIwCQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-07-21T15:42:35.196Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-21T15:42:35.196Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "RingBuffer.h",
-              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.h",
+              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.h",
               "RelativeDocumentMoniker": "JobQ\\RingBuffer.h",
-              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.h",
+              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\RingBuffer.h",
               "RelativeToolTip": "JobQ\\RingBuffer.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAABDAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-07-21T15:42:27.968Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-21T15:42:27.968Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "algorithm",
               "DocumentMoniker": "E:\\apps\\VisualStudio\\VC\\Tools\\MSVC\\14.40.33807\\include\\algorithm",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\apps\\VisualStudio\\VC\\Tools\\MSVC\\14.40.33807\\include\\algorithm",
               "ToolTip": "E:\\apps\\VisualStudio\\VC\\Tools\\MSVC\\14.40.33807\\include\\algorithm",
-              "RelativeToolTip": "..\\..\\..\\..\\apps\\VisualStudio\\VC\\Tools\\MSVC\\14.40.33807\\include\\algorithm",
               "ViewState": "AQIAANUfAAAAAAAAAAAqwOQfAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-07-21T19:39:13.702Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-21T19:39:13.702Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "pch.h",
-              "DocumentMoniker": "E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.h",
+              "DocumentMoniker": "C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.h",
               "RelativeDocumentMoniker": "JobQ\\pch.h",
-              "ToolTip": "E:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.h",
+              "ToolTip": "C:\\Procademy\\PROCADEMEY\\course3\\JobQ\\JobQ\\pch.h",
               "RelativeToolTip": "JobQ\\pch.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-07-21T15:37:23.846Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-21T15:37:23.846Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "xmemory",
               "DocumentMoniker": "E:\\apps\\VisualStudio\\VC\\Tools\\MSVC\\14.40.33807\\include\\xmemory",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\apps\\VisualStudio\\VC\\Tools\\MSVC\\14.40.33807\\include\\xmemory",
               "ToolTip": "E:\\apps\\VisualStudio\\VC\\Tools\\MSVC\\14.40.33807\\include\\xmemory",
-              "RelativeToolTip": "..\\..\\..\\..\\apps\\VisualStudio\\VC\\Tools\\MSVC\\14.40.33807\\include\\xmemory",
               "ViewState": "AQIAAK4AAAAAAAAAAAAIwLsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-07-21T19:45:39.932Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-21T19:45:39.932Z"
             }
           ]
         }
