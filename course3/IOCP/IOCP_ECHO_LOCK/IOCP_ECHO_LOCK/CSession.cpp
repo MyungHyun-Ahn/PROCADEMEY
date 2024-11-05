@@ -40,13 +40,18 @@ void CSession::RecvCompleted(int size)
 bool CSession::SendPacket(CSerializableBuffer *message)
 {
     m_SendBuffer.Enqueue(message->GetBufferPtr(), message->GetFullSize());
-    PostSend();
+    // PostSend();
     return TRUE;
 }
 
 void CSession::SendCompleted(int size)
 {
     m_SendBuffer.MoveFront(size);
+
+#ifdef POSTSEND_LOST_DEBUG
+	UINT64 index = InterlockedIncrement(&sendIndex);
+	sendDebug[index % 65535] = { index, (USHORT)GetCurrentThreadId(), 0xff, TRUE, 0 };
+#endif
     InterlockedExchange(&m_iSendFlag, FALSE);
 }
 
@@ -74,6 +79,8 @@ bool CSession::PostRecv()
         {
             g_Logger->WriteLog(L"ERROR", LOG_LEVEL::ERR, L"WSARecv() Error : %d", errVal);
 
+			// 사실 여기선 0이 될 일이 없음
+			// 반환값을 사용안해도 됨
             if (InterlockedDecrement(&m_iIOCount) == 0)
             {
                 return FALSE;
@@ -84,20 +91,50 @@ bool CSession::PostRecv()
     return TRUE;
 }
 
-bool CSession::PostSend()
+bool CSession::PostSend(USHORT wher)
 {
     int errVal;
     int retVal;
 
-    if (m_SendBuffer.GetUseSize() <= 0)
-        return TRUE;
+    // 여기서 사실 0을 보지 않아도 안쪽에서 0을 보는 상황이 발생
+	// int sendBufferUseSize = m_SendBuffer.GetUseSize();
+	// if (sendBufferUseSize <= 0)
+	// {
+	// 	// if (sendBufferUseSize != m_SendBuffer.GetUseSize())
+	// 	//     __debugbreak();
+	// 	return TRUE;
+	// }
 
     if (InterlockedExchange(&m_iSendFlag, TRUE) == TRUE)
+    {
+#ifdef POSTSEND_LOST_DEBUG
+        UINT64 index = InterlockedIncrement(&sendIndex);
+        sendDebug[index % 65535] = { index, (USHORT)GetCurrentThreadId(), wher, FALSE, 2 };
+#endif
         return TRUE;
+    }
 
 	WSABUF wsaBuf[2];
 	int wsaBufCount = 1;
 	int useSize = m_SendBuffer.GetUseSize();
+
+    if (useSize <= 0)
+    {
+#ifdef POSTSEND_LOST_DEBUG
+		UINT64 index = InterlockedIncrement(&sendIndex);
+		sendDebug[index % 65535] = { index, (USHORT)GetCurrentThreadId(), wher, FALSE, 1 };
+#endif
+        InterlockedExchange(&m_iSendFlag, FALSE);
+        return TRUE;
+    }
+
+#ifdef POSTSEND_LOST_DEBUG
+    // 여기부턴 성공할 것임
+	UINT64 index = InterlockedIncrement(&sendIndex);
+	sendDebug[index % 65535] = { index, (USHORT)GetCurrentThreadId(), wher, TRUE, 0 };
+#endif
+    // 여기서 미리 읽은 값으로 수행
+    // - SendPacket으로 sendBuffer에 Enqueue 되어도 문제 없음
 	int directDequeueSize = m_SendBuffer.DirectDequeueSize();
 
     if (useSize <= directDequeueSize)
@@ -127,6 +164,8 @@ bool CSession::PostSend()
 		{
 			g_Logger->WriteLog(L"ERROR", LOG_LEVEL::ERR, L"WSASend() Error : %d", errVal);
 
+            // 사실 여기선 0이 될 일이 없음
+            // 반환값을 사용안해도 됨
 			if (InterlockedDecrement(&m_iIOCount) == 0)
 			{
 				return FALSE;

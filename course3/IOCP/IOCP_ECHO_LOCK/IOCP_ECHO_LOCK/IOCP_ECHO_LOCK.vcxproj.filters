@@ -79,4 +79,7 @@
     </ClCompile>
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="MemoryDebug.txt" />
+  </ItemGroup>
 </Project>

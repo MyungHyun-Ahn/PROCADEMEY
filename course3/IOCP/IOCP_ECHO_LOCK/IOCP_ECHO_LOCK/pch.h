@@ -1,5 +1,9 @@
 #pragma once
 
+#pragma warning(disable : 26495) // 변수 초기화 경고
+#pragma warning(disable : 26110) // 락 잠금 해제 경고
+
+
 // 오브젝트 풀 사용 여부
 // #define USE_OBJECT_POOL
 

@@ -33,7 +33,8 @@ void CLogger::WriteLog(const WCHAR *type, LOG_LEVEL logLevel, const WCHAR *fmt, 
 
 	switch (logLevel)
 	{
-	case LOG_LEVEL::DEBUG:StringCchPrintf(logLevelStr, 10, L"DEBUG");
+	case LOG_LEVEL::DEBUG:
+		StringCchPrintf(logLevelStr, 10, L"DEBUG");
 		break;
 	case LOG_LEVEL::SYSTEM:
 		StringCchPrintf(logLevelStr, 10, L"SYSTEM");
