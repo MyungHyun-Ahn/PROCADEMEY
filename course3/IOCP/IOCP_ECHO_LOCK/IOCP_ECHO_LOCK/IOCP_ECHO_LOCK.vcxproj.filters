@@ -51,6 +51,7 @@
     <ClInclude Include="CEchoServer.h">
       <Filter>Content</Filter>
     </ClInclude>
+    <ClInclude Include="CMonitor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -78,6 +79,7 @@
       <Filter>Content</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="CMonitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="MemoryDebug.txt" />

@@ -148,6 +148,7 @@
     <ClInclude Include="CEchoServer.h" />
     <ClInclude Include="CLanServer.h" />
     <ClInclude Include="CLogger.h" />
+    <ClInclude Include="CMonitor.h" />
     <ClInclude Include="CObjectPool.h" />
     <ClInclude Include="CRingBuffer.h" />
     <ClInclude Include="CSerializableBuffer.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="CEchoServer.cpp" />
     <ClCompile Include="CLanServer.cpp" />
     <ClCompile Include="CLogger.cpp" />
+    <ClCompile Include="CMonitor.cpp" />
     <ClCompile Include="CObjectPool.cpp" />
     <ClCompile Include="CRingBuffer.cpp" />
     <ClCompile Include="CSerializableBuffer.cpp" />

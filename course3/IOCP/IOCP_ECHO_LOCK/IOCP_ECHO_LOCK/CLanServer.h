@@ -21,6 +21,27 @@ public:
 	virtual void OnRecv(const UINT64 sessionID, CSerializableBuffer *message) = 0;
 	virtual void OnError(int errorcode, WCHAR *errMsg) = 0;
 
+private:
+	USHORT GetIndex(UINT64 sessionId)
+	{
+		UINT64 mask64 = sessionId & SESSION_INDEX_MASK;
+		mask64 = mask64 >> 48;
+		return (USHORT)mask64;
+	}
+
+	UINT64 GetId(UINT64 sessionId)
+	{
+		UINT64 mask64 = sessionId & SESSION_ID_MASK;
+		return mask64;
+	}
+
+	UINT64 CombineIndex(USHORT index, UINT64 id)
+	{
+		UINT64 index64 = index;
+		index64 = index64 << 48;
+		return index64 | id;
+	}
+
 public:
 	int WorkerThread();
 	int AccepterThread();

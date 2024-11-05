@@ -172,6 +172,21 @@ public:
 		return *this;
 	}
 
+	inline CSerializableBuffer &operator<<(unsigned __int64 uiData)
+	{
+		if (m_MaxSize - m_Rear > sizeof(unsigned __int64))
+		{
+			// TODO: resize
+		}
+
+		unsigned __int64 *ptr = (unsigned __int64 *)(m_Buffer + m_Rear);
+		*ptr = uiData;
+
+		MoveWritePos(sizeof(unsigned __int64));
+
+		return *this;
+	}
+
 	inline CSerializableBuffer &operator<<(double dData)
 	{
 		if (m_MaxSize - m_Rear > sizeof(double))
@@ -299,6 +314,19 @@ public:
 
 		iData = *(__int64 *)(m_Buffer + m_Front);
 		MoveReadPos(sizeof(__int64));
+
+		return *this;
+	}
+
+	inline CSerializableBuffer &operator>>(unsigned __int64 &uiData)
+	{
+		if (GetDataSize() < sizeof(unsigned __int64))
+		{
+			throw;
+		}
+
+		uiData = *(unsigned __int64 *)(m_Buffer + m_Front);
+		MoveReadPos(sizeof(unsigned __int64));
 
 		return *this;
 	}
