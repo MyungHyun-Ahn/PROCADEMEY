@@ -7,13 +7,11 @@ public:
 	BOOL Start(const CHAR *openIP, const USHORT port, USHORT createWorkerThreadCount, USHORT maxWorkerThreadCount, INT maxSessionCount);
 	// void Stop();
 
-	inline INT GetSessionCount() { return m_iSessionCount; }
+	inline LONG GetSessionCount() { return m_iSessionCount; }
 
 	void SendPacket(const UINT64 sessionID, CSerializableBuffer *sBuffer);
 	BOOL Disconnect(CSession *pSession);
 	BOOL ReleaseSession(CSession *pSession);
-
-	// void Monitor();
 
 	virtual bool OnConnectionRequest(const WCHAR *ip, USHORT port) = 0;
 	virtual void OnAccept(const UINT64 sessionID) = 0;
@@ -48,7 +46,7 @@ public:
 
 private:
 	// Session
-	INT						m_iSessionCount = 0;
+	LONG					m_iSessionCount = 0;
 	INT						m_iCurrentID = 0;
 
 	USHORT					m_usMaxSessionCount = 65535;

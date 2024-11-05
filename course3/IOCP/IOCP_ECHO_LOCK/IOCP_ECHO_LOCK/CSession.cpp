@@ -6,7 +6,7 @@
 void CSession::RecvCompleted(int size)
 {
     m_RecvBuffer.MoveRear(size);
-
+    InterlockedIncrement(&g_monitor.m_lRecvTPS);
     DWORD currentUseSize = m_RecvBuffer.GetUseSize();
 
     while (currentUseSize > 0)
@@ -40,6 +40,7 @@ void CSession::RecvCompleted(int size)
 bool CSession::SendPacket(CSerializableBuffer *message)
 {
     m_SendBuffer.Enqueue(message->GetBufferPtr(), message->GetFullSize());
+    InterlockedIncrement(&g_monitor.m_lSendTPS);
     // PostSend();
     return TRUE;
 }

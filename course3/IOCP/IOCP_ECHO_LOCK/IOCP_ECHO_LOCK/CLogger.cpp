@@ -71,13 +71,9 @@ void CLogger::WriteLog(const WCHAR *type, LOG_LEVEL logLevel, const WCHAR *fmt, 
 	Lock();
 
 	FILE *pFile = _wfsopen(fileName, L"a, ccs = UTF-16LE", _SH_DENYWR);
-
-	threadId = GetCurrentThreadId();
-
 	if (pFile == nullptr)
 	{
 		wprintf(L"file open fail, errorCode = %d\n", GetLastError());
-		fclose(pFile);
 		UnLock();
 		return;
 	}
@@ -122,7 +118,7 @@ void CLogger::WriteLogConsole(LOG_LEVEL logLevel, const WCHAR *fmt, ...)
 	}
 	va_end(va);
 
-	// Lock();
+	Lock();
 	wprintf(L"%s\n", logBuffer);
-	// UnLock();
+	UnLock();
 }

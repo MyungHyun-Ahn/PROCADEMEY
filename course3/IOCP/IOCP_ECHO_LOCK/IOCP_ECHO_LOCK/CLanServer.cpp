@@ -187,6 +187,7 @@ BOOL CLanServer::ReleaseSession(CSession *pSession)
 	LeaveCriticalSection(&pSession->m_Lock);
 #endif
 	delete pSession;
+	InterlockedDecrement(&m_iSessionCount);
 
 	AcquireSRWLockExclusive(&m_disconnectStackLock);
 	m_stackDisconnectIndex.push_back(index);
@@ -305,6 +306,7 @@ int CLanServer::AccepterThread()
 
 		CSession *pSession = new CSession(clientSocket, combineId);
 
+		InterlockedIncrement(&m_iSessionCount);
 		InterlockedIncrement(&createCount);
 
 		// IOCP俊 技记 家南 殿废
@@ -323,6 +325,8 @@ int CLanServer::AccepterThread()
 		{
 			ReleaseSession(pSession);
 		}
+
+		InterlockedIncrement(&g_monitor.m_lAcceptTPS);
 	}
 
 	return 0;

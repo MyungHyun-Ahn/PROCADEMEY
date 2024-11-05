@@ -10,6 +10,7 @@
 #pragma comment(lib, "ws2_32")
 #pragma comment(lib, "winmm")
 #pragma comment(lib, "DbgHelp.Lib")
+#pragma comment(lib, "Pdh.lib")
 
 // 소켓 관련
 #include <WinSock2.h>
@@ -19,6 +20,7 @@
 #include <windows.h>
 #include <Psapi.h>
 #include <strsafe.h>
+#include <Pdh.h>
 
 // C 런타임 라이브러리
 #include <cstdio>
@@ -44,3 +46,4 @@
 #include "CRingBuffer.h"
 #include "CSerializableBuffer.h"
 #include "CLogger.h"
+#include "CMonitor.h"
