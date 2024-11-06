@@ -98,13 +98,13 @@ bool CSession::PostSend(USHORT wher)
     int retVal;
 
     // 여기서 사실 0을 보지 않아도 안쪽에서 0을 보는 상황이 발생
-	// int sendBufferUseSize = m_SendBuffer.GetUseSize();
-	// if (sendBufferUseSize <= 0)
-	// {
-	// 	// if (sendBufferUseSize != m_SendBuffer.GetUseSize())
-	// 	//     __debugbreak();
-	// 	return TRUE;
-	// }
+	int sendBufferUseSize = m_SendBuffer.GetUseSize();
+	if (sendBufferUseSize <= 0)
+	{
+		// if (sendBufferUseSize != m_SendBuffer.GetUseSize())
+		//     __debugbreak();
+		return TRUE;
+	}
 
     if (InterlockedExchange(&m_iSendFlag, TRUE) == TRUE)
     {

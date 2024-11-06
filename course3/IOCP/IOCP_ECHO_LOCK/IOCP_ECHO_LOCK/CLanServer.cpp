@@ -22,17 +22,20 @@ unsigned int WorkerThreadFunc(LPVOID lpParam)
 
 BOOL CLanServer::Start(const CHAR *openIP, const USHORT port, USHORT createWorkerThreadCount, USHORT maxWorkerThreadCount, INT maxSessionCount)
 {
-	InitializeCriticalSection(&g_SessionMapLock);
+	// InitializeCriticalSection(&g_SessionMapLock);
 	InitializeSRWLock(&m_disconnectStackLock);
 	int retVal;
 	int errVal;
 	WSAData wsaData;
 
 	// 디스커넥트 스택 채우기
-	for (int i = 65534; i >= 0; i--)
+	USHORT val = 65534;
+	for (int i = 0; i < 65535; i++)
 	{
-		m_stackDisconnectIndex.push_back(i);
+		m_arrDisconnectIndex[i] = val--;
 	}
+
+	m_disconnectArrTop = 65534;
 
 	retVal = WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (retVal != 0)
@@ -140,7 +143,6 @@ void CLanServer::SendPacket(const UINT64 sessionID, CSerializableBuffer *sBuffer
 {
 	// EnterCriticalSection(&g_SessionMapLock);
 	CSession *pSession = m_arrPSessions[GetIndex(sessionID)];
-
 	if (pSession->m_uiSessionID != sessionID)
 		__debugbreak();
 
@@ -181,7 +183,6 @@ BOOL CLanServer::ReleaseSession(CSession *pSession)
 	USHORT index = GetIndex(pSession->m_uiSessionID);
 	m_arrPSessions[index] = nullptr;
 
-
 	closesocket(pSession->m_sSessionSocket);
 #ifdef SESSION_LOCK
 	LeaveCriticalSection(&pSession->m_Lock);
@@ -190,7 +191,8 @@ BOOL CLanServer::ReleaseSession(CSession *pSession)
 	InterlockedDecrement(&m_iSessionCount);
 
 	AcquireSRWLockExclusive(&m_disconnectStackLock);
-	m_stackDisconnectIndex.push_back(index);
+	m_arrDisconnectIndex[++m_disconnectArrTop] = index;
+	// m_stackDisconnectIndex.push_back(index);
 	ReleaseSRWLockExclusive(&m_disconnectStackLock);
 
 	InterlockedIncrement(&deleteCount);
@@ -238,16 +240,6 @@ int CLanServer::WorkerThread()
 			if (lpOverlapped->m_Operation == IOOperation::RECV)
 			{
 				pSession->RecvCompleted(dwTransferred);
-
-				// 여기까지 왔는데 Send 버퍼에 남은게 있음
-				// 그리고 SendCompleted 후의 SendPost가 씹혔다면 Send 봉인됨
-				// ioCount가 1이라면 SendPost가 씹힌 것
-				// if (pSession->m_SendBuffer.GetUseSize() && pSession->m_iIOCount == 1);
-				// {
-				// 	__debugbreak();
-				// }
-
-				pSession->PostSend(2);
 				pSession->PostRecv();
 			}
 			else if (lpOverlapped->m_Operation == IOOperation::SEND)
@@ -290,6 +282,12 @@ int CLanServer::AccepterThread()
 			return FALSE;
 		}
 
+		if (m_iSessionCount > 65535)
+		{
+			closesocket(clientSocket);
+			continue;
+		}
+
 		WCHAR clientAddrBuf[16] = { 0, };
 		InetNtop(AF_INET, &clientAddr.sin_addr, clientAddrBuf, 16);
 
@@ -298,8 +296,10 @@ int CLanServer::AccepterThread()
 			continue;
 
 		AcquireSRWLockExclusive(&m_disconnectStackLock);
-		USHORT index = m_stackDisconnectIndex.back();
-		m_stackDisconnectIndex.pop_back();
+		// USHORT index = m_stackDisconnectIndex.back();
+		// m_stackDisconnectIndex.pop_back();
+		// USHORT i = InterlockedDecrement(&m_disconnectArrTop);
+		USHORT index = m_arrDisconnectIndex[m_disconnectArrTop--];
 		ReleaseSRWLockExclusive(&m_disconnectStackLock);
 
 		UINT64 combineId = CombineIndex(index, ++m_iCurrentID);

@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCrashDump.h" />
     <ClInclude Include="CEchoServer.h" />
     <ClInclude Include="CLanServer.h" />
     <ClInclude Include="CLogger.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="ServerConfig.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCrashDump.cpp" />
     <ClCompile Include="CEchoServer.cpp" />
     <ClCompile Include="CLanServer.cpp" />
     <ClCompile Include="CLogger.cpp" />

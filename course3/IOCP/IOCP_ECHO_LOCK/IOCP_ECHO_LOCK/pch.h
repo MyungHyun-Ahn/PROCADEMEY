@@ -47,3 +47,4 @@
 #include "CSerializableBuffer.h"
 #include "CLogger.h"
 #include "CMonitor.h"
+#include "CCrashDump.h"

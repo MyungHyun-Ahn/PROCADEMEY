@@ -51,6 +51,8 @@ private:
 
 	USHORT					m_usMaxSessionCount = 65535;
 	CSession				*m_arrPSessions[65535];
+	USHORT					m_arrDisconnectIndex[65535];
+	LONG					m_disconnectArrTop;
 	std::vector<USHORT>		m_stackDisconnectIndex;
 	SRWLOCK					m_disconnectStackLock;
 
