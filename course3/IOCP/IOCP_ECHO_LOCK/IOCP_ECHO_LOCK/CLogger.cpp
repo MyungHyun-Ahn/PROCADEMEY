@@ -83,20 +83,21 @@ void CLogger::WriteLog(const WCHAR *type, LOG_LEVEL logLevel, const WCHAR *fmt, 
 	UnLock();
 }
 
-WCHAR g_MessageBuf[10000] = { 0, };
-
 void CLogger::WriteLogHex(const WCHAR *type, LOG_LEVEL logLevel, const WCHAR *log, BYTE *pByte, int byteLen)
 {
 	int offset = 0;
+	WCHAR *messageBuf = new WCHAR[10000];
 
-	offset += swprintf(g_MessageBuf + offset, 10000 - offset, L"%s: ", log);
+	offset += swprintf(messageBuf + offset, 10000 - offset, L"%s: ", log);
 
 	for (int i = 0; i < byteLen; i++)
 	{
-		offset += swprintf(g_MessageBuf + offset, 10000 - offset, L"%02X ", pByte[i]);
+		offset += swprintf(messageBuf + offset, 10000 - offset, L"%02X ", pByte[i]);
 	}
 
-	WriteLog(type, logLevel, g_MessageBuf);
+	WriteLog(type, logLevel, messageBuf);
+
+	delete[] messageBuf;
 }
 
 void CLogger::WriteLogConsole(LOG_LEVEL logLevel, const WCHAR *fmt, ...)

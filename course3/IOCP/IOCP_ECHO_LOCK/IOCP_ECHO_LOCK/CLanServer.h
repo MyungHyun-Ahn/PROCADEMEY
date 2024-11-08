@@ -53,7 +53,6 @@ private:
 	CSession				*m_arrPSessions[65535];
 	USHORT					m_arrDisconnectIndex[65535];
 	LONG					m_disconnectArrTop;
-	std::vector<USHORT>		m_stackDisconnectIndex;
 	SRWLOCK					m_disconnectStackLock;
 
 	// Worker
@@ -76,5 +75,3 @@ private:
 };
 
 extern CLanServer *g_Server;
-extern std::unordered_map<UINT64, CSession *> g_mapSessions;
-extern CRITICAL_SECTION g_SessionMapLock;

@@ -45,8 +45,8 @@ int main()
 		return 1;
 	}
 
-	LONG sendBufferSize = 0;
-	setsockopt(listen_sock, SOL_SOCKET, SO_SNDBUF, (char *)&sendBufferSize, sizeof(LONG));
+	// LONG sendBufferSize = 0;
+	// setsockopt(listen_sock, SOL_SOCKET, SO_SNDBUF, (char *)&sendBufferSize, sizeof(LONG));
 
 	// bind()
 	SOCKADDR_IN serveraddr;

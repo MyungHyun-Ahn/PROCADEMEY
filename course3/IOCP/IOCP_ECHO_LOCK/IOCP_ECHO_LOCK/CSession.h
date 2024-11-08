@@ -19,6 +19,16 @@ class CSession
 public:
 	friend class CLanServer;
 
+	CSession()
+		: m_sSessionSocket(INVALID_SOCKET)
+		, m_uiSessionID(0)
+		, m_RecvOverlapped(IOOperation::RECV)
+		, m_SendOverlapped(IOOperation::SEND)
+		, m_bIsValid(FALSE)
+	{
+
+	}
+
 	CSession(SOCKET socket, UINT64 sessionID)
 		: m_sSessionSocket(socket)
 		, m_uiSessionID(sessionID)
@@ -26,12 +36,27 @@ public:
 		, m_SendOverlapped(IOOperation::SEND)
 		, m_bIsValid(TRUE)
 	{
-		InitializeCriticalSection(&m_Lock);
+
 	}
 
 	~CSession()
 	{
-		DeleteCriticalSection(&m_Lock);
+	}
+
+	void Init(SOCKET socket, UINT64 sessionID)
+	{
+		m_sSessionSocket = socket;
+		m_uiSessionID = sessionID;
+		m_iSendFlag = FALSE;
+		m_bIsValid = TRUE;
+	}
+
+	void Clear()
+	{
+		m_sSessionSocket = INVALID_SOCKET;
+		m_uiSessionID = 0;
+		m_RecvBuffer.Clear();
+		m_SendBuffer.Clear();
 	}
 
 	void RecvCompleted(int size);
@@ -42,8 +67,25 @@ public:
 	bool PostRecv();
 	bool PostSend(USHORT wher = 0);
 
+public:
+	inline static CSession *Alloc()
+	{
+		CObjectPool<CSession>::Lock();
+		CSession *pSession = s_sSessionPool.Alloc();
+		CObjectPool<CSession>::UnLock();
+		pSession->Clear();
+		return pSession;
+	}
+
+	inline static void Free(CSession *delSession)
+	{
+		CObjectPool<CSession>::Lock();
+		s_sSessionPool.Free(delSession);
+		CObjectPool<CSession>::UnLock();
+	}
+
 private:
-	BOOL m_bIsValid;
+	LONG m_bIsValid;
 
 	SOCKET m_sSessionSocket;
 	UINT64 m_uiSessionID;
@@ -56,7 +98,7 @@ private:
 
 	LONG m_iIOCount = 0;
 	LONG m_iSendFlag = FALSE;
-	CRITICAL_SECTION m_Lock;
+	inline static CObjectPool<CSession> s_sSessionPool = CObjectPool<CSession>(1000, false);
 
 #ifdef POSTSEND_LOST_DEBUG
 	UINT64 sendIndex = 0;

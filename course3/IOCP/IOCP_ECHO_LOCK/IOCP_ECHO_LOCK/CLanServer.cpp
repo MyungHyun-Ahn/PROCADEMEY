@@ -4,8 +4,6 @@
 #include "CSession.h"
 
 CLanServer *g_Server;
-std::unordered_map<UINT64, CSession *> g_mapSessions;
-CRITICAL_SECTION g_SessionMapLock;
 
 LONG createCount = 0;
 LONG deleteCount = 0;
@@ -22,7 +20,6 @@ unsigned int WorkerThreadFunc(LPVOID lpParam)
 
 BOOL CLanServer::Start(const CHAR *openIP, const USHORT port, USHORT createWorkerThreadCount, USHORT maxWorkerThreadCount, INT maxSessionCount)
 {
-	// InitializeCriticalSection(&g_SessionMapLock);
 	InitializeSRWLock(&m_disconnectStackLock);
 	int retVal;
 	int errVal;
@@ -141,15 +138,9 @@ BOOL CLanServer::Start(const CHAR *openIP, const USHORT port, USHORT createWorke
 
 void CLanServer::SendPacket(const UINT64 sessionID, CSerializableBuffer *sBuffer)
 {
-	// EnterCriticalSection(&g_SessionMapLock);
 	CSession *pSession = m_arrPSessions[GetIndex(sessionID)];
 	if (pSession->m_uiSessionID != sessionID)
 		__debugbreak();
-
-#ifdef SESSION_LOCK
-	EnterCriticalSection(&pSession->m_Lock);
-#endif
-	// LeaveCriticalSection(&g_SessionMapLock);
 
 	USHORT header = sBuffer->GetDataSize();
 	if (header != sizeof(__int64))
@@ -157,9 +148,6 @@ void CLanServer::SendPacket(const UINT64 sessionID, CSerializableBuffer *sBuffer
 	sBuffer->EnqueueHeader((char *)&header, sizeof(USHORT));
 	pSession->SendPacket(sBuffer);
 	pSession->PostSend(1);
-#ifdef SESSION_LOCK
-	LeaveCriticalSection(&pSession->m_Lock);
-#endif
 }
 
 BOOL CLanServer::Disconnect(CSession *pSession)
@@ -170,29 +158,18 @@ BOOL CLanServer::Disconnect(CSession *pSession)
 
 BOOL CLanServer::ReleaseSession(CSession *pSession)
 {
-	// EnterCriticalSection(&g_SessionMapLock);
-	// g_mapSessions.erase(pSession->m_uiSessionID);
-
-#ifdef SESSION_LOCK
-	EnterCriticalSection(&pSession->m_Lock);
-#endif
-	// LeaveCriticalSection(&g_SessionMapLock);
 	if (pSession->m_bIsValid)
 		Disconnect(pSession);
 
 	USHORT index = GetIndex(pSession->m_uiSessionID);
 	m_arrPSessions[index] = nullptr;
-
 	closesocket(pSession->m_sSessionSocket);
-#ifdef SESSION_LOCK
-	LeaveCriticalSection(&pSession->m_Lock);
-#endif
-	delete pSession;
+	// delete pSession;
+	CSession::Free(pSession);
 	InterlockedDecrement(&m_iSessionCount);
 
 	AcquireSRWLockExclusive(&m_disconnectStackLock);
 	m_arrDisconnectIndex[++m_disconnectArrTop] = index;
-	// m_stackDisconnectIndex.push_back(index);
 	ReleaseSRWLockExclusive(&m_disconnectStackLock);
 
 	InterlockedIncrement(&deleteCount);
@@ -244,15 +221,8 @@ int CLanServer::WorkerThread()
 			}
 			else if (lpOverlapped->m_Operation == IOOperation::SEND)
 			{
-#ifdef SESSION_LOCK
-				EnterCriticalSection(&pSession->m_Lock);
-#endif
 				pSession->SendCompleted(dwTransferred);
 				pSession->PostSend(0);
-
-#ifdef SESSION_LOCK
-				LeaveCriticalSection(&pSession->m_Lock);
-#endif
 			}
 		}
 
@@ -296,15 +266,14 @@ int CLanServer::AccepterThread()
 			continue;
 
 		AcquireSRWLockExclusive(&m_disconnectStackLock);
-		// USHORT index = m_stackDisconnectIndex.back();
-		// m_stackDisconnectIndex.pop_back();
-		// USHORT i = InterlockedDecrement(&m_disconnectArrTop);
 		USHORT index = m_arrDisconnectIndex[m_disconnectArrTop--];
 		ReleaseSRWLockExclusive(&m_disconnectStackLock);
 
 		UINT64 combineId = CombineIndex(index, ++m_iCurrentID);
 
-		CSession *pSession = new CSession(clientSocket, combineId);
+		// CSession *pSession = new CSession(clientSocket, combineId);
+		CSession *pSession = CSession::Alloc();
+		pSession->Init(clientSocket, combineId);
 
 		InterlockedIncrement(&m_iSessionCount);
 		InterlockedIncrement(&createCount);
@@ -315,9 +284,6 @@ int CLanServer::AccepterThread()
 
 		m_arrPSessions[index] = pSession;
 
-		// EnterCriticalSection(&g_SessionMapLock);
-		// g_mapSessions.insert(std::make_pair(pSession->m_uiSessionID, pSession));
-		// LeaveCriticalSection(&g_SessionMapLock);
 		InterlockedIncrement(&pSession->m_iIOCount);
 		OnAccept(pSession->m_uiSessionID);
 		pSession->PostRecv();

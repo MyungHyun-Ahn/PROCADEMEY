@@ -25,6 +25,8 @@ public:
 	__forceinline CObjectPool(int initCount, bool placementNewFlag)
 		: m_iSize(0), m_bPlacementNewFlag(placementNewFlag)
 	{
+		InitializeSRWLock(&s_srwLock);
+
 		// initCount 만큼 FreeList 할당
 		for (int i = 0; i < initCount; i++)
 		{
@@ -38,23 +40,23 @@ public:
 				node = NewAlloc();
 			}
 
-			node->link = top;
-			top = node;
+			node->link = m_top;
+			m_top = node;
 		}
 	}
 
 	__forceinline ~CObjectPool()
 	{
 		// FreeList에 있는 것 삭제
-		while (top != nullptr)
+		while (m_top != nullptr)
 		{
 			if (m_bPlacementNewFlag)
 			{
-				top->data.~DATA();
+				m_top->data.~DATA();
 			}
 
-			Node *delNode = top;
-			top = top->link;
+			Node *delNode = m_top;
+			m_top = m_top->link;
 			free(delNode);
 		}
 
@@ -64,7 +66,7 @@ public:
 	{
 		Node *node;
 
-		if (top == nullptr)
+		if (m_top == nullptr)
 		{
 			if (m_bPlacementNewFlag)
 			{
@@ -77,8 +79,8 @@ public:
 		}
 		else
 		{
-			node = top;
-			top = top->link;
+			node = m_top;
+			m_top = m_top->link;
 
 			if (m_bPlacementNewFlag)
 			{
@@ -110,8 +112,8 @@ public:
 			nodePtr->data.~DATA();
 		}
 
-		nodePtr->link = top;
-		top = nodePtr;
+		nodePtr->link = m_top;
+		m_top = nodePtr;
 	}
 
 private:
@@ -136,10 +138,22 @@ private:
 		return newNode;
 	}
 
+public:
+	inline static void Lock()
+	{
+		AcquireSRWLockExclusive(&s_srwLock);
+	}
+
+	inline static void UnLock()
+	{
+		ReleaseSRWLockExclusive(&s_srwLock);
+	}
+
 private:
 	// FreeList
 	// AllocFunc allocFunc;
-	bool m_bPlacementNewFlag;
-	int m_iSize = 0;
-	Node *top = nullptr;
+	bool		m_bPlacementNewFlag;
+	int			m_iSize = 0;
+	Node		*m_top = nullptr;
+	inline static SRWLOCK		s_srwLock;
 };

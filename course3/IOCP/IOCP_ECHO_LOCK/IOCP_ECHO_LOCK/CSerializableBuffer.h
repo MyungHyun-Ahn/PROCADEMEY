@@ -344,21 +344,24 @@ public:
 		return *this;
 	}
 
-#ifdef USE_OBJECT_POOL
 public:
 	inline static CSerializableBuffer *Alloc()
 	{
 		// 할당하고 초기화해서 반환
+		CObjectPool<CSerializableBuffer>::Lock();
 		CSerializableBuffer *pSBuffer = s_sbufferPool.Alloc();
+		CObjectPool<CSerializableBuffer>::UnLock();
 		pSBuffer->Clear();
 		return pSBuffer;
 	}
 
 	inline static void Free(CSerializableBuffer *delSBuffer)
 	{
+		CObjectPool<CSerializableBuffer>::Lock();
 		s_sbufferPool.Free(delSBuffer);
+		CObjectPool<CSerializableBuffer>::UnLock();
 	}
-#endif
+
 private:
 	char *m_Buffer;
 	int m_HeaderFront = 0;
@@ -366,7 +369,5 @@ private:
 	int m_Rear = 0;
 	int m_MaxSize = (int)DEFINE::DEFAULT_SIZE;
 
-#ifdef USE_OBJECT_POOL
 	inline static CObjectPool<CSerializableBuffer> s_sbufferPool = CObjectPool<CSerializableBuffer>(5000, false);
-#endif
 };
